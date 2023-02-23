@@ -311,6 +311,7 @@ myKeys c =
     ("M-a v", addName "Launch virt-manager"     $ spawn ("virt-manager")),
     ("M-a z", addName "Launch zathura"          $ spawn ("zathura")),
     ("M-a d", addName "Launch discord"          $ spawn ("discord")),
+    ("M-a o", addName "Launch office"           $ spawn ("onlyoffice-desktopeditors")),
     ("M-a t", addName "Launch tmux"             $ spawn (myTerminal ++ " -e tmux")),
     ("M-a l", addName "Launch lf"               $ spawn (myTerminal ++ " -e lf")),
     ("M-a n", addName "Launch nvim"             $ spawn (myTerminal ++ " -e nvim"))]
@@ -370,8 +371,8 @@ myKeys c =
   -- Emacs (SUPER-e followed by a key)
   ^++^ subKeys "Emacs"
   [ ("M-e r", addName "Restart Emacs Server"     $ spawn ("reload-emacs-server"))
-  -- , ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))
-  , ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs))
+  , ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))
+  -- , ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs))
   , ("M-e a", addName "Emacsclient EMMS (music)" $ spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
   , ("M-e b", addName "Emacsclient Ibuffer"      $ spawn (myEmacs ++ ("--eval '(ibuffer)'")))
   , ("M-e d", addName "Emacsclient Dired"        $ spawn (myEmacs ++ ("--eval '(dired nil)'")))
