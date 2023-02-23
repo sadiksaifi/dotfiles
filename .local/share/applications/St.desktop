@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=st
+Icon=
+Terminal=false
+Categories=System;TerminalEmulator;
+
+Name=St
+GenericName=Simple Terminal
+Comment=A simple terminal for X.
