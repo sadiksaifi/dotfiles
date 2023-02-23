@@ -11,9 +11,9 @@ These are my [[https://archlinux.org][Arch Linux]] dotfiles.
 
 *** Main Programs Configuration.
 - [[file:.config/alacritty/][Alacritty]] configuration.
-- [[file:.config/nvim/][Neovim]] configuratin.
-- [[file:.config/emacs/][Emacs]] configuration.
-- [[file:.config/xmonad/][Xmonad]] WM configuration.
+- [[file:.config/nvim/][Neovim]] configuration.
+- [[https://github.com/sadikeey/emacs][Emacs]] configuration.
+- [[file:.config/xmonad/][Xmonad WM]] configuration.
 - [[file:.config/hypr/][Hypr WM]] configuration.
 - [[file:.config/waybar/][Waybar]] configuration.
 - [[file:.config/zsh/][Zsh]] configuration.
