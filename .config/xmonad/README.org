@@ -21,7 +21,7 @@
 * About
 Xmonad config with xmobar.
 
-[[https://github.com/sadikeey/dotfiles/blob/main/.screenshots/home.png?raw=true]]
+[[.local/share/screenshots/home.png]]
 
 * Dependencies
 - xmonad
