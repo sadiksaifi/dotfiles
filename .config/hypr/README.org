@@ -1,0 +1,342 @@
+#+TITLE: Hyprland Configuration
+#+AUTHOR: Sadik Saifi
+#+DESCRIPTION: This is the configuration for Hyprland compositor(wayland).
+#+PROPERTY: header-args :tangle hyprland.conf
+#+STARTUP: showeverything
+
+* TABLE OF CONTENTS :toc:
+- [[#about][About]]
+- [[#autostart][Autostart]]
+- [[#monitors][Monitors]]
+- [[#input][Input]]
+- [[#general][General]]
+- [[#decoration][Decoration]]
+- [[#animations][Animations]]
+- [[#layout-specific][Layout Specific]]
+- [[#gestures][Gestures]]
+- [[#misc][Misc]]
+- [[#mouse][Mouse]]
+- [[#window-rules][Window Rules]]
+- [[#bindings][Bindings]]
+  - [[#initial-keybindings][Initial Keybindings]]
+  - [[#window-manager-keybindings][Window Manager Keybindings]]
+  - [[#volume-track--brightness-keybindings][Volume, Track & Brightness Keybindings]]
+  - [[#utilities-keybindings][Utilities Keybindings]]
+  - [[#applications-keybindings][Applications Keybindings]]
+
+* About
+[[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
+It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
+
+* Autostart
+
+#+BEGIN_SRC conf
+exec-once = $HOME/.config/hypr/autostart
+exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec-once = dex -a -s $HOME/.config/autostart/ &
+exec = $HOME/.config/waybar/waybar.sh &
+exec = hyprpaper &
+exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'Pop-dark' &
+exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' &
+exec-once = /usr/bin/emacs --daemon
+exec-once = dunst &
+exec-once = udiskie &
+#+END_SRC
+
+* Monitors
+monitor=,preferred,auto,1
+
+#+BEGIN_SRC conf
+monitor = eDP-1,1920x1080@60,0x0,1
+# monitor=DP-2,2560x1440@60,2560x670,1
+# monitor=DP-3,2560x1440@60,0x0,1
+#+END_SRC
+
+* Input
+
+#+BEGIN_SRC conf
+input {
+    kb_layout = us
+    kb_options = caps:escape
+    kb_variant =
+    kb_model =
+    kb_rules =
+
+    repeat_rate = 50
+    repeat_delay = 240
+
+    follow_mouse = 1
+
+    touchpad {
+        disable_while_typing = 1
+        natural_scroll = true
+    }
+
+    sensitivity = 0
+}
+#+END_SRC
+
+* General
+
+#+BEGIN_SRC conf
+general {
+    layout = master
+
+    gaps_in = 8
+    gaps_out = 18
+    border_size = 2
+    no_border_on_floating = false
+    col.active_border = 0xff9aedfe
+    col.inactive_border = 0x66333333
+}
+#+END_SRC
+
+* Decoration
+
+#+BEGIN_SRC conf
+decoration {
+    rounding = 0
+    blur = true
+    blur_size = 10
+    blur_passes = 1
+    blur_new_optimizations = on
+
+    drop_shadow = true
+    shadow_range = 4
+    shadow_render_power = 1
+    shadow_ignore_window = true
+    shadow_scale = 1.0
+    shadow_offset = [-10, 10]
+    col.shadow = rgba(1a1a1aee)
+
+    active_opacity = 1.0
+    inactive_opacity = 1.0
+}
+#+END_SRC
+
+* Animations
+
+#+BEGIN_SRC conf
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 4, myBezier
+    animation = windowsOut, 1, 4, default, popin 80%
+    animation = border, 1, 10, default
+    animation = fade, 1, 4, default
+    animation = workspaces, 1, 6, default
+}
+#+END_SRC
+
+* Layout Specific
+
+#+BEGIN_SRC conf
+dwindle {
+    pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+    preserve_split = true # you probably want this
+}
+
+master {
+    new_is_master = yes
+}
+#+END_SRC
+
+* Gestures
+
+#+BEGIN_SRC conf
+gestures {
+    workspace_swipe = on
+    workspace_swipe_fingers = 3
+    workspace_swipe_distance = 400
+    workspace_swipe_forever = true
+}
+#+END_SRC
+
+* Misc
+
+#+BEGIN_SRC conf
+misc {
+  disable_hyprland_logo = true
+  disable_splash_rendering = true
+  mouse_move_enables_dpms = true
+  enable_swallow = true
+  swallow_regex = ^(kitty)$
+}
+#+END_SRC
+
+* Mouse
+
+#+BEGIN_SRC conf
+device:epic mouse V1 {
+    sensitivity = -0.5
+}
+#+END_SRC
+
+* Window Rules
+
+#+BEGIN_SRC conf
+windowrule = unset, $TERMINAL
+windowrule = tile, DesktopEditors  #only-office
+windowrule = workspace 2, Brave
+windowrule = tile, Spotify
+windowrule = float, file_progress
+windowrule = float, confirm
+windowrule = float, dialog
+windowrule = float, download
+windowrule = float, notification
+windowrule = float, error
+windowrule = float, splash
+windowrule = float, confirmreset
+windowrule = float, title:Open File
+windowrule = float, title:branchdialog
+windowrule = float, Lxappearance
+windowrule = float, viewnior
+windowrule = float, Viewnior
+windowrule = float, feh
+windowrule = float, pavucontrol-qt
+windowrule = float, pavucontrol
+windowrule = float, file-roller
+windowrule = fullscreen, wlogout
+windowrule = float, title:wlogout
+windowrule = fullscreen, title:wlogout
+windowrule = idleinhibit focus, mpv
+windowrule = float, title:^(Media viewer)$
+windowrule = float, title:^(Volume Control)$
+windowrule = float, title:^(Picture-in-Picture)$
+windowrule = size 800 600, title:^(Volume Control)$
+windowrule = move 75 44%, title:^(Volume Control)$
+#+END_SRC
+
+* Bindings
+
+** Initial Keybindings
+
+#+BEGIN_SRC conf
+$mainMod = SUPER
+bind = CTRL $mainMod SHIFT, q, exit, # quit Hyperland
+bind = CTR $mainMod SHIFT, r, exec, hyprctl reload # reload hyprland
+bind = $mainMod SHIFT, b, exec, pkill -SIGUSR1 '^waybar$' # toggle bar
+bind = $mainMod, C, killactive, # Kill active window
+#+END_SRC
+
+** Window Manager Keybindings
+
+*** Layouts Keybindings
+
+#+BEGIN_SRC conf
+bind = $mainMod, SPACE, togglefloating,
+bind = $mainMod, F, fullscreen,1
+bind = $mainMod SHIFT, EQUAL, fullscreen,0
+#+END_SRC
+
+*** Move Focus
+
+#+BEGIN_SRC conf
+bind = $mainMod, h, movefocus, l
+bind = $mainMod, l, movefocus, r
+bind = $mainMod, k, movefocus, u
+bind = $mainMod, j, movefocus, d
+#+END_SRC
+
+*** Master Layout Keybindings
+
+#+BEGIN_SRC conf
+bind = $mainMod SHIFT, Return, layoutmsg, swapwithmaster
+bind = $mainMod, i, layoutmsg, addmaster
+bind = $mainMod, d, layoutmsg, removemaster
+#+END_SRC
+
+*** Workspaces Keybindings
++ Switch workspaces with mainMod + [0-9]
++ Move active window to a workspace with mainMod + SHIFT + [0-9]
+
+#+BEGIN_SRC conf
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+#+END_SRC
+
+*** Windows Keybindings
+
+#+BEGIN_SRC conf
+bind = $mainMod SHIFT, h, resizeactive, -40 0
+bind = $mainMod SHIFT, l, resizeactive, 40 0
+bind = $mainMod SHIFT, k, resizeactive, 0 -40
+bind = $mainMod SHIFT, j, resizeactive, 0 40
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod SHIFT, mouse:272, resizewindow
+#+END_SRC
+
+** Volume, Track & Brightness Keybindings
+
+*** Volume Keybindings
+
+#+BEGIN_SRC conf
+bind = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5% # decrease volume
+bind = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% # increase volume
+bind = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle # mute volume
+bind = , XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle # mute mic
+#+END_SRC
+
+*** Track Keybindings
+
+#+BEGIN_SRC conf
+bind = SHIFT, XF86AudioLowerVolume, exec, playerctl previous # previous track
+bind = SHIFT, XF86AudioRaiseVolume, exec, playerctl next # next track
+bind = , XF86AudioMute, exec, playerctl play-pause  # toggle track
+#+END_SRC
+
+*** Brightness Keybindings
+
+#+BEGIN_SRC conf
+bind = , XF86MonBrightnessUp, exec,brightnessctl -q set +5% # increase screen brightness
+bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen brightnes
+#+END_SRC
+
+** Utilities Keybindings
+
+#+BEGIN_SRC conf
+bind = , Print, exec, wayshot --now # screenshot of whole screen.
+bind = SHIFT, Print, exec, wayshot --win # screenshot of selected area.
+bind = ALT, e, exec, edit-configs # edit config
+bind = $mainMod, r, exec, $HOME/.config/rofi/launchers/type-1/launcher.sh   # rofi launcher
+bind = $mainMod, x, exec, $HOME/.config/rofi/powermenu/type-4/powermenu.sh  # rofi powermenu
+bind = $mainMod, period, exec, killall rofi || rofi -show emoji -emoji-format "{emoji}" -modi emoji -theme ~/.config/rofi/global/emoji
+bind = $mainMod, n, exec, rofi-wifi-menu   # rofi wifi menu
+bind = $mainMod, b, exec, rofi-bluetooth   # rofi bluetooth
+bind = $mainMod, p, exec, hyprpicker -a -n # color picker
+#+END_SRC
+
+** Applications Keybindings
+
+#+BEGIN_SRC conf
+bind = $mainMod SHIFT, f, exec, thunar
+bind = $mainMod SHIFT, c, exec, code
+bind = $mainMod SHIFT, m, exec, mailspring
+bind = $mainMod SHIFT, d, exec, discord
+bind = $mainMod SHIFT, v, exec, virt-manager
+bind = $mainMod SHIFT, s, exec, spotify
+bind = $mainMod SHIFT, w, exec, $BROWSER
+bind = $mainMod, Return, exec, $TERMINAL
+bind = $mainMod SHIFT, e, exec, emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'
+#+END_SRC
