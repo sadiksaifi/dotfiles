@@ -1,0 +1,4 @@
+#!/bin/sh
+
+paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk "{print \$2}")' | xargs -ro  paru -S
+

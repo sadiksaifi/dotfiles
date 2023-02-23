@@ -1,0 +1,32 @@
+#!/bin/env bash
+
+# Menu items
+items="logout
+hibernate
+suspend
+reboot
+poweroff"
+
+# Open menu
+selection=$(printf '%s' "$items" | dmenu -p "Logout Menu :" -l 5)
+
+case $selection in
+	logout)
+		logout
+        killall -q dwm
+		;;
+	hibernate)
+		systemctl hibernate
+		;;
+	suspend)
+		systemctl suspend
+		;;
+	reboot)
+		logout
+		systemctl reboot
+		;;
+	halt|poweroff|shutdown)
+		logout
+		systemctl poweroff
+		;;
+esac

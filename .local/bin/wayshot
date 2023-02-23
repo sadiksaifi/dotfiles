@@ -1,0 +1,48 @@
+#!/usr/bin/bash
+## Script to take screenshots with maim
+
+time=$(date +%Y-%m-%d_%H:%M:%S)
+#geometry=$(xrandr | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current')
+dir="$HOME/Pictures/Screenshots"
+file="Screenshot_${time}.png"
+
+# notify
+notify_user () {
+	if [[ -e "$dir/$file" ]]; then
+		dunstify -u low --replace=699 -i /usr/share/icons/Papirus-Dark/symbolic/devices/camera-photo-symbolic.svg "Saved as ${dir}/${file}"
+	else
+		dunstify -u low --replace=699 -i /usr/share/icons/Papirus-Dark/symbolic/devices/camera-photo-symbolic.svg "Screenshot Deleted."
+	fi
+}
+
+# take shots
+shotnow () {
+	cd "${dir}" && grim "$file" && viewnior "${dir}"/"$file"
+	notify_user
+}
+
+shotwin () {
+  cd "${dir}" && grim -g "$(slurp)" "$file"
+  notify_user
+}
+
+shotarea () {
+	cd "${dir}" && grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$file" && viewnior "${dir}"/"$file"
+	notify_user
+}
+
+if [[ ! -d "$dir" ]]; then
+	mkdir -p "$dir"
+fi
+
+if [[ "$1" == "--now" ]]; then
+	shotnow
+elif [[ "$1" == "--win" ]]; then
+	shotwin
+elif [[ "$1" == "--area" ]]; then
+	shotarea
+else
+	echo -e "Available Options : --now --win --area"
+fi
+
+exit 0

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+paru -Q | awk '{print $1}' | fzf | xargs -ro paru -Rcns

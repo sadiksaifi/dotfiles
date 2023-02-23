@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Prints the current volume or 婢 if muted.
+
+vol="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
+
+# If muted, print 婢 and exit.
+[ "$vol" != "${vol%\[MUTED\]}" ] && echo 婢 && exit
+
+vol="${vol#Volume: }"
+split() {
+	# For ommiting the . without calling and external program.
+	IFS=$2
+	set -- $1
+	printf '%s' "$@"
+}
+vol="$(split "$vol" ".")"
+vol="${vol##0}"
+
+case 1 in
+	$((vol >= 100)) ) icon="" ;;
+	$((vol >= 70)) ) icon="墳" ;;
+	$((vol >= 30)) ) icon="奔" ;;
+	$((vol >= 1)) ) icon="奄" ;;
+	* ) echo 婢 && exit ;;
+esac
+
+echo "$icon  $vol%"

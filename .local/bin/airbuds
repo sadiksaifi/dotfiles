@@ -1,0 +1,8 @@
+#!/bin/sh
+
+airbuds_mac="18:95:52:69:44:E7"
+airbuds_sink="bluez_output.18_95_52_69_44_E7.a2dp-sink"
+
+bluetoothctl power on
+bluetoothctl connect $airbuds_mac
+pactl set-default-sink $airbuds_sink

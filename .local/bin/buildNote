@@ -1,0 +1,19 @@
+#!/bin/sh
+
+filename=$1
+target="$(dirname "${filename}")/../out"
+outputFile="$(basename "$filename" .md).pdf"
+
+mkdir -p $target
+
+pandoc \
+    --pdf-engine=xelatex \
+    --highlight-style=monochrome \
+    -V 'geometry:a4paper' \
+    -V 'mainfont:DejaVuSerif' \
+    -V 'mainfontoptions:Extension=.ttf, UprightFont=*, BoldFont=*-Bold, ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic' \
+    -V 'sansfont:DejaVuSans.ttf' \
+    -V 'monofont:DejaVuSansMono.ttf' \
+    -V 'fontsize=11pt' \
+    -V "geometry:margin=1in" \
+    -o "$target/$outputFile" $filename &
