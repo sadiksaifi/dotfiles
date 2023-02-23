@@ -1,0 +1,30 @@
+#+title: My Arch Linux Dotfiles
+#+author: Sadik Saifi
+#+description: This is my arch linux dotfiles repo.
+#+property: tangle no
+
+** About
+These are my [[https://archlinux.org][Arch Linux]] dotfiles.
+
+*** Setup
+[[.local/share/screenshots/home.png]]
+
+*** Main Programs Configuration.
+- [[file:.config/alacritty/][Alacritty]] configuration.
+- [[file:.config/nvim/][Neovim]] configuratin.
+- [[file:.config/emacs/][Emacs]] configuration.
+- [[file:.config/xmonad/][Xmonad]] WM configuration.
+- [[file:.config/hypr/][Hypr WM]] configuration.
+- [[file:.config/waybar/][Waybar]] configuration.
+- [[file:.config/zsh/][Zsh]] configuration.
+
+** Installation my dotfiles
+*Prerequisite* /rync/.
+
+#+begin_src sh
+cd $HOME
+git clone --separate-git-dir=$HOME/Repos/dotfiles https://github.com/sadikeey/dotfiles.git tmpdotfiles
+
+rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
+rm -r tmpdotfiles
+#+end_src
