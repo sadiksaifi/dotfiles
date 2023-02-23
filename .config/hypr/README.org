@@ -4,6 +4,12 @@
 #+PROPERTY: header-args :tangle hyprland.conf
 #+STARTUP: showeverything
 
+* About
+[[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
+It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
+
+[[/.local/share/screenshots/hyprwm.png]]
+
 * TABLE OF CONTENTS :toc:
 - [[#about][About]]
 - [[#autostart][Autostart]]
@@ -23,10 +29,6 @@
   - [[#volume-track--brightness-keybindings][Volume, Track & Brightness Keybindings]]
   - [[#utilities-keybindings][Utilities Keybindings]]
   - [[#applications-keybindings][Applications Keybindings]]
-
-* About
-[[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
-It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
 
 * Autostart
 
@@ -97,7 +99,7 @@ general {
 
 #+BEGIN_SRC conf
 decoration {
-    rounding = 0
+    rounding = 8
     blur = true
     blur_size = 10
     blur_passes = 1

@@ -2,6 +2,11 @@
 #+AUTHOR: Sadik Saifi
 #+PROPERTY: header-args :tangle xmonad.hs
 
+* About
+Xmonad config with xmobar.
+
+[[/.local/share/screenshots/home.png]]
+
 * TABLE OF CONTENTS :toc:
 - [[#about][About]]
 - [[#dependencies][Dependencies]]
@@ -17,11 +22,6 @@
 - [[#namedactions][NamedActions]]
 - [[#keybindings][Keybindings]]
 - [[#main][Main]]
-
-* About
-Xmonad config with xmobar.
-
-[[/.local/share/screenshots/home.png]]
 
 * Dependencies
 - xmonad
