@@ -1,0 +1,133 @@
+#!/bin/sh
+
+# Launching Polybar
+pgrep -x sxhkd > /dev/null || sxhkd &
+$HOME/.config/bspwm/polybar/launch.sh
+
+workspaces() {
+	name=1
+	for monitor in `bspc query -M`; do
+		# bspc monitor ${monitor} -n "$name" -d '' '' '' '' '' '' '漣'
+		bspc monitor ${monitor} -n "$name" -d '1' '2' '3' '4' '5' '6' '7' '8'
+		# bspc monitor ${monitor} -n "$name" -d 'dev' 'web' 'edit' 'file' 'vid' 'mus' 'sys'
+		let name++
+	done
+}
+workspaces
+
+
+###---Desktop Settings----###
+# bspc config top_padding 		      22
+bspc config bottom_padding 		    0
+bspc config left_padding 		      0
+bspc config right_padding 		    0
+bspc config window_gap 			      8
+
+bspc config border_width          2
+bspc config split_ratio           0.50
+
+# bspc config focused_border_color  "#fbf1c7"
+bspc config focused_border_color  "#00AA8D"
+bspc config normal_border_color   "#32344a"
+bspc config active_border_color   "#444b6a"
+
+bspc config borderless_monocle    true
+bspc config gapless_monocle       true
+bspc config paddingless_monocle   true
+bspc config single_monocle        false
+bspc config focus_follows_pointer true
+
+# fix pointer
+xsetroot -cursor_name left_ptr
+
+# workspace 1 (Terminals)
+# declare -a terminal=(Alacritty Xfce4-terminal kitty)
+# for i in ${terminal[@]}; do
+#     bspc rule -a $i desktop='^1' follow=on focus=on; done
+
+# workspace 2 (Internet Browser)
+declare -a web=(firefox discord Google-chrome)
+for i in ${web[@]}; do
+    bspc rule -a $i desktop='^2' follow=on focus=on; done
+
+# workspace 3 (Text Editor)
+declare -a office=(Code Geany)
+for i in ${office[@]}; do
+    bspc rule -a $i desktop='^3' follow=on focus=on state=tiled; done
+
+# workspace 4 (Files)
+declare -a filem=(Thunar Pcmanfm qBittorrent Mailspring)
+for i in ${filem[@]}; do
+    bspc rule -a $i desktop='^4' follow=on focus=on; done
+
+# workspace 5 (Media)
+declare -a media=(vlc mpv mplayer lxmusic Virt-manager Gimp Gimp-2.10 \
+"VirtualBox Manager")
+for i in ${media[@]}; do
+    bspc rule -a $i desktop='^5' follow=on focus=on; done
+
+# workspace 6 (Music)
+declare -a filem=(Spotify spotify)
+for i in ${filem[@]}; do
+    bspc rule -a $i desktop='^6' follow=on focus=on; done
+
+# workspace 7 (Settings)
+declare -a settings=(GParted Lxappearance Lxtask Lxrandr Arandr \
+Pavucontrol Xfce4-settings-manager)
+for i in ${settings[@]}; do
+    bspc rule -a $i desktop='^7' follow=on focus=on; done
+
+# floating windows
+declare -a floats=(Alafloat Lxappearance Arandr \
+Viewnior Pcmanfm feh Nm-connection-editor Matplotlib Yad Blueman-manager Nitrogen)
+for i in ${floats[@]}; do
+  bspc rule -a $i state=floating follow=on focus=on; done
+
+# Individual rules
+bspc rule -a Zathura state=tiled;
+
+## Autostart
+# Kill if already running
+killall -9 picom sxhkd dunst xfce4-power-manager ksuperkey nitrogen udiskie dex
+
+# Restore wallpaper
+nitrogen --restore &
+
+# Launch notification daemon
+dunst &
+
+# Enable Super Keys For Menu
+# ksuperkey -e 'Super_L=Alt_L|F1' &
+# ksuperkey -e 'Super_R=Alt_L|F1' &
+
+# polkit agent
+if [[ ! `pidof xfce-polkit` ]]; then
+    /usr/lib/xfce-polkit/xfce-polkit &
+fi
+
+# Launch keybindings daemon
+sxhkd &
+
+# Enable power management
+xfce4-power-manager &
+
+# start compositor
+while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+picom --experimental-backends &
+
+#Automounting
+udiskie &
+
+#For Hiding Cursor while typing
+xbanish &
+
+# For System Tray
+# nm-applet &
+blueman-applet &
+# pasystray &
+
+# For starting autostart applications
+dex -a -s $HOME/.config/autostart/ &
+
+# Tmux
+tmux &
