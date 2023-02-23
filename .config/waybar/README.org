@@ -1,0 +1,267 @@
+#+title: Waybar Configuration
+#+author: Sadik Saifi
+#+description: This is the configuration for waybar.
+
+* TABLE OF CONTENTS :toc:
+- [[#about][About]]
+- [[#configuration][Configuration]]
+- [[#css][CSS]]
+
+* About
+[[https://github.com/Alexays/Waybar][Waybar]] is a highly customizable Wayland bar for Sway and Wlroots based compositors.
+
+* Configuration
+#+begin_src json :tangle config
+{
+    "height": 24,
+    "spacing": 4,
+    "modules-left": ["custom/launcher", "wlr/workspaces"],
+    "modules-right": ["tray", "network", "backlight", "pulseaudio", "battery", "clock"],
+    "wlr/workspaces": {
+      "format": "{name}",
+      "on-click": "activate",
+    },
+    "hyprland/window": {
+        "format": "{}"
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{:%a %b %d, %H:%M}",
+    },
+    "backlight": {
+        "format": "{percent} {icon} ",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid}  ",
+        "format-ethernet": "",
+        "format-disconnected": "睊",
+        "on-click": "$TERMINAL -e nmtui",
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "婢",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+   "battery": {
+          "states": {
+              "good": 95,
+              "warning": 30,
+              "critical": 15
+          },
+          "format": "{icon}  {capacity}%",
+          "format-charging": "{icon}  {capacity}% ",
+          "format-plugged": "{icon}  {capacity}% ",
+          "format-icons": ["", "", "", "", ""]
+      },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "custom/launcher": {
+        "format": "",
+        "on-click": "$HOME/.config/rofi/launchers/type-1/launcher.sh",
+    },
+}
+#+end_src
+
+* CSS
+
+#+begin_src css :tangle style.css
+,*{
+  font-family: 'Roboto Mono Medium', 'Ubuntu Nerd Font';
+  font-size: 14px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+window#waybar {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: #a9a9a9;
+  box-shadow: inset 0 -3px transparent;
+  border: none;
+  border-radius: 0;
+}
+
+#workspaces button.active {
+  color: #ffffff;
+}
+
+#workspaces button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+#clock,
+#backlight,
+#network,
+#pulseaudio,
+#tray,
+#battery
+{
+  padding: 0 10px;
+}
+
+#window,
+#workspaces {
+  margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+@keyframes blink {
+  to {
+    background-color: rgba(30, 34, 42, 0.5);
+    color: #abb2bf;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  background-color: transparent;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#custom-launcher {
+  color: #ffffff;
+  padding-left: 10px;
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+,*{
+  font-family: 'Roboto Mono Medium', 'Ubuntu Nerd Font';
+  font-size: 14px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+window#waybar {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: #a9a9a9;
+  box-shadow: inset 0 -3px transparent;
+  border: none;
+  border-radius: 0;
+}
+
+#workspaces button.active {
+  color: #ffffff;
+}
+
+#workspaces button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+#clock,
+#battery,
+#backlight,
+#network,
+#pulseaudio,
+#tray,
+#battery
+{
+  padding: 0 10px;
+}
+
+#window,
+#workspaces {
+  margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+@keyframes blink {
+  to {
+    background-color: rgba(30, 34, 42, 0.5);
+    color: #abb2bf;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#custom-launcher {
+  color: #ffffff;
+  padding-left: 10px;
+}
+#+end_example

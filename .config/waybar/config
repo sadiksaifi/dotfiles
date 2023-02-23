@@ -1,0 +1,65 @@
+{
+    "height": 24,
+    "spacing": 4,
+    "modules-left": ["custom/launcher", "wlr/workspaces"],
+    "modules-right": ["tray", "network", "backlight", "pulseaudio", "battery", "clock"],
+    "wlr/workspaces": {
+      "format": "{name}",
+      "on-click": "activate",
+    },
+    "hyprland/window": {
+        "format": "{}"
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{:%a %b %d, %H:%M}",
+    },
+    "backlight": {
+        "format": "{percent} {icon} ",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid}  ",
+        "format-ethernet": "",
+        "format-disconnected": "睊",
+        "on-click": "$TERMINAL -e nmtui",
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "婢",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+   "battery": {
+          "states": {
+              "good": 95,
+              "warning": 30,
+              "critical": 15
+          },
+          "format": "{icon}  {capacity}%",
+          "format-charging": "{icon}  {capacity}% ",
+          "format-plugged": "{icon}  {capacity}% ",
+          "format-icons": ["", "", "", "", ""]
+      },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "custom/launcher": {
+        "format": "",
+        "on-click": "$HOME/.config/rofi/launchers/type-1/launcher.sh",
+    },
+}
