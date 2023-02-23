@@ -1,0 +1,209 @@
+#!/bin/sh
+
+#	 _____  _| |__ | | ____| |_ __ ___
+#	/ __\ \/ / '_ \| |/ / _` | '__/ __|
+#	\__ \>  <| | | |   < (_| | | | (__
+#	|___/_/\_\_| |_|_|\_\__,_|_|  \___|
+
+
+# reloads sxhkd configuration:
+super + Escape
+    pkill -USR1 -x sxhkd
+
+# Launch Terminal
+super + Return
+    $TERMINAL
+
+# Launcher
+super + shift + Return
+    dmenu_run -p "Run : "
+    # j4-dmenu
+
+# Toggle Conkeww
+super + shift + e
+    toggle-conkeww
+
+# # j4 dmenu
+# alt + F1
+#     j4-dmenu
+
+# Launch Menus
+super + {x,n,d,s}
+    {powermenu,def-nmdmenu,def-dmenu,def-ssdmenu}
+
+# Lock Screen
+ctrl + alt + l
+    lock
+
+# custom dmenu scripts
+alt + {e,l}
+    {edit-configs, quick-links}
+
+# Launch Applications
+super + shift + {f,c,m,d,v,s,w,n,r,t}
+    {thunar,code,mailspring,discord,virt-manager,spotify,$BROWSER,$TERMINAL -e nvim,$TERMINAL -e ranger,$TERMINAL -e tmux}
+
+# Volume controls
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    volume{ --up, --down, --toggle}
+
+# Brightness controls
+XF86MonBrightness{Up,Down}
+    brightness{ --up, --down}
+
+# screenshot
+Print
+    takeshot --now
+
+# screenshot active window
+ctrl + Print
+    takeshot --win
+
+# screenshot selected area
+ctrl + shift + Print
+    takeshot --area
+
+#
+#
+# BSPWM HOTKEYS
+#
+#
+
+# quit/restart bspwm
+ctrl + shift + {q,r}
+    bspc {quit,wm -r}
+
+# close and kill
+super + c
+    bspc node -c
+
+# alternate between the tiled and monocle layout
+super + space
+	bspc node -t "~"{floating,tiled}
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,ctrl + t,f}
+	bspc node -t {tiled,pseudo_tiled,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+# Send the window to another edge of the screen
+super + {_,shift + }{Left,Down,Up,Right}
+    bspc node -{f,s} {west,south,north,east}
+
+# Change focus to next window, including floating window
+alt + {_,shift + }Tab
+    bspc node -f {next.local,prev.local}
+ 
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# Expanding windows
+super + control {Left,Right,Up,Down}
+    bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+
+# Shrinking windows
+super + alt + {Left,Right,Up,Down}
+    bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+###  Mouse Resize and Move  ###
+super + shift + {z,x}
+    bspc config pointer_action1 {move,resize_corner}
+
+
+#Run Launchers
+# super + space
+	# rofi -show drun -theme gruvbox-dark-hard.rasi -icon-theme "Tela-circle" -show-icons
+
+
+# ScratchPads with tdrop
+# super + p
+# 	tdrop -ma -w 70% -h 65% -y 17% -x 15% -n 1 $TERMINAL -e htop
+#
+# super + r
+# 	tdrop -ma -w 70% -h 65% -y 17% -x 15% -n 2 $TERMINAL -e ranger
+#
+# super + c
+# 	tdrop -ma -w 70% -h 65% -y 17% -x 15% -n 3 $TERMINAL -e tty-clock -c -s -t -B -C 7
+#
+# super + y
+# 	tdrop -ma -w 70% -h 65% -y 17% -x 15% -n 2 $TERMINAL
+
+# Toggle window gaps
+super + shift + equal
+  $HOME/.scripts/toggleGaps.sh
