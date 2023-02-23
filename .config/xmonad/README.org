@@ -21,7 +21,7 @@
 * About
 Xmonad config with xmobar.
 
-[[.local/share/screenshots/home.png]]
+[[/.local/share/screenshots/home.png]]
 
 * Dependencies
 - xmonad
