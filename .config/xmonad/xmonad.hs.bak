@@ -1,43 +1,3 @@
-#+TITLE: XMonad Config
-#+AUTHOR: Sadik Saifi
-#+PROPERTY: header-args :tangle xmonad.hs
-
-* TABLE OF CONTENTS :toc:
-- [[#about][About]]
-- [[#dependencies][Dependencies]]
-- [[#imports][Imports]]
-- [[#colors][Colors]]
-- [[#xmobar][Xmobar]]
-- [[#variables][Variables]]
-- [[#autostart-the-startup-hook][Autostart (The Startup Hook)]]
-- [[#scratchpads][Scratchpads]]
-- [[#layouts][Layouts]]
-- [[#workspaces][Workspaces]]
-- [[#managehook][Managehook]]
-- [[#namedactions][NamedActions]]
-- [[#keybindings][Keybindings]]
-- [[#main][Main]]
-
-* About
-Xmonad config with xmobar.
-
-[[https://github.com/sadikeey/dotfiles/blob/main/.screenshots/home.png?raw=true]]
-
-* Dependencies
-- xmonad
-- xmonad-contrib
-- xmobar
-- alacritty
-- emacs
-- trayer
-- otf-font-awesome
-- ttf-mononoki
-- ttf-ubuntu-font-family
-
-* Imports
-These are Haskell modules that we must import so that we can use their functions later in the config.
-
-#+BEGIN_SRC haskell
   -- Base
 import XMonad
 import System.Directory
@@ -98,12 +58,6 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
-#+END_SRC
-
-* Colors
-=Colorscheme= DoomOne
-
-#+BEGIN_SRC haskell
 colorBack = "#282c34"
 colorFore = "#bbc2cf"
 
@@ -126,79 +80,7 @@ color16 = "#dfdfdf"
 
 colorTrayer :: String
 colorTrayer = "--tint 0x282c34"
-#+END_SRC
 
-* Xmobar
-Position TopSize and BottomSize take 3 arguments:
-- an alignment parameter (L/R/C) for Left, Right or Center.
-- an integer for the percentage width, so 100 would be 100%.
-- an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
-
-NOTE: The height should be the same as the trayer (system tray) height.
-#+BEGIN_SRC haskell :tangle ./xmobar/xmobar.hs
-
-Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
-                           , "xft:Font Awesome 6 Free Solid:pixelsize=12"
-                           , "xft:Font Awesome 6 Brands:pixelsize=12"
-                           ]
-       , bgColor      = "#282c34"
-       , fgColor      = "#ff6c6b"
-       , position     = TopSize L 100 24
-       , lowerOnStart = True
-       , hideOnStart  = False
-       , allDesktops  = True
-       , persistent   = True
-       , iconRoot     = ".config/xmonad/xpm/"  -- default: "."
-       , commands = [
-                        -- Echos a "penguin" icon in front of the kernel output.
-                      Run Com "echo" ["<fn=3>\xf17c</fn>"] "penguin" 3600
-
-                        -- Get kernel version (script found in .local/bin)
-                    , Run Com ".local/bin/kernel" [] "kernel" 36000
-
-                        -- Cpu usage in percent
-                    , Run Cpu ["-t", "<fn=2>\xf108</fn>  cpu: (<total>%)","-H","50","--high","red"] 20
-
-                        -- Ram used number and percent
-                    , Run Memory ["-t", "<fn=2>\xf233</fn>  mem: <used>M (<usedratio>%)"] 20
-
-                        -- Disk space free
-                    , Run DiskU [("/", "<fn=2>\xf0c7</fn>  hdd: <free> free")] [] 60
-
-                        -- Echos an "up arrow" icon in front of the uptime output.
-                    , Run Com "echo" ["<fn=2>\xf0aa</fn>"] "uparrow" 3600
-                        -- Uptime
-                    , Run Uptime ["-t", "uptime: <days>d <hours>h"] 360
-
-                        -- Echos a "bell" icon in front of the pacman updates.
-                    , Run Com "echo" ["<fn=2>\xf0f3</fn>"] "bell" 3600
-                        -- Check for pacman updates (script found in .local/bin)
-                    , Run Com ".local/bin/pacupdate" [] "pacupdate" 36000
-
-                        -- Echos a "battery" icon in front of the pacman updates.
-                    , Run Com "echo" ["<fn=2>\xf242</fn>"] "baticon" 3600
-                        -- Battery
-                    , Run BatteryP ["BAT1"] ["-t", "<acstatus> (<left>%)"] 360
-                        -- Time and date
-
-                    , Run Date "<fn=2>\xf017</fn>  %b %d %Y - (%H:%M) " "date" 50
-                        -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
-                    , Run Com ".config/xmonad/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
-                        -- Prints out the left side items such as workspaces, layout, etc.
-                    , Run UnsafeStdinReader
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = " <action=`xdotool key Super_L+r`><icon=haskell.xpm/> </action><fc=#666666> |</fc> %UnsafeStdinReader% }{ <fc=#666666> | </fc> <fc=#51afef>%penguin%  %kernel%</fc> <fc=#666666> | </fc> <fc=#ecbe7b> <action=`alacritty -e htop`> %cpu% </action></fc> <fc=#666666> | </fc> <fc=#ff6c6b><action=`alacritty -e htop`> %memory% </action></fc> <fc=#666666> | </fc> <fc=#a9a1e1> %disku% </fc> <fc=#666666> | </fc> <fc=#98be65> %uparrow%  %uptime% </fc> <fc=#666666> | </fc><fc=#c678dd> %bell%  <action=`alacritty -e sudo pacman -Syu`> %pacupdate% </action></fc> <fc=#666666> | </fc><fc=#da8548> %baticon%  %battery% </fc> <fc=#666666> | </fc> <fc=#46d9ff><action=`emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(dt/year-calendar))'`> %date% </action></fc> <fc=#666666> |</fc>%trayerpad%"
-       }
-
-#+END_SRC
-
-* Variables
-It's nice to assign values to stuff that you will use more than once in the config. Setting values for things like font, terminal and editor means you only have to change the value here to make changes globally.
-
-#+BEGIN_SRC haskell
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
@@ -230,15 +112,10 @@ myFocusColor  = color15     -- This variable is imported from Colors.THEME
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
-#+END_SRC
-
-* Autostart (The Startup Hook)
-These are commands we want XMonad to execute on startup, such as running a compositor, setting our wallpaper, starting the emacs daemon, and starting our system tray and the applications that belong in it.
-
-#+BEGIN_SRC haskell
 myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"  -- kill current trayer on each restart
+
   spawnOnce "setxkbmap -option caps:escape"
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xset r rate 240 50"
@@ -251,17 +128,12 @@ myStartupHook = do
   spawnOnce "picom --experimental-backends -b"
   spawnOnce "dunst"
   spawnOnce "unclutter"
+
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+
   spawnOnce "xwallpaper --zoom ~/.config/wall.jpg"
   setWMName "LG3D"
-#+END_SRC
 
-* Scratchpads
-Allows to have several floating scratchpads running different applications.  Import Util.NamedScratchpad and bind a key to namedScratchpadSpawnAction.  In the example below, I have created named scratchpads for:
-- alacritty -- my terminal
-- qalculate-gtk -- a nice calculator
-
-#+BEGIN_SRC haskell
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "calculator" spawnCalc findCalc manageCalc
@@ -283,12 +155,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.4
                  t = 0.75 -h
                  l = 0.70 -w
-#+END_SRC
 
-* Layouts
-Defining the layouts that I want to have available.
-
-#+BEGIN_SRC haskell
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
@@ -341,24 +208,14 @@ myLayoutHook = avoidStruts
                                            ||| noBorders monocle
                                            ||| floats
                                            ||| noBorders tabs
-#+END_SRC
 
-* Workspaces
-I have made my workspaces in xmobar "clickable." Clickable workspaces means the mouse can be used to switch workspaces. This requires /xdotool/ to be installed. You need to use UnsafeStdInReader instead of simply StdInReader in your xmobar config so you can pass actions to it.
-
-#+begin_src haskell
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces = [" term ", " www ", " dev ", " doc ", " mus ", " chat ", " gfx ", " vid ", " sys "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
-#+END_SRC
 
-* Managehook
-Sets some rules for certain programs. Examples include forcing certain programs to always float, or to always appear on a certain workspace.  Forcing programs to a certain workspace with a doShift requires xdotool if you are using clickable workspaces. You need the className or title of the program. Use xprop to get this info.
-
-#+BEGIN_SRC haskell
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
   [ className =? "confirm"         --> doFloat
@@ -380,12 +237,7 @@ myManageHook = composeAll
   , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
   , isFullscreen -->  doFullFloat
   ] <+> namedScratchpadManageHook myScratchPads
-#+END_SRC
 
-* NamedActions
-=NamedActions= is a wrapper for keybinding configuration that can list the available keybindings.  The following custom functions are used to add =NamedActions= to our keybindings in the format that I desired.  =subTitle'= allows me to format the subtitle (=subKeys=) so that I can prepend and/or append text to them.  =showKeybindings= is a function that pipes the output of our =NamedActions= into a GUI display program, such as 'yad' or 'zenity'.
-
-#+begin_src haskell
 subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x = ((0,0), NamedAction $ map toUpper
                       $ sep ++ "\n-- " ++ x ++ " --\n" ++ sep)
@@ -400,12 +252,6 @@ showKeybindings x = addName "Show Keybindings" $ io $ do
   hClose h
   return ()
 
-#+end_src
-
-* Keybindings
-I am using the Xmonad.Util.EZConfig module which allows keybindings to be written in simpler, emacs-like format.  The Super/Windows key is 'M' (the modkey).  The ALT key is 'M1'.  SHIFT is 'S' and CTRL is 'C'.  Pay close attention to the way the keybindings list is formatted.  Each group of keybindings must have a =subKeys= heading, and each individual keybinding must use =addName= to add a description.  These headings and descriptions are needed for the keybindings list that can be launched with 'MOD-F1'.
-
-#+BEGIN_SRC haskell
 myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeys c =
   --(subtitle "Custom Keys":) $ mkNamedKeymap c $
@@ -549,12 +395,6 @@ myKeys c =
     where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
           nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 
-#+END_SRC
-
-* Main
-This is the "main" of XMonad. This where everything in our configs comes together and works.
-
-#+BEGIN_SRC haskell
 main :: IO ()
 main = do
   -- Launching three instances of xmobar on their monitors.
@@ -596,4 +436,3 @@ main = do
         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
         }
     }
-#+END_SRC

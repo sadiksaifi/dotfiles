@@ -1,4 +1,4 @@
-  -- Base
+-- Base
 import XMonad
 import System.Directory
 import System.IO (hClose, hPutStr, hPutStrLn)
@@ -115,7 +115,6 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 myStartupHook = do
   spawn "killall trayer"  -- kill current trayer on each restart
-
   spawnOnce "setxkbmap -option caps:escape"
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xset r rate 240 50"
@@ -128,9 +127,7 @@ myStartupHook = do
   spawnOnce "picom --experimental-backends -b"
   spawnOnce "dunst"
   spawnOnce "unclutter"
-
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
-
   spawnOnce "xwallpaper --zoom ~/.config/wall.jpg"
   setWMName "LG3D"
 
