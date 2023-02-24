@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Define the web browser to use
+myBrowser=qutebrowser
+
+# Prompt the user to select a search engine
+selectedEngine=$(printf "ArchWiki\nDuckDuckGo\nGoogle\nWikipedia\nYoutube" | dmenu -i -l 5 -p "Select a search engine: ")
+
+# Prompt the user to enter a search term
+if [ -n "$selectedEngine" ]; then
+  searchVar=$(printf "" | dmenu -i -p "Enter a search term: ")
+fi
+
+# Open the search results in the web browser
+case "$selectedEngine" in
+  "ArchWiki") 
+    if [ -n "$searchVar" ]; then
+      $myBrowser "https://wiki.archlinux.org/index.php?search=$searchVar"
+    fi
+  ;;
+  "DuckDuckGo") 
+    if [ -n "$searchVar" ]; then
+      $myBrowser "https://duckduckgo.com/?q=$searchVar"
+    fi
+  ;;
+  "Google") 
+    if [ -n "$searchVar" ]; then
+      $myBrowser "https://www.google.com/search?q=$searchVar"
+    fi
+  ;;
+  "Wikipedia") 
+    if [ -n "$searchVar" ]; then
+      $myBrowser "https://en.wikipedia.org/wiki/Special:Search?search=$searchVar"
+    fi
+  ;;
+  "Youtube") 
+    if [ -n "$searchVar" ]; then
+      $myBrowser "https://www.youtube.com/results?search_query=$searchVar"
+    fi
+  ;;
+  *)
+    exit
+  ;;
+esac
+
