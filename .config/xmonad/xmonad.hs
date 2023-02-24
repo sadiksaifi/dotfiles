@@ -287,12 +287,13 @@ myKeys c =
     ("M-k", addName "Move focus to prev window"                       $ windows W.focusUp),
     ("M-S-<Return>", addName "Swap focused window with master window" $ windows W.swapMaster)]
 
-  -- Dmenu scripts (dmscripts)
+  -- Dmenu Utilities
   ^++^ subKeys "Dmenu scripts"
   [ ("M-r",   addName "Run prompt"                   $ spawn "dmenu_run -p 'Run: '"),
     ("M-p n", addName "Launch network manager"       $ spawn ("networkmanager_dmenu -l 10")),
     ("M-p x", addName "Launch dmenu logout"          $ spawn ("dmenu-logout")),
     ("M-p b", addName "Launch bluetooth dmenu"       $ spawn ("dmenu-bluetooth -l 10")),
+    ("M-;", addName "Display emojis"               $ spawn ("cat $HOME/.local/share/sdk/emoji | dmenu -i -l 20 | xclip -selection clipboard")),
     ("M-<Print> s", addName "take ss of screen"      $ spawn ("takeshot --now")),
     ("M-<Print> w", addName "take ss of active win"  $ spawn ("takeshot --win")),
     ("M-<Print> a", addName "take ss selected area"  $ spawn ("takeshot --area")),
