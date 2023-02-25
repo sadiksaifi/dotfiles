@@ -91,7 +91,10 @@ myTerminal :: String
 myTerminal = "alacritty"    -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "brave "  -- Sets qutebrowser as browser
+myBrowser = "qutebrowser "  -- Sets qutebrowser as browser
+
+myAltBrowser :: String
+myAltBrowser = "brave "     -- Sets brave as browser
 
 myEmacs :: String
 myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
@@ -294,6 +297,8 @@ myKeys c =
     ("M-p x", addName "Launch dmenu logout"          $ spawn ("dmenu-logout")),
     ("M-p b", addName "Launch bluetooth dmenu"       $ spawn ("dmenu-bluetooth -l 10")),
     ("M-p s", addName "Dmenu web search prompt"      $ spawn ("dmenu-search")),
+    ("M-p i", addName "Install packages"             $ spawn ("dmenu-install")),
+    ("M-p u", addName "Uninstall packages"           $ spawn ("dmenu-uninstall")),
     ("M-;", addName "Display emojis"                 $ spawn ("cat $HOME/.local/share/sdk/emoji | dmenu -i -l 20 | xclip -selection clipboard")),
     ("M-<Print> s", addName "take ss of screen"      $ spawn ("takeshot --now")),
     ("M-<Print> w", addName "take ss of active win"  $ spawn ("takeshot --win")),
@@ -303,6 +308,7 @@ myKeys c =
   ^++^ subKeys "Favorite programs"
   [ ("M-<Return>", addName "Launch terminal"    $ spawn (myTerminal)),
     ("M-a w", addName "Launch web browser"      $ spawn (myBrowser)),
+    ("M-a S-w", addName "Launch web browser"    $ spawn (myAltBrowser)),
     ("M-a c", addName "Launch vs code"          $ spawn ("code")),
     ("M-a s", addName "Launch spotify"          $ spawn ("spotify")),
     ("M-a f", addName "Launch file manager"     $ spawn ("thunar")),

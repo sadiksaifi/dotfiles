@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ ! -e "$HOME/.local/share/sdk/packageDB" ] && paru -Slq > "$HOME/.local/share/sdk/packageDB"
+
+result=$(cat "$HOME/.local/share/sdk/packageDB" | dmenu -i -l 10 -p "Install Package: ")
+
+[ -n "$result" ] && $TERMINAL -e paru -S "$result"

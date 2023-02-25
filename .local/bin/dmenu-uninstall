@@ -1,0 +1,3 @@
+#!/bin/sh
+
+paru -Qq | dmenu -i -l 10 | xargs -ro $TERMINAL -e paru -R
