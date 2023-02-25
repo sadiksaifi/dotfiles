@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cat $HOME/.local/share/sdk/emoji | dmenu -i -l 20 | awk '{printf $1}' | xclip -selection clipboard && xdotool key ctrl+v
+
