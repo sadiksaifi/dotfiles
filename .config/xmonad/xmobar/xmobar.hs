@@ -1,7 +1,7 @@
-Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
-                           , "xft:Font Awesome 6 Free Solid:pixelsize=12"
-                           , "xft:Font Awesome 6 Brands:pixelsize=12"
+Config { font            = "Ubuntu Bold 9"
+       , additionalFonts = [ "Mononoki Nerd Font 11"
+                           , "Font Awesome 6 Free Solid 12"
+                           , "Font Awesome 6 Brands 12"
                            ]
        , bgColor      = "#282c34"
        , fgColor      = "#ff6c6b"
