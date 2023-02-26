@@ -15,13 +15,13 @@ plug "sadikeey/zsh-ex"
 plug "sadikeey/sdk-prompt"
 
 #General Key-bindings
-bindkey -s '^o' 'lf^M'
+bindkey -s '^o' 'lfub^M'
 bindkey -s '^t' 'tmux^M'
 bindkey -s '^g' 'lazygit^M'
 bindkey -s '^f' 'tmux-sessionizer\n'
 
 #Aliases
-alias cp='cp -iv'
+alias cp='cp -ivr'
 alias mv='mv -iv'
 alias rm='rm -vI'
 alias ls='exa -lh --color=auto --group-directories-first --icons'
