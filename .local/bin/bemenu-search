@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Prompt the user to select a search engine
+selectedEngine=$(printf "ArchWiki\nDuckDuckGo\nGoogle\nWikipedia\nYoutube" | bemenu -l 5 -p "Select a search engine: ")
+
+# Prompt the user to enter a search term
+[ -n "$selectedEngine" ] && searchVar=$(printf "" | bemenu -p "Enter a search term: ")
+
+# Open the search results in the web browser
+case "$selectedEngine" in
+  "ArchWiki") 
+    [ -n "$searchVar" ] && $BROWSER "https://wiki.archlinux.org/index.php?search=$searchVar"
+  ;;
+  "DuckDuckGo") 
+    [ -n "$searchVar" ] && $BROWSER "https://duckduckgo.com/?q=$searchVar"
+  ;;
+  "Google") 
+    [ -n "$searchVar" ] && $BROWSER "https://www.google.com/search?q=$searchVar"
+  ;;
+  "Wikipedia") 
+    [ -n "$searchVar" ] && $BROWSER "https://en.wikipedia.org/wiki/Special:Search?search=$searchVar"
+  ;;
+  "Youtube") 
+    [ -n "$searchVar" ] && $BROWSER "https://www.youtube.com/results?search_query=$searchVar"
+  ;;
+  *)
+    exit
+  ;;
+esac
+

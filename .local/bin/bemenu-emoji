@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# require wl-clipboard, wtype
+cat $HOME/.local/share/sdk/emoji | bemenu -l 20 -p "Emojis: " | awk '{printf $1}' | wl-copy && wtype -M ctrl -M shift -P v -m ctrl

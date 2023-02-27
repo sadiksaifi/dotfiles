@@ -1,0 +1,32 @@
+#!/bin/env bash
+
+# Menu items
+items="1. Logout
+2. Hibernate
+3. Suspend
+4. Reboot
+5. Poweroff"
+
+# Open menu
+selection=$(printf '%s' "$items" | bemenu -p "Logout Menu :" -l 5)
+
+case $selection in
+	"1. Logout")
+		logout
+    killall -q Hyprland
+		;;
+	"2. Hibernate")
+		systemctl hibernate
+		;;
+	"3. Suspend")
+		systemctl suspend
+		;;
+	"4. Reboot")
+		logout
+		systemctl reboot
+		;;
+	"5. Poweroff")
+		logout
+		systemctl poweroff
+		;;
+esac

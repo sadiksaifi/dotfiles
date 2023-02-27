@@ -27,7 +27,7 @@ It supports multiple layouts, fancy effects, has a very flexible IPC model allow
   - [[#initial-keybindings][Initial Keybindings]]
   - [[#window-manager-keybindings][Window Manager Keybindings]]
   - [[#volume-track--brightness-keybindings][Volume, Track & Brightness Keybindings]]
-  - [[#utilities-keybindings][Utilities Keybindings]]
+  - [[#utilities-menu-keybindings][Utilities Menu Keybindings]]
   - [[#applications-keybindings][Applications Keybindings]]
 
 * Autostart
@@ -44,7 +44,6 @@ exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'Pop-dark' &
 exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' &
 exec-once = /usr/bin/emacs --daemon
 exec-once = dunst &
-exec-once = udiskie &
 #+END_SRC
 
 * Monitors
@@ -86,8 +85,8 @@ input {
 general {
     layout = master
 
-    gaps_in = 8
-    gaps_out = 18
+    gaps_in = 6
+    gaps_out = 12
     border_size = 2
     no_border_on_floating = false
     col.active_border = 0xff9aedfe
@@ -99,7 +98,7 @@ general {
 
 #+BEGIN_SRC conf
 decoration {
-    rounding = 8
+    rounding = 4
     blur = true
     blur_size = 10
     blur_passes = 1
@@ -228,9 +227,9 @@ bind = $mainMod, C, killactive, # Kill active window
 *** Layouts Keybindings
 
 #+BEGIN_SRC conf
-bind = $mainMod, SPACE, togglefloating,
-bind = $mainMod, F, fullscreen,1
-bind = $mainMod SHIFT, EQUAL, fullscreen,0
+bind = $mainMod, F, togglefloating,
+bind = $mainMod, SPACE, fullscreen,0
+bind = $mainMod SHIFT, SPACE, fullscreen,1
 #+END_SRC
 
 *** Move Focus
@@ -251,8 +250,8 @@ bind = $mainMod, d, layoutmsg, removemaster
 #+END_SRC
 
 *** Workspaces Keybindings
-+ Switch workspaces with mainMod + [0-9]
-+ Move active window to a workspace with mainMod + SHIFT + [0-9]
+- Switch workspaces with mainMod + [0-9]
+- Move active window to a workspace with mainMod + SHIFT + [0-9]
 
 #+BEGIN_SRC conf
 bind = $mainMod, 1, workspace, 1
@@ -305,7 +304,7 @@ bind = , XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle #
 #+BEGIN_SRC conf
 bind = SHIFT, XF86AudioLowerVolume, exec, playerctl previous # previous track
 bind = SHIFT, XF86AudioRaiseVolume, exec, playerctl next # next track
-bind = , XF86AudioMute, exec, playerctl play-pause  # toggle track
+bind = SHIFT, XF86AudioMute, exec, playerctl play-pause  # toggle track
 #+END_SRC
 
 *** Brightness Keybindings
@@ -315,18 +314,21 @@ bind = , XF86MonBrightnessUp, exec,brightnessctl -q set +5% # increase screen br
 bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen brightnes
 #+END_SRC
 
-** Utilities Keybindings
+** Utilities Menu Keybindings
 
 #+BEGIN_SRC conf
+bind = $mainMod, r, exec, bemenu-run -p 'Run:'
+bind = ALT, e, exec, edit-configs # edit config
+bind = $mainMod CTRL, x, exec, bemenu-logout
+bind = $mainMod CTRL, s, exec, bemenu-search
+bind = $mainMod CTRL, n, exec, bemenu-wifi
+bind = $mainMod CTRL, b, exec, bemenu-bluetooth -l 5
+bind = $mainMod CTRL, i, exec, bemenu-install
+bind = $mainMod CTRL, u, exec, bemenu-uninstall
+bind = $mainMod CTRL, semicolon, exec, bemenu-emoji
+bind = $mainMod CTRL, p, exec, hyprpicker -a -n
 bind = , Print, exec, wayshot --now # screenshot of whole screen.
 bind = SHIFT, Print, exec, wayshot --win # screenshot of selected area.
-bind = ALT, e, exec, edit-configs # edit config
-bind = $mainMod, r, exec, $HOME/.config/rofi/launchers/type-1/launcher.sh   # rofi launcher
-bind = $mainMod, x, exec, $HOME/.config/rofi/powermenu/type-4/powermenu.sh  # rofi powermenu
-bind = $mainMod, period, exec, killall rofi || rofi -show emoji -emoji-format "{emoji}" -modi emoji -theme ~/.config/rofi/global/emoji
-bind = $mainMod, n, exec, rofi-wifi-menu   # rofi wifi menu
-bind = $mainMod, b, exec, rofi-bluetooth   # rofi bluetooth
-bind = $mainMod, p, exec, hyprpicker -a -n # color picker
 #+END_SRC
 
 ** Applications Keybindings
