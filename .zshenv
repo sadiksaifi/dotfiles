@@ -1,10 +1,11 @@
 # ZSH ENV
 # Setting xdg paths
-export XDG_HOME="/home/sdk/"
+export XDG_HOME=${XDG_HOME:="$HOME"}
 export XDG_DATA_HOME=${XDG_DATA_HOME:="$HOME/.local/share"}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:="$HOME/.config"}
 export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state/"}
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:="/run/user/1000/"}
 
 # Clean Ups
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
@@ -26,6 +27,7 @@ export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
 export PATH="$HOME/.local/bin/":$PATH
 export PATH=$PATH:/usr/local/mysql/bin #for mysql
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
+export ANDROID_HOME="$XDG_DATA_HOME/android"
 #export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export _JAVA_AWT_WM_NONREPARENTING=1
 export LC_CTYPE="en_GB.utf8"
@@ -37,15 +39,32 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export READER="zathura"
 export TERMINAL="alacritty"
-export BROWSER="qutebrowser"
+export BROWSER="brave"
 export VIDEO="mpv"
-export IMAGE="sxiv"
+export IMAGE="feh"
 export COLORTERM="truecolor"
 export OPENER="xdg-open"
 export MANPAGER="nvim +Man!"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export LESSHISTFILE=-
+
+# Bemenu Exports
+export BEMENU_OPTS="--fn 'JetBrainMono Nerd Font 11'\
+ -H 24 \          # height
+ -i \             # ignorecase
+ -W 1 \           # width(0-1)
+ -M 0 \           # margin
+ --tb '#98be65' \ # prompt bg
+ --tf '#1c1f24' \ # prompt fg
+ --nb '#282c34' \ # normal bg
+ --nf '#cccccc' \ # normal fg
+ --hb '#98be65' \ # highlighted bg
+ --hf '#1c1f24' \ # highlighted fg
+ --fb '#282c34' \ # filter bg
+ --ff '#cccccc' \ # filter fg
+ --ab '#282c34' \ # alt bg
+ --af '#cccccc' \ # alt fg"
 
 # Exporting lf icons
 export LF_ICONS="\
