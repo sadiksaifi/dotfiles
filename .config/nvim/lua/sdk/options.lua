@@ -8,7 +8,7 @@ vim.opt.hlsearch = true                         -- highlight all matches on prev
 vim.opt.ignorecase = true                       -- ignore case in search patterns
 vim.opt.mouse = "a"                              -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10                          -- pop up menu height
-vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
+vim.opt.showmode = true                         -- turn off/on show mode.
 vim.opt.showtabline = 0                         -- always show tabs
 vim.opt.smartcase = true                        -- smart case
 vim.opt.smartindent = true                      -- make indenting smarter again
@@ -43,7 +43,7 @@ vim.opt.colorcolumn = "80"                      -- Side column
 vim.opt.guicursor = ""                          -- Setting block cursor even in insert mode.
 vim.opt.linebreak = true                        -- Setting line break.
 vim.opt.backspace = "indent,eol,start"          -- Fixing backspace.
--- vim.opt.laststatus = 0                          -- disables the status line
+vim.opt.laststatus = 0                          -- disables the status line
 -- Wildmenu
 vim.opt.wildmenu=true                           --Completion of commands
 vim.opt.wildignorecase=true                     --Case insensitive completion

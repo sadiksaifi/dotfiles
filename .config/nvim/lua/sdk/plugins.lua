@@ -44,10 +44,8 @@ return packer.startup(function(use)
   use { "nvim-telescope/telescope.nvim" } -- Telescope, a fuzzy finder
   use { "norcalli/nvim-colorizer.lua" } -- Shows colors
   use { "kyazdani42/nvim-web-devicons" } -- pretty icons
-  use { "kyazdani42/nvim-tree.lua" }  -- tree explorer
   use { "ellisonleao/gruvbox.nvim" }  -- gruvbox colorschemes
   use { "NTBBloodbath/doom-one.nvim" } -- doom one colorscheme
-  use { "nvim-lualine/lualine.nvim"} -- status line
   use { "lukas-reineke/indent-blankline.nvim" } -- indent-blankline line
   use { 'toppair/peek.nvim', run = 'deno task --quiet build:fast' } -- markdown preview
   use { "derektata/lorem.nvim" } -- Generate random text.

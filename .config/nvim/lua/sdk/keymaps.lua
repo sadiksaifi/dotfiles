@@ -26,7 +26,7 @@ vim.keymap.set("v", ">", ">gv", opts) -- increase indentation
 vim.keymap.set("v", "<", "<gv", opts) -- decrease indentation
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts) -- move text up
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts) -- move text down
-vim.keymap.set("n", "<leader>oe", vim.cmd.Ex, opts) -- File Explorer
+vim.keymap.set("n", "<leader>.", vim.cmd.Ex, opts) -- File Explorer
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, opts) -- formatting
 vim.keymap.set("n", "<leader>ex", "<cmd>!chmod +x %<CR>", opts) -- make scripts executable
 vim.keymap.set("n", "<C-r>", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", opts) -- Search & Replace
@@ -43,9 +43,6 @@ vim.keymap.set("n", "<leader>fk", ":Telescope keymaps<CR>", opts)
 
 -- Git
 vim.keymap.set("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
-
--- NvimTree
-vim.keymap.set("n", "<leader>.", ":NvimTreeToggle<CR>", opts)
 
 -- Neorg presenter
 vim.keymap.set("n", "<leader>ps", ":Neorg presenter start<CR>", opts)
