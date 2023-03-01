@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tmux ls | bemenu -l 5 | awk '{ print $1 }' | sed 's/://' | xargs $TERMINAL -e tmux attach-session -t
