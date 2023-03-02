@@ -4,21 +4,29 @@
 #+property: tangle no
 
 ** About
-These are my [[https://archlinux.org][Arch Linux]] dotfiles.
+- This is my  [[https://archlinux.org][Arch Linux]] setup and thier dofiles.
+- If you want install my DE/WM setup you can install by using my [[https://github.com/sadikeey/archinstall][archinstall]] script.
 
-*** Setup
-[[.local/share/screenshots/home.png]]
+*** Wayland Setup
+
+- Currently I am using [[https://hyprland.org/][Hyprland]] as my daily driver.
+- Hyprland is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
+
+[[/.local/share/screenshots/hyprwm.png]]
+
+*** X11 Setup
+[[/.local/share/screenshots/home.png]]
 
 *** Main Programs Configuration.
+- [[file:.config/hypr/][HyprlandWM]] configuration.
+- [[https://github.com/sadikeey/dotfiles/tree/main/.config/hypr#WAYBAR][Waybar]] configuration.
+- [[file:.config/xmonad/][Xmonad WM]] configuration.
+- [[https://github.com/sadikeey/emacs][Emacs]] configuration.
 - [[file:.config/alacritty/][Alacritty]] configuration.
 - [[file:.config/nvim/][Neovim]] configuration.
-- [[https://github.com/sadikeey/emacs][Emacs]] configuration.
-- [[file:.config/xmonad/][Xmonad WM]] configuration.
-- [[file:.config/hypr/][Hypr WM]] configuration.
-- [[file:.config/waybar/][Waybar]] configuration.
 - [[file:.config/zsh/][Zsh]] configuration.
 
-** Installation my dotfiles
+** Installation of my dotfiles
 *Prerequisite* /rync/.
 
 #+begin_src sh
@@ -28,3 +36,4 @@ git clone --separate-git-dir=$HOME/Repos/dotfiles https://github.com/sadikeey/do
 rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
 rm -r tmpdotfiles
 #+end_src
+

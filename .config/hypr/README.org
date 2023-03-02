@@ -1,63 +1,256 @@
-#+TITLE: Hyprland Configuration
-#+AUTHOR: Sadik Saifi
-#+DESCRIPTION: This is the configuration for Hyprland compositor(wayland).
-#+PROPERTY: header-args :tangle hyprland.conf
-#+STARTUP: showeverything
+#+title: Hyprland Configuration
+#+author: Sadik Saifi
+#+description: This is the configuration for wlroot's Hyprpland Compositors Configuration.
+#+property: header-args :tangle hyprland.conf
+#+startup: showeverything
 
-* About
+* ABOUT
 [[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
 It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
 
 [[/.local/share/screenshots/hyprwm.png]]
 
 * TABLE OF CONTENTS :toc:
-- [[#about][About]]
-- [[#autostart][Autostart]]
-- [[#monitors][Monitors]]
-- [[#input][Input]]
-- [[#general][General]]
-- [[#decoration][Decoration]]
-- [[#animations][Animations]]
-- [[#layout-specific][Layout Specific]]
-- [[#gestures][Gestures]]
-- [[#misc][Misc]]
-- [[#mouse][Mouse]]
-- [[#window-rules][Window Rules]]
-- [[#bindings][Bindings]]
-  - [[#initial-keybindings][Initial Keybindings]]
-  - [[#window-manager-keybindings][Window Manager Keybindings]]
-  - [[#volume-track--brightness-keybindings][Volume, Track & Brightness Keybindings]]
-  - [[#utilities-menu-keybindings][Utilities Menu Keybindings]]
-  - [[#applications-keybindings][Applications Keybindings]]
+- [[#about][ABOUT]]
+- [[#autostart][AUTOSTART]]
+- [[#wallpaper][WALLPAPER]]
+- [[#waybar][WAYBAR]]
+  - [[#launch-waybar][Launch Waybar]]
+  - [[#configuration][Configuration]]
+  - [[#styling][Styling]]
+- [[#monitors][MONITORS]]
+- [[#input][INPUT]]
+- [[#general][GENERAL]]
+- [[#decoration][DECORATION]]
+- [[#animation][ANIMATION]]
+- [[#layouts][LAYOUTS]]
+- [[#gestures][GESTURES]]
+- [[#misc][MISC]]
+- [[#window-rules][WINDOW RULES]]
+- [[#bindings][BINDINGS]]
 
-* Autostart
+* AUTOSTART
 
-#+BEGIN_SRC conf
+#+begin_src conf
 exec-once = $HOME/.config/hypr/autostart
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec-once = dex -a -s $HOME/.config/autostart/ &
-exec = $HOME/.config/waybar/waybar.sh &
-exec = hyprpaper &
-exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'Pop-dark' &
-exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' &
+exec-once = dex -a -s $HOME/.config/autostart/ 
+exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'vimix-dark-doder' 
+exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Vimix Doder dark' 
+exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
+exec = $HOME/.config/hypr/waybar/launch.sh 
+exec = hyprpaper 
 exec-once = /usr/bin/emacs --daemon
-exec-once = dunst &
-#+END_SRC
+exec-once = dunst 
+#+end_src
 
-* Monitors
-monitor=,preferred,auto,1
+* WALLPAPER
 
-#+BEGIN_SRC conf
+#+begin_src conf :tangle hyprpaper.conf
+preload = ~/.local/share/sdk/wall.jpg
+wallpaper = eDP-1,~/.local/share/sdk/wall.jpg
+#+end_src
+
+* WAYBAR
+
+** Launch Waybar
+
+#+begin_src sh :tangle ./waybar/launch.sh
+#!/bin/sh
+killall -q waybar
+while pgrep -x waybar >/dev/null; do sleep 1; done
+waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.css
+#+end_src
+
+** Configuration
+
+#+begin_src conf :tangle ./waybar/config
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 24, // Waybar height (to be removed for auto height)
+    "spacing": 4, // Gaps between modules (4px)
+
+    // Choose the order of the modules
+    "modules-left": ["wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-right": [ "tray", "pulseaudio", "network", "backlight", "battery", "clock",],
+
+    // Modules configuration
+    "wlr/workspaces": {
+        "disable-scroll": false,
+        "active-only": false,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{name}",
+        // "format": "{name}",
+        // "format": "{name}: {icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": true
+    },
+    "wlr/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "tray": {
+        "icon-size": 14,
+    },
+    "clock": {
+        "timezone": "Asia/Kolkata",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format": "   {:%a %b %d, %H:%M}",
+        "interval": 60
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠"]
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid} 󰖩",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected 󱚵",
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+}
+#+end_src
+
+** Styling
+
+#+begin_src css :tangle ./waybar/style.css
+ * {
+  border: none;
+  border-radius: 0;
+  font-family: 'Roboto', 'FontAwesome';
+  font-weight: 500;
+  font-size: 13px;
+}
+
+window#waybar {
+  color: #eaeaea;
+  background-color: rgba(40, 44, 52, 0.85);
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: #828482;
+  box-shadow: inset 0 -3px transparent;
+}
+
+#workspaces button.active {
+  color: #eaeaea;
+}
+
+#workspaces button:hover {
+  background: rgba(256, 256, 256, 0.9);
+  color: rgba(40, 44, 52, 1.0);
+}
+
+#workspaces button.urgent {
+  background: rgba(256, 256, 256, 0.9);
+  color: rgba(40, 44, 52, 1.0)
+}
+
+#window {
+  border-left: 1px solid #eaeaea ;
+  margin: 5px 0;
+  padding: 0 10px;
+}
+
+#tray,
+#pulseaudio,
+#network,
+#backlight,
+#battery,
+#clock {
+  padding: 0 10px;
+}
+
+#clock {
+  padding: 0 15px 0 10px;
+}
+
+@keyframes blink {
+  to {
+    background-color: #eaeaea;
+    color: black;
+  }
+}
+
+#battery.warning:not(.charging) {
+  color: #ff6c6b;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+tooltip {
+  border: 1px solid rgba(100, 114, 125, 0.5);
+}
+
+#+end_src
+
+* MONITORS
+
+#+begin_src conf
 monitor = eDP-1,1920x1080@60,0x0,1
-# monitor=DP-2,2560x1440@60,2560x670,1
-# monitor=DP-3,2560x1440@60,0x0,1
-#+END_SRC
+ # monitor=DP-2,2560x1440@60,2560x670,1
+ # monitor=DP-3,2560x1440@60,0x0,1
+#+end_src
 
-* Input
+* INPUT
 
-#+BEGIN_SRC conf
+#+begin_src conf
 input {
     kb_layout = us
     kb_options = caps:escape
@@ -77,14 +270,13 @@ input {
 
     sensitivity = 0
 }
-#+END_SRC
+#+end_src
 
-* General
+* GENERAL
 
-#+BEGIN_SRC conf
+#+begin_src conf
 general {
     layout = master
-
     gaps_in = 6
     gaps_out = 12
     border_size = 2
@@ -92,13 +284,13 @@ general {
     col.active_border = 0xff9aedfe
     col.inactive_border = 0x66333333
 }
-#+END_SRC
+#+end_src
 
-* Decoration
+* DECORATION
 
-#+BEGIN_SRC conf
+#+begin_src conf
 decoration {
-    rounding = 4
+    rounding = 2
     blur = true
     blur_size = 10
     blur_passes = 1
@@ -115,11 +307,11 @@ decoration {
     active_opacity = 1.0
     inactive_opacity = 1.0
 }
-#+END_SRC
+#+end_src
 
-* Animations
+* ANIMATION
 
-#+BEGIN_SRC conf
+#+begin_src conf
 animations {
     enabled = true
     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
@@ -129,55 +321,42 @@ animations {
     animation = fade, 1, 4, default
     animation = workspaces, 1, 6, default
 }
-#+END_SRC
+#+end_src
 
-* Layout Specific
+* LAYOUTS
 
-#+BEGIN_SRC conf
-dwindle {
-    pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-    preserve_split = true # you probably want this
-}
-
+#+begin_src conf
 master {
     new_is_master = yes
 }
-#+END_SRC
+#+end_src
 
-* Gestures
+* GESTURES
 
-#+BEGIN_SRC conf
+#+begin_src conf
 gestures {
     workspace_swipe = on
     workspace_swipe_fingers = 3
     workspace_swipe_distance = 400
     workspace_swipe_forever = true
 }
-#+END_SRC
+#+end_src
 
-* Misc
+* MISC
 
-#+BEGIN_SRC conf
+#+begin_src conf
 misc {
   disable_hyprland_logo = true
   disable_splash_rendering = true
   mouse_move_enables_dpms = true
   enable_swallow = true
-  swallow_regex = ^(kitty)$
+  swallow_regex = ^(Alacritty)$
 }
-#+END_SRC
+#+end_src
 
-* Mouse
+* WINDOW RULES
 
-#+BEGIN_SRC conf
-device:epic mouse V1 {
-    sensitivity = -0.5
-}
-#+END_SRC
-
-* Window Rules
-
-#+BEGIN_SRC conf
+#+begin_src conf
 windowrule = unset, $TERMINAL
 windowrule = tile, DesktopEditors  #only-office
 windowrule = workspace 2, Brave
@@ -208,52 +387,30 @@ windowrule = float, title:^(Volume Control)$
 windowrule = float, title:^(Picture-in-Picture)$
 windowrule = size 800 600, title:^(Volume Control)$
 windowrule = move 75 44%, title:^(Volume Control)$
-#+END_SRC
+#+end_src
 
-* Bindings
+* BINDINGS
 
-** Initial Keybindings
-
-#+BEGIN_SRC conf
+#+begin_src conf
 $mainMod = SUPER
 bind = CTRL $mainMod SHIFT, q, exit, # quit Hyperland
-bind = CTR $mainMod SHIFT, r, exec, hyprctl reload # reload hyprland
-bind = $mainMod SHIFT, b, exec, pkill -SIGUSR1 '^waybar$' # toggle bar
+bind = $mainMod SHIFT, b, exec, $HOME/.config/hypr/waybar/launch.sh
+bind = $mainMod, b, exec, pkill -SIGUSR1 '^waybar$' # toggle bar
 bind = $mainMod, C, killactive, # Kill active window
-#+END_SRC
 
-** Window Manager Keybindings
-
-*** Layouts Keybindings
-
-#+BEGIN_SRC conf
 bind = $mainMod, F, togglefloating,
 bind = $mainMod, SPACE, fullscreen,0
 bind = $mainMod SHIFT, SPACE, fullscreen,1
-#+END_SRC
 
-*** Move Focus
-
-#+BEGIN_SRC conf
 bind = $mainMod, h, movefocus, l
 bind = $mainMod, l, movefocus, r
 bind = $mainMod, k, movefocus, u
 bind = $mainMod, j, movefocus, d
-#+END_SRC
 
-*** Master Layout Keybindings
-
-#+BEGIN_SRC conf
 bind = $mainMod SHIFT, Return, layoutmsg, swapwithmaster
 bind = $mainMod, i, layoutmsg, addmaster
 bind = $mainMod, d, layoutmsg, removemaster
-#+END_SRC
 
-*** Workspaces Keybindings
-- Switch workspaces with mainMod + [0-9]
-- Move active window to a workspace with mainMod + SHIFT + [0-9]
-
-#+BEGIN_SRC conf
 bind = $mainMod, 1, workspace, 1
 bind = $mainMod, 2, workspace, 2
 bind = $mainMod, 3, workspace, 3
@@ -275,48 +432,26 @@ bind = $mainMod SHIFT, 7, movetoworkspace, 7
 bind = $mainMod SHIFT, 8, movetoworkspace, 8
 bind = $mainMod SHIFT, 9, movetoworkspace, 9
 bind = $mainMod SHIFT, 0, movetoworkspace, 10
-#+END_SRC
 
-*** Windows Keybindings
-
-#+BEGIN_SRC conf
 bind = $mainMod SHIFT, h, resizeactive, -40 0
 bind = $mainMod SHIFT, l, resizeactive, 40 0
 bind = $mainMod SHIFT, k, resizeactive, 0 -40
 bind = $mainMod SHIFT, j, resizeactive, 0 40
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod SHIFT, mouse:272, resizewindow
-#+END_SRC
 
-** Volume, Track & Brightness Keybindings
-
-*** Volume Keybindings
-
-#+BEGIN_SRC conf
 bind = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5% # decrease volume
 bind = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% # increase volume
 bind = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle # mute volume
 bind = , XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle # mute mic
-#+END_SRC
 
-*** Track Keybindings
-
-#+BEGIN_SRC conf
 bind = SHIFT, XF86AudioLowerVolume, exec, playerctl previous # previous track
 bind = SHIFT, XF86AudioRaiseVolume, exec, playerctl next # next track
 bind = SHIFT, XF86AudioMute, exec, playerctl play-pause  # toggle track
-#+END_SRC
 
-*** Brightness Keybindings
-
-#+BEGIN_SRC conf
 bind = , XF86MonBrightnessUp, exec,brightnessctl -q set +5% # increase screen brightness
 bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen brightnes
-#+END_SRC
 
-** Utilities Menu Keybindings
-
-#+BEGIN_SRC conf
 bind = $mainMod, r, exec, bemenu-run -p 'Run:'
 bind = ALT, e, exec, edit-configs # edit config
 bind = $mainMod CTRL, x, exec, bemenu-logout
@@ -331,11 +466,7 @@ bind = $mainMod, semicolon, exec, bemenu-emoji
 bind = $mainMod CTRL, p, exec, hyprpicker -a -n
 bind = , Print, exec, wayshot --now # screenshot of whole screen.
 bind = SHIFT, Print, exec, wayshot --win # screenshot of selected area.
-#+END_SRC
 
-** Applications Keybindings
-
-#+BEGIN_SRC conf
 bind = $mainMod SHIFT, f, exec, thunar
 bind = $mainMod SHIFT, c, exec, code
 bind = $mainMod SHIFT, m, exec, mailspring
@@ -345,4 +476,4 @@ bind = $mainMod SHIFT, s, exec, spotify
 bind = $mainMod SHIFT, w, exec, $BROWSER
 bind = $mainMod, Return, exec, $TERMINAL
 bind = $mainMod SHIFT, e, exec, emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'
-#+END_SRC
+#+end_src

@@ -50,21 +50,21 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export LESSHISTFILE=-
 
 # Bemenu Exports
-export BEMENU_OPTS="--fn 'JetBrainMono Nerd Font 11'\
- -H 24 \          # height
+export BEMENU_OPTS="--fn 'Roboto Medium 10'\
+ -H 28 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin
- --tb '#98be65' \ # prompt bg
- --tf '#1c1f24' \ # prompt fg
+ --tb '#5b6268' \ # prompt bg
+ --tf '#eaeaea' \ # prompt fg
  --nb '#282c34' \ # normal bg
- --nf '#cccccc' \ # normal fg
- --hb '#98be65' \ # highlighted bg
- --hf '#1c1f24' \ # highlighted fg
+ --nf '#828482' \ # normal fg
+ --hb '#5b6268' \ # highlighted bg
+ --hf '#ffffff' \ # highlighted fg
  --fb '#282c34' \ # filter bg
  --ff '#cccccc' \ # filter fg
  --ab '#282c34' \ # alt bg
- --af '#cccccc' \ # alt fg"
+ --af '#828482' \ # alt fg"
 
 # Exporting lf icons
 export LF_ICONS="\

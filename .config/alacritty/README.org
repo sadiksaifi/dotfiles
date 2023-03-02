@@ -1,77 +1,25 @@
 #+TITLE: Alacritty Configuration
 #+AUTHOR: Sadik Saifi
 #+DESCRIPTION: This is configuration file for alacritty terminal.
-#+PROPERTY: header-args :tangle alacrittybak
+#+PROPERTY: header-args :tangle ./alacritty.yml
 #+STARTUP: showeverything
 
 * TABLE OF CONTENTS :toc:
 - [[#about][About]]
-- [[#imports][Imports]]
 - [[#environment][Environment]]
 - [[#window][Window]]
-  - [[#dimension][Dimension]]
-  - [[#position][Position]]
-  - [[#padding][Padding]]
-  - [[#decorations][Decorations]]
-  - [[#opacity][Opacity]]
-  - [[#startup-mode][Startup Mode]]
-  - [[#title][Title]]
-  - [[#class][Class]]
-  - [[#decorations-1][Decorations]]
-  - [[#scrooling][Scrooling]]
 - [[#font-configuration][Font Configuration]]
-  - [[#font-families][Font Families]]
-  - [[#size][Size]]
-  - [[#offset][Offset]]
-  - [[#font-draw][Font Draw]]
 - [[#colors][Colors]]
-  - [[#primary-colors][Primary Colors]]
-  - [[#cursor-colors][Cursor Colors]]
-  - [[#search-colors][Search Colors]]
-  - [[#keyboard-hints-colors][Keyboard Hints Colors]]
-  - [[#line-indicator-colors][Line Indicator Colors]]
-  - [[#footer-bar-colors][Footer Bar Colors]]
-  - [[#selection-colors][Selection Colors]]
-  - [[#normal-colors][Normal Colors]]
-  - [[#bright-colors][Bright Colors]]
-  - [[#dim-colors][Dim Colors]]
-  - [[#indexed-colors][Indexed Colors]]
-  - [[#transparent-cell-backgrounds-colors][Transparent Cell Backgrounds Colors]]
-- [[#bell][Bell]]
-- [[#selection][Selection]]
 - [[#cursor][Cursor]]
 - [[#live-reloading][Live Reloading]]
 - [[#shell][Shell]]
-- [[#startup-directory][Startup Directory]]
-- [[#misc][Misc]]
-- [[#mouse][Mouse]]
-- [[#hints][Hints]]
-- [[#bindings][Bindings]]
-  - [[#mouse-bindings][Mouse Bindings]]
-  - [[#keyboard-bindings][Keyboard bindings]]
-- [[#debug][Debug]]
 
 * About
 Alacritty is a cross-platform, OpenGL terminal emulator.
 
-* Imports
-All imports must either be absolute paths starting with `/`, or paths relative
-to the user's home directory starting with `~/`.
-
-#+BEGIN_SRC yaml
-# import:
-#   - $HOME/.config/alacritty/themes/onedark.yml
-#+END_SRC
-
 * Environment
-- Any items in the `env` entry below will be added as
-environment variables. Some entries may override variables
-set by alacritty itself.
-
-- TERM variable : This value is used to set the `$TERM` environment
-  variable for each instance of Alacritty. If it is not present,
-  alacritty will check the local terminfo database and use `alacritty`
-  if it is available, otherwise `xterm-256color` is used.
+- Any items in the `env` entry below will be added as environment variables. Some entries may override variables set by alacritty itself.
+- TERM variable : This value is used to set the `$TERM` environment variable for each instance of Alacritty. If it is not present, alacritty will check the local terminfo database and use `alacritty` if it is available, otherwise `xterm-256color` is used.
 
 #+BEGIN_SRC yaml
 env:
@@ -82,130 +30,33 @@ env:
 * Window
 Window properties (changes require restart)
 
-** Dimension
-- Number of lines/columns (not pixels) in the terminal. Both lines and columns
-must be non-zero for this to take effect. The number of columns must be at
-least `2`, while using a value of `0` for columns and lines will fall back
-to the window manager's recommended size.
-
-- Window dimensions (changes require restart)
-
 #+BEGIN_SRC yaml
 window:
   dimensions:
     columns: 0
     lines: 0
-#+END_SRC
-
-** Position
-- Specified in number of pixels.
-
-- If the position is not set, the window manager will handle the placement.
-
-#+BEGIN_SRC yaml
   position:
     x: 0
     y: 0
-#+END_SRC
-
-** Padding
-Blank space added around the window in pixels. This padding is scaled
-by DPI and the specified value is always added at both opposing sides.
-
-#+BEGIN_SRC yaml
   padding:
-    x: 0
-    y: 0
+    x: 11
+    y: 10
   dynamic_padding: true
-#+END_SRC
-
-** Decorations
-- Values for `decorations`:
-    - full: Borders and title bar
-    - none: Neither borders nor title bar
-
-- Values for `decorations` (macOS only):
-    - transparent: Title bar, transparent background and title bar buttons
-    - buttonless: Title bar, transparent background and no title bar buttons
-
-#+BEGIN_SRC yaml
   decorations: full
-#+END_SRC
-
-** Opacity
-- Window opacity as a floating point number from `0.0` to `1.0`.
-
-- The value `0.0` is completely transparent and `1.0` is opaque.
-
-#+BEGIN_SRC yaml
-  opacity: 1.0
-#+END_SRC
-
-** Startup Mode
-- Values for `startup_mode`:
-  - Windowed
-  - Maximized
-  - Fullscreen
-
-- Values for `startup_mode` (macOS only):
-  - SimpleFullscreen
-
-#+BEGIN_SRC yaml
+  opacity: 0.85
   startup_mode: Windowed
-#+END_SRC
-
-** Title
-Title of the window displayed.
-
-#+BEGIN_SRC yaml
   title: Alacritty
-  dynamic_title: true
-#+END_SRC
-
-** Class
-Window class (Linux/BSD only):
-
-#+BEGIN_SRC yaml
+  dynamic_title: false
   class:
     instance: Alacritty # Application instance name
     general: Alacritty # General application class
-#+END_SRC
-
-** Decorations
-- Decorations theme variant (Linux/BSD only)
-- Override the variant of the GTK theme/Wayland client side decorations.
-- Commonly supported values are `dark` and `light`. Set this to `None` to use
-the default theme variant.
-
-#+BEGIN_SRC yaml
   decorations_theme_variant: None
-#+END_SRC
-
-** Scrooling
-- Maximum number of lines in the scrollback buffer.
-- Specifying '0' will disable scrolling.
-- Scrolling distance multiplier.
-
-#+BEGIN_SRC yaml
 scrolling:
   history: 10000
   multiplier: 3
 #+END_SRC
 
 * Font Configuration
-- This is font configuration of alacrittty config.
-- Default Font family:
-    - (macOS) Menlo
-    - (Linux/BSD) monospace
-    - (Windows) Consolas
-
-** Font Families
-- If the bold family is not specified, it will fall back to the
-value specified for the normal font.
-- If the italic family is not specified, it will fall back to the
-value specified for the normal font.
-- If the bold italic family is not specified, it will fall back to the
-value specified for the normal font.
 
 #+BEGIN_SRC yaml
 font:
@@ -221,50 +72,21 @@ font:
   bold_italic:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
-#+END_SRC
-
-** Size
-#+BEGIN_SRC yaml
-  size: 18.0
-#+END_SRC
-
-** Offset
-- Offset is the extra space around each character. `offset.y` can be thought
-of as modifying the line spacing, and `offset.x` as modifying the letter
-spacing.
-- Glyph offset determines the locations of the glyphs within their cells with
-the default being at the bottom. Increasing `x` moves the glyph to the
-right, increasing `y` moves the glyph upward.
-
-#+BEGIN_SRC yaml
+  size: 15.0
   offset:
     x: 0
     y: 0
   glyph_offset:
     x: 0
     y: 0
-#+END_SRC
-
-** Font Draw
-- If builtin_box_drawing is `true`, Alacritty will use a custom built-in font for box drawing
-characters (Unicode points 2500 - 259f).
-- If draw_bold_text_with_bright_colors `true`, bold text is drawn using the bright color variants.
-
-#+BEGIN_SRC yaml
   builtin_box_drawing: true
 draw_bold_text_with_bright_colors: false
 #+END_SRC
 
 * Colors
-Allowed values are CellForeground/CellBackground, which reference the
-affected cell, or hexadecimal colors like #ff00ff.
-
-** Primary Colors
+- Allowed values are CellForeground/CellBackground, which reference the affected cell, or hexadecimal colors like #ff00ff.
 - Default colors (Doom-one)
-- The dimmed foreground color is calculated automatically if it is not
-present. If the bright foreground color is not set, or
-`draw_bold_text_with_bright_colors` is `false`, the normal foreground
-color will be used.
+- The dimmed foreground color is calculated automatically if it is not present. If the bright foreground color is not set, or `draw_bold_text_with_bright_colors` is `false`, the normal foreground color will be used.
 
 #+BEGIN_SRC yaml
 colors:
@@ -273,83 +95,15 @@ colors:
     foreground: '#bbc2cf'
     dim_foreground: '#828482'
     bright_foreground: '#eaeaea'
-#+END_SRC
-
-** Cursor Colors
-- Colors which should be used to draw the terminal cursor.
-
-#+BEGIN_SRC yaml
   cursor:
     text: CellBackground
     cursor: '#528bff'
-#+END_SRC
-
-*** Vi Mode Cursor Colors
-Colors for the cursor when the vi mode is active.
-
-#+BEGIN_SRC yaml
   vi_mode_cursor:
     text: CellBackground
     cursor: CellForeground
-#+END_SRC
-
-** Search Colors
-Colors used for the search bar and match highlighting.
-
-#+BEGIN_SRC yaml
-  search:
-    matches:
-      foreground: '#000000'
-      background: '#ffffff'
-    focused_match:
-      foreground: '#ffffff'
-      background: '#000000'
-#+END_SRC
-
-** Keyboard Hints Colors
-
-#+BEGIN_SRC yaml
-  hints:
-    start:
-      foreground: '#1d1f21'
-      background: '#e9ff5e'
-    end:
-      foreground: '#e9ff5e'
-      background: '#1d1f21'
-#+END_SRC
-
-** Line Indicator Colors
-Color used for the indicator displaying the position in history during
-search and vi mode.
-
-#+BEGIN_SRC yaml
-  line_indicator:
-    foreground: None
-    background: None
-#+END_SRC
-
-** Footer Bar Colors
-Color used for the footer bar on the bottom, used by search regex input,
-hyperlink URI preview, etc.
-
-#+BEGIN_SRC yaml
-  footer_bar:
-    background: '#c5c8c6'
-    foreground: '#1d1f21'
-#+END_SRC
-
-** Selection Colors
-Colors which should be used to draw the selection area.
-
-#+BEGIN_SRC yaml
   selection:
     text: CellForeground
     background: '#3e4451'
-#+END_SRC
-
-** Normal Colors
-
-#+BEGIN_SRC yaml
   normal:
       black:   '#1c1f24'
       red:     '#ff6c6b'
@@ -359,11 +113,6 @@ Colors which should be used to draw the selection area.
       magenta: '#c678dd'
       cyan:    '#5699af'
       white:   '#202328'
-#+END_SRC
-
-** Bright Colors
-
-#+BEGIN_SRC yaml
   bright:
     black:   '#5b6268'
     red:     '#da8548'
@@ -373,13 +122,6 @@ Colors which should be used to draw the selection area.
     magenta: '#a9a1e1'
     cyan:    '#46d9ff'
     white:   '#dfdfdf'
-#+END_SRC
-
-** Dim Colors
-If the dim colors are not set, they will be calculated automatically based
-on the `normal` colors.
-
-#+BEGIN_SRC yaml
   dim:
     black:   '#131415'
     red:     '#864343'
@@ -389,65 +131,6 @@ on the `normal` colors.
     magenta: '#75617b'
     cyan:    '#5b7d78'
     white:   '#828482'
-#+END_SRC
-
-** Indexed Colors
-- The indexed colors include all colors from 16 to 256.
-- When these are not set, they're filled with sensible defaults.
-- Example: `- { index: 16, color: '#ff00ff' }`
-
-#+BEGIN_SRC yaml
-  indexed_colors: []
-#+END_SRC
-
-** Transparent Cell Backgrounds Colors
-Whether or not `window.opacity` applies to all cell backgrounds or only to
-the default background. When set to `true` all cells will be transparent
-regardless of their background color.
-
-#+BEGIN_SRC yaml
-  transparent_background_colors: false
-#+END_SRC
-
-* Bell
-- The bell is rung every time the BEL control character is received.
-- Visual Bell Animation
-- Animation effect for flashing the screen when the visual bell is rung.
-- Values for `animation`:
-  - Ease
-  - EaseOut
-  - EaseOutSine
-  - EaseOutQuad
-  - EaseOutCubic
-  - EaseOutQuart
-  - EaseOutQuint
-  - EaseOutExpo
-  - EaseOutCirc
-  - Linear
-- Duration of the visual bell flash in milliseconds. A `duration` of `0` will
-disable the visual bell animation.
-- When set to `command: None`, no command will be executed.
-
-#+BEGIN_SRC yaml
-bell:
-  animation: EaseOutExpo
-  duration: 0
-  color: '#ffffff'
-  #   command:
-  #     program: notify-send
-  #     args: ["Hello, World!"]
-  #command: None
-#+END_SRC
-
-* Selection
-- This string contains all characters that are used as separators for
-   "semantic words" in Alacritty.
-- When `save_to_clipboard` set to `true`, selected text will be copied to the primary clipboard.
-
-#+BEGIN_SRC yaml
-selection:
-  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-  save_to_clipboard: false
 #+END_SRC
 
 * Cursor
@@ -485,9 +168,7 @@ live_config_reload: true
 #+END_SRC
 
 * Shell
-You can set `shell.program` to the path of your favorite shell, e.g.
-`/bin/fish`. Entries in `shell.args` are passed unmodified as arguments to the
-shell.
+You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`. Entries in `shell.args` are passed unmodified as arguments to the shell.
 
 Default:
   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
@@ -500,152 +181,3 @@ shell:
     - --login
 #+END_SRC
 
-* Startup Directory
-Directory the shell is started in. If this is unset, or `None`, the working
-directory of the parent process will be used.
-
-#+BEGIN_SRC yaml
-working_directory: None
-#+END_SRC
-
-* Misc
-
-#+BEGIN_SRC yaml
-# Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
-
-# Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
-#+END_SRC
-
-* Mouse
-**Click settings**
-The `double_click` and `triple_click` settings control the time
-alacritty should wait for accepting multiple clicks as one double
-or triple click.
-#+BEGIN_SRC yaml
-mouse:
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
-  hide_when_typing: false
-#+END_SRC
-
-* Hints
-- Terminal hints can be used to find text or hyperlink in the visible part of
-the terminal and pipe it to other applications.
-List with all available hints
-
-- Each hint must have any of `regex` or `hyperlinks` field and either an
-`action` or a `command` field. The fields `mouse`, `binding` and
-`post_processing` are optional.
-
-- The `hyperlinks` option will cause OSC 8 escape sequence hyperlinks to be
-highlighted.
-
-- The fields `command`, `binding.key`, `binding.mods`, `binding.mode` and
-`mouse.mods` accept the same values as they do in the `key_bindings` section.
-
-- The `mouse.enabled` field controls if the hint should be underlined while
-the mouse with all `mouse.mods` keys held or the vi mode cursor is above it.
-
-- If the `post_processing` field is set to `true`, heuristics will be used to
-shorten the match if there are characters likely not to be part of the hint
-(e.g. a trailing `.`). This is most useful for URIs and applies only to
-`regex` matches.
-
-- Values for `action`:
-  - Copy
-    Copy the hint's text to the clipboard.
-  - Paste
-    Paste the hint's text to the terminal or search.
-  - Select
-    Select the hint's text.
-  - MoveViModeCursor
-    Move the vi mode cursor to the beginning of the hint.
-#+BEGIN_SRC yaml
-hints:
-  alphabet: "jfkdls;ahgurieowpq" # Keys used for the hint labels.
-  enabled:
-   - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
-             [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]-"
-     hyperlinks: true
-     command: xdg-open
-     post_processing: true
-     mouse:
-       enabled: true
-       mods: None
-     binding:
-       key: U
-       mods: Control|Shift
-#+END_SRC
-
-* Bindings
-
-** Mouse Bindings
-- Mouse bindings are specified as a list of objects, much like the key
-bindings further below.
-
-- To trigger mouse bindings when an application running within Alacritty
-captures the mouse, the `Shift` modifier is automatically added as a
-requirement.
-
-- Each mouse binding will specify a:
-
-- `mouse`:
-  - Middle
-  - Left
-  - Right
-  - Numeric identifier such as `5`
-
-- `action` (see key bindings for actions not exclusive to mouse mode)
-
-- Mouse exclusive actions:
-  - ExpandSelection
-      Expand the selection to the current mouse cursor location.
-
-- And optionally:
-  - `mods` (see key bindings)
-
-#+BEGIN_SRC yaml
-mouse_bindings:
-  - { mouse: Right,                 action: ExpandSelection }
-  - { mouse: Right,  mods: Control, action: ExpandSelection }
-  - { mouse: Middle, mode: ~Vi,     action: PasteSelection  }
-
-#+END_SRC
-
-** Keyboard bindings
-
-#+BEGIN_SRC yaml
-key_bindings:
-  - { key: Paste,                                       action: Paste          }
-  - { key: Copy,                                        action: Copy           }
-  - { key: L,         mods: Control,                    action: ClearLogNotice }
-  - { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
-  - { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp   }
-  - { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
-  - { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop    }
-  - { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
-#+END_SRC
-
-* Debug
-- `render_timer` display the time it takes to redraw each frame.
-- `persistent_logging` keep the log file after quitting Alacritty.
-Values for `log_level`:
-  - Off
-  - Error
-  - Warn
-  - Info
-  - Debug
-  - Trace
-- `print_events` print all received window events.
-- `highlight_damage` highlight window damage information.
-
-#+BEGIN_SRC yaml
-debug:
-  render_timer: false
-  persistent_logging: false
-  log_level: Warn
-  print_events: false
-  highlight_damage: false
-#+END_SRC

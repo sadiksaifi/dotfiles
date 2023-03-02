@@ -1,8 +1,7 @@
 #!/bin/sh
 
 # DWM
-# while type dwm >/dev/null ; do dwm && continue || break ;done
-# exec dwm &
+#while type dwm >/dev/null ; do dwm && continue || break ;done
 
 # Xmonad
 exec xmonad

@@ -5,7 +5,7 @@ Config { font            = "Ubuntu Bold 9"
                            ]
        , bgColor      = "#282c34"
        , fgColor      = "#ff6c6b"
-       , alpha        = 180
+       , alpha        = 240
        , position     = TopSize L 100 24
        , lowerOnStart = True
        , hideOnStart  = False
