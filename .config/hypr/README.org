@@ -28,6 +28,9 @@ It supports multiple layouts, fancy effects, has a very flexible IPC model allow
 - [[#misc][MISC]]
 - [[#window-rules][WINDOW RULES]]
 - [[#bindings][BINDINGS]]
+  - [[#wm-keybinding][WM Keybinding]]
+  - [[#application-keybindings][Application Keybindings]]
+  - [[#utilities][Utilities]]
 
 * AUTOSTART
 
@@ -391,6 +394,8 @@ windowrule = move 75 44%, title:^(Volume Control)$
 
 * BINDINGS
 
+** WM Keybinding
+
 #+begin_src conf
 $mainMod = SUPER
 bind = CTRL $mainMod SHIFT, q, exit, # quit Hyperland
@@ -451,29 +456,62 @@ bind = SHIFT, XF86AudioMute, exec, playerctl play-pause  # toggle track
 
 bind = , XF86MonBrightnessUp, exec,brightnessctl -q set +5% # increase screen brightness
 bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen brightnes
-
-bind = $mainMod, r, exec, bemenu-run -p 'Run:'
-bind = ALT, e, exec, edit-configs # edit config
-bind = $mainMod CTRL, x, exec, bemenu-logout
-bind = $mainMod CTRL, s, exec, bemenu-search
-bind = $mainMod CTRL, n, exec, bemenu-wifi
-bind = $mainMod CTRL, e, exec, bemenu-editconf
-bind = $mainMod CTRL, t, exec, bemenu-tmuxsessions
-bind = $mainMod CTRL, b, exec, bemenu-bluetooth -l 5
-bind = $mainMod CTRL, i, exec, bemenu-install
-bind = $mainMod CTRL, u, exec, bemenu-uninstall
-bind = $mainMod, semicolon, exec, bemenu-emoji
-bind = $mainMod CTRL, p, exec, hyprpicker -a -n
-bind = , Print, exec, wayshot --now # screenshot of whole screen.
-bind = SHIFT, Print, exec, wayshot --win # screenshot of selected area.
-
-bind = $mainMod SHIFT, f, exec, thunar
-bind = $mainMod SHIFT, c, exec, code
-bind = $mainMod SHIFT, m, exec, mailspring
-bind = $mainMod SHIFT, d, exec, discord
-bind = $mainMod SHIFT, v, exec, virt-manager
-bind = $mainMod SHIFT, s, exec, spotify
-bind = $mainMod SHIFT, w, exec, $BROWSER
-bind = $mainMod, Return, exec, $TERMINAL
-bind = $mainMod SHIFT, e, exec, emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'
 #+end_src
+
+** Application Keybindings
+These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](like keychors in emacs).
+
+#+begin_src conf
+bind = $mainMod, Return, exec, $TERMINAL
+bind = SUPER, A, submap, appsubmaps
+submap = appsubmaps
+bind = ,f,exec,thunar
+bind = ,f,submap,reset
+bind = ,c,exec,code
+bind = ,c,submap,reset
+bind = ,m,exec,mailspring
+bind = ,m,submap,reset
+bind = ,d,exec,discord
+bind = ,d,submap,reset
+bind = ,v,exec,virt-manager
+bind = ,v,submap,reset
+bind = ,s,exec,spotify
+bind = ,s,submap,reset
+bind = ,w,exec,$BROWSER
+bind = ,w,submap,reset
+bind = ,e,exec,emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'
+bind = ,e,submap,reset
+submap = reset
+#+end_src
+
+** Utilities
+These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](like keychors in emacs).
+
+#+begin_src conf
+bind = $mainMod, r, exec, bemenu-run -p 'Run:'
+bind = $mainMod,semicolon, exec, bemenu-emoji
+bind = SUPER, P, submap, menusubmap
+submap = menusubmap
+bind = ,x,exec,bemenu-logout
+bind = ,x,submap,reset
+bind = ,s,exec,bemenu-search
+bind = ,s,submap,reset
+bind = ,n,exec,bemenu-wifi
+bind = ,n,submap,reset
+bind = ,e,exec,bemenu-editconf
+bind = ,e,submap,reset
+bind = ,t,exec,bemenu-tmuxsessions
+bind = ,t,submap,reset
+bind = ,b,exec,bemenu-bluetooth -l 5
+bind = ,b,submap,reset
+bind = ,i,exec,bemenu-install
+bind = ,i,submap,reset
+bind = ,u,exec,bemenu-uninstall
+bind = ,u,submap,reset
+bind = ,c,exec,bemenu-shot
+bind = ,c,submap,reset
+bind = ,p,exec,hyprpicker -a -n
+bind = ,p,submap,reset
+submap = reset
+#+end_src
+

@@ -1,0 +1,49 @@
+#!/usr/bin/bash
+
+time=$(date +%Y-%m-%d_%H:%M:%S)
+dir="$HOME/Pictures/Screenshots"
+file="Screenshot_${time}.png"
+
+# notify
+notify_user () {
+	if [[ -e "$dir/$file" ]]; then
+		dunstify -u low --replace=699 -i /usr/share/icons/Papirus-Dark/symbolic/devices/camera-photo-symbolic.svg "Saved as ${dir}/${file}"
+	else
+		dunstify -u low --replace=699 -i /usr/share/icons/Papirus-Dark/symbolic/devices/camera-photo-symbolic.svg "Screenshot Deleted."
+	fi
+}
+
+# take shots
+shotnow () {
+	cd "${dir}" && grim "$file" && feh "${dir}"/"$file"
+	notify_user
+}
+
+shotarea () {
+  cd "${dir}" && grim -g "$(slurp)" "$file" && feh "${dir}"/"$file"
+  notify_user
+}
+
+shotwin () {
+	cd "${dir}" && grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$file" && feh "${dir}"/"$file"
+	notify_user
+}
+
+if [[ ! -d "$dir" ]]; then
+	mkdir -p "$dir"
+fi
+
+val=$(printf "1.Screen\n2.Window\n3.Area" | bemenu -l 3)
+
+case "$val" in
+  "1.Screen") shotnow
+  ;;
+  "3.Area") shotarea
+  ;;
+  "2.Window") shotwin
+  ;;
+  *) echo default
+  ;;
+esac
+
+exit 0
