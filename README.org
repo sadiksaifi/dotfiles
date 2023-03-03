@@ -14,9 +14,6 @@
 
 [[/.local/share/screenshots/hyprwm.png]]
 
-*** X11 Setup
-[[/.local/share/screenshots/home.png]]
-
 *** Main Programs Configuration.
 - [[file:.config/hypr/][HyprlandWM]] configuration.
 - [[https://github.com/sadikeey/dotfiles/tree/main/.config/hypr#WAYBAR][Waybar]] configuration.

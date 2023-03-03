@@ -30,6 +30,7 @@ It supports multiple layouts, fancy effects, has a very flexible IPC model allow
 - [[#bindings][BINDINGS]]
   - [[#wm-keybinding][WM Keybinding]]
   - [[#application-keybindings][Application Keybindings]]
+  - [[#emacs-keybindings][Emacs Keybindings]]
   - [[#utilities][Utilities]]
 
 * AUTOSTART
@@ -70,7 +71,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 
 ** Configuration
 
-#+begin_src conf :tangle ./waybar/config
+#+begin_src json :tangle ./waybar/config
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
@@ -479,8 +480,27 @@ bind = ,s,exec,spotify
 bind = ,s,submap,reset
 bind = ,w,exec,$BROWSER
 bind = ,w,submap,reset
+submap = reset
+#+end_src
+
+** Emacs Keybindings
+These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](like keychors in emacs).
+
+#+begin_src conf
+bind = SUPER, E, submap, emacssubmaps
+submap = emacssubmaps
 bind = ,e,exec,emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'
 bind = ,e,submap,reset
+bind = ,r,exec,reload-emacs-server
+bind = ,r,submap,reset
+bind = ,b,exec,emacsclient -c -a 'emacs' --eval '(ibuffer)'
+bind = ,b,submap,reset
+bind = ,d,exec,emacsclient -c -a 'emacs' --eval '(dired nil)'
+bind = ,d,submap,reset
+bind = ,s,exec,emacsclient -c -a 'emacs' --eval '(eshell)'
+bind = ,s,submap,reset
+bind = ,v,exec,emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'
+bind = ,v,submap,reset
 submap = reset
 #+end_src
 
