@@ -135,6 +135,104 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     },
     "tray": {
         "icon-size": 14,
+        "spacing": 10
+    },
+    "clock": {
+        "timezone": "Asia/Kolkata",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format": "   {:%a %b %d, %H:%M}",
+        "interval": 60
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠"]
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid} 󰖩",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected 󱚵",
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+}
+#+end_src
+
+
+#+begin_src json :tangle ./waybar/config
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 24, // Waybar height (to be removed for auto height)
+    "spacing": 4, // Gaps between modules (4px)
+
+    // Choose the order of the modules
+    "modules-left": ["wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-right": [ "tray", "pulseaudio", "network", "backlight", "battery", "clock",],
+
+    // Modules configuration
+    "wlr/workspaces": {
+        "disable-scroll": false,
+        "active-only": false,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{name}",
+        // "format": "{name}",
+        // "format": "{name}: {icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": true
+    },
+    "wlr/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "tray": {
+        "icon-size": 14,
     },
     "clock": {
         "timezone": "Asia/Kolkata",
@@ -187,7 +285,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 ** Styling
 
 #+begin_src css :tangle ./waybar/style.css
- * {
+ ,* {
   border: none;
   border-radius: 0;
   font-family: 'Roboto', 'FontAwesome';
@@ -414,25 +512,35 @@ windowrule = move 75 44%, title:^(Volume Control)$
 
 ** WM Keybinding
 
+| Keybinding              | Associated action                              |
+|-------------------------+------------------------------------------------|
+| MODKEY + SHIFT + Q      | Quit Hyprland                                  |
+| MODKEY + SHIFT + B      | Refresh Waybar                                 |
+| MODKEY + B              | toggle Waybar                                  |
+| MODKEY + C              | kill active window                             |
+| MODKEY + 1-9            | switches to workspaces (1-9)                   |
+| MODKEY + SHIFT + 1-9    | send focused window to workspace (1-9)         |
+| MODKEY + H              | moves focus to left window                     |
+| MODKEY + L              | moves focus to right window                    |
+| MODKEY + J              | moves focus below window                       |
+| MODKEY + K              | moves foucs to above window                    |
+| MODKEY + SHIFT + H      | resizes window in the left                     |
+| MODKEY + SHIFT + L      | resizes window in the right                    |
+| MODKEY + SHIFT + J      | resizes window in the below direction          |
+| MODKEY + SHIFT + K      | resizes window in the above direction          |
+| MODKEY + F              | toggle floating windows                        |
+| MODKEY + SPACE          | full screen window kind like in monocle layout |
+| MODKEY + SHIFT + SPACE  | actual fullscreen window                       |
+| MODKEY + SHIFT + RETURN | swap with master window                        |
+| MODKEY + I              | Increase windows in master stack               |
+| MODKEY + D              | Decrease windows in master stack               |
+
 #+begin_src conf
 $mainMod = SUPER
-bind = CTRL $mainMod SHIFT, q, exit, # quit Hyperland
+bind = $mainMod SHIFT, q, exit, # quit Hyperland
 bind = $mainMod SHIFT, b, exec, $HOME/.config/hypr/waybar/launch.sh
 bind = $mainMod, b, exec, pkill -SIGUSR1 '^waybar$' # toggle bar
 bind = $mainMod, C, killactive, # Kill active window
-
-bind = $mainMod, F, togglefloating,
-bind = $mainMod, SPACE, fullscreen,0
-bind = $mainMod SHIFT, SPACE, fullscreen,1
-
-bind = $mainMod, h, movefocus, l
-bind = $mainMod, l, movefocus, r
-bind = $mainMod, k, movefocus, u
-bind = $mainMod, j, movefocus, d
-
-bind = $mainMod SHIFT, Return, layoutmsg, swapwithmaster
-bind = $mainMod, i, layoutmsg, addmaster
-bind = $mainMod, d, layoutmsg, removemaster
 
 bind = $mainMod, 1, workspace, 1
 bind = $mainMod, 2, workspace, 2
@@ -456,12 +564,25 @@ bind = $mainMod SHIFT, 8, movetoworkspace, 8
 bind = $mainMod SHIFT, 9, movetoworkspace, 9
 bind = $mainMod SHIFT, 0, movetoworkspace, 10
 
+bind = $mainMod, h, movefocus, l
+bind = $mainMod, l, movefocus, r
+bind = $mainMod, k, movefocus, u
+bind = $mainMod, j, movefocus, d
+
 bind = $mainMod SHIFT, h, resizeactive, -40 0
 bind = $mainMod SHIFT, l, resizeactive, 40 0
 bind = $mainMod SHIFT, k, resizeactive, 0 -40
 bind = $mainMod SHIFT, j, resizeactive, 0 40
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod SHIFT, mouse:272, resizewindow
+
+bind = $mainMod, F, togglefloating,
+bind = $mainMod, SPACE, fullscreen,0
+bind = $mainMod SHIFT, SPACE, fullscreen,1
+
+bind = $mainMod SHIFT, Return, layoutmsg, swapwithmaster
+bind = $mainMod, i, layoutmsg, addmaster
+bind = $mainMod, d, layoutmsg, removemaster
 
 bind = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5% # decrease volume
 bind = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% # increase volume
@@ -477,7 +598,18 @@ bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen 
 #+end_src
 
 ** Application Keybindings
-These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](like keychors in emacs).
+These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
+
+| Keybinding      | Associated action             |
+|-----------------+-------------------------------|
+| MODKEY + RETURN | opens default terminal        |
+| MODKEY-A + F    | opens thunar file manager     |
+| MODKEY-A + C    | opens VS Code                 |
+| MODKEY-A + M    | opens mailspring(mail-client) |
+| MODKEY-A + D    | opens discord                 |
+| MODKEY-A + V    | opens virt-manager            |
+| MODKEY-A + S    | opens spotify                 |
+| MODKEY-A + B    | opens default browser         |
 
 #+begin_src conf
 bind = $mainMod, Return, exec, $TERMINAL
@@ -501,7 +633,15 @@ submap = reset
 #+end_src
 
 ** Emacs Keybindings
-These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](like keychors in emacs).
+These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
+
+| Keybinding   | Associated action              |
+|--------------+--------------------------------|
+| MODKEY-E + E | opens emacs dashboard buffer   |
+| MODKEY-E + B | opens emacs ibuffer menu       |
+| MODKEY-E + D | opens emacs dired file manager |
+| MODKEY-E + S | opens emacs esheel             |
+| MODKEY-E + V | opens emacs vterm              |
 
 #+begin_src conf
 bind = SUPER, E, submap, emacssubmaps
@@ -522,7 +662,22 @@ submap = reset
 #+end_src
 
 ** Utilities
-These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](like keychors in emacs).
+These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
+
+| Keybinding            | Associated action                        |
+|-----------------------+------------------------------------------|
+| MODKEY + semicolor(;) | opens bemenu's emoji prompt              |
+| MODKEY-P + X          | opens bemenu's logout-menu prompt        |
+| MODKEY-P + S          | opens bemenu's search prompt             |
+| MODKEY-P + W          | opens bemenu's wifi prompt               |
+| MODKEY-P + B          | opens bemenu's bluetooth prompt          |
+| MODKEY-P + E          | opens bemenu's edit config prompt        |
+| MODKEY-P + T          | opens bemenu's tmux sessions prompt      |
+| MODKEY-P + I          | opens bemenu's package install prompt    |
+| MODKEY-P + U          | opens bemenu's package uninstall prompt  |
+| MODKEY-P + C          | opens bemenu's screenshot utility prompt |
+| MODKEY-P + P          | opens hyprpicker                         |
+| Print                 | take entire screen's screenshot          |
 
 #+begin_src conf
 bind = $mainMod, r, exec, bemenu-run -p 'Run:'
@@ -550,5 +705,6 @@ bind = ,c,submap,reset
 bind = ,p,exec,hyprpicker -a -n
 bind = ,p,submap,reset
 submap = reset
+bind = ,Print,exec, wayshot --now
 #+end_src
 
