@@ -13,6 +13,8 @@ It supports multiple layouts, fancy effects, has a very flexible IPC model allow
 * TABLE OF CONTENTS :toc:
 - [[#about][ABOUT]]
 - [[#autostart][AUTOSTART]]
+  - [[#xdg-desktop-portal-script][Xdg desktop Portal Script]]
+  - [[#programs][Programs]]
 - [[#wallpaper][WALLPAPER]]
 - [[#waybar][WAYBAR]]
   - [[#launch-waybar][Launch Waybar]]
@@ -34,6 +36,21 @@ It supports multiple layouts, fancy effects, has a very flexible IPC model allow
   - [[#utilities][Utilities]]
 
 * AUTOSTART
+
+** Xdg desktop Portal Script
+
+#+begin_src sh :tangle autostart
+#!/bin/bash
+sleep 1
+killall xdg-desktop-portal-hyprland
+killall xdg-desktop-portal-wlr
+killall xdg-desktop-portal
+/usr/libexec/xdg-desktop-portal-hyprland &
+sleep 2
+/usr/lib/xdg-desktop-portal &
+#+end_src
+
+** Programs
 
 #+begin_src conf
 exec-once = $HOME/.config/hypr/autostart

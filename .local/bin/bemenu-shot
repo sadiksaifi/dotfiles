@@ -33,14 +33,14 @@ if [[ ! -d "$dir" ]]; then
 	mkdir -p "$dir"
 fi
 
-val=$(printf "1.Screen\n2.Window\n3.Area" | bemenu -l 3)
+val=$(printf "1.Screen\n2.Area\n3.Window" | bemenu -l 3 -p 'Screenshot :')
 
 case "$val" in
-  "1.Screen") shotnow
+  "1.Screen") sleep 0.2 && shotnow
   ;;
-  "3.Area") shotarea
+  "2.Area") sleep 0.2 && shotarea
   ;;
-  "2.Window") shotwin
+  "3.Window") sleep 0.2 && shotwin
   ;;
   *) echo default
   ;;
