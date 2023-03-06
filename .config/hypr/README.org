@@ -5,8 +5,7 @@
 #+startup: showeverything
 
 * ABOUT
-[[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
-It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
+[[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks. It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
 
 [[/.local/share/screenshots/hyprwm.png]]
 
@@ -106,7 +105,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
         "all-outputs": true,
         "on-click": "activate",
         "format": "{name}",
-        // "format": "{name}",
+        // "format": "{icon}",
         // "format": "{name}: {icon}",
         "format-icons": {
             "1": "",
@@ -136,103 +135,6 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     "tray": {
         "icon-size": 14,
         "spacing": 10
-    },
-    "clock": {
-        "timezone": "Asia/Kolkata",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format": "   {:%a %b %d, %H:%M}",
-        "interval": 60
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠"]
-    },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        "format-wifi": "{essid} 󰖩",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected 󱚵",
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-bluetooth-muted": " {icon}",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-}
-#+end_src
-
-
-#+begin_src json :tangle ./waybar/config
-{
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 24, // Waybar height (to be removed for auto height)
-    "spacing": 4, // Gaps between modules (4px)
-
-    // Choose the order of the modules
-    "modules-left": ["wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-right": [ "tray", "pulseaudio", "network", "backlight", "battery", "clock",],
-
-    // Modules configuration
-    "wlr/workspaces": {
-        "disable-scroll": false,
-        "active-only": false,
-        "all-outputs": true,
-        "on-click": "activate",
-        "format": "{name}",
-        // "format": "{name}",
-        // "format": "{name}: {icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
-    "hyprland/window": {
-        "format": "{}",
-        "separate-outputs": true
-    },
-    "wlr/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "tray": {
-        "icon-size": 14,
     },
     "clock": {
         "timezone": "Asia/Kolkata",
@@ -344,7 +246,7 @@ window#waybar {
   }
 }
 
-#battery.warning:not(.charging) {
+#battery.critical:not(.charging) {
   color: #ff6c6b;
   animation-name: blink;
   animation-duration: 0.5s;
@@ -529,8 +431,8 @@ windowrule = move 75 44%, title:^(Volume Control)$
 | MODKEY + SHIFT + J      | resizes window in the below direction          |
 | MODKEY + SHIFT + K      | resizes window in the above direction          |
 | MODKEY + F              | toggle floating windows                        |
-| MODKEY + SPACE          | full screen window kind like in monocle layout |
-| MODKEY + SHIFT + SPACE  | actual fullscreen window                       |
+| MODKEY + SHIFT          | actual fullscreen window                       |
+| MODKEY + SPACE + SPACE  | full screen window kind like in monocle layout |
 | MODKEY + SHIFT + RETURN | swap with master window                        |
 | MODKEY + I              | Increase windows in master stack               |
 | MODKEY + D              | Decrease windows in master stack               |
@@ -609,7 +511,7 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-A + D    | opens discord                 |
 | MODKEY-A + V    | opens virt-manager            |
 | MODKEY-A + S    | opens spotify                 |
-| MODKEY-A + B    | opens default browser         |
+| MODKEY-A + W    | opens default browser         |
 
 #+begin_src conf
 bind = $mainMod, Return, exec, $TERMINAL
@@ -662,7 +564,8 @@ submap = reset
 #+end_src
 
 ** Utilities
-These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
+- These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
+- To use these bemenu utilites you will require [[https://github.com/Cloudef/bemenu][bemenu]] program itself and my [[file:~/.local/bin/][bemenu scripts]].
 
 | Keybinding            | Associated action                        |
 |-----------------------+------------------------------------------|
@@ -673,9 +576,11 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-P + B          | opens bemenu's bluetooth prompt          |
 | MODKEY-P + E          | opens bemenu's edit config prompt        |
 | MODKEY-P + T          | opens bemenu's tmux sessions prompt      |
+| MODKEY-P + SHIFT-T    | opens bemenu's tailwind search prompt    |
 | MODKEY-P + I          | opens bemenu's package install prompt    |
 | MODKEY-P + U          | opens bemenu's package uninstall prompt  |
 | MODKEY-P + C          | opens bemenu's screenshot utility prompt |
+| MODKEY-P + P          | opens hyprpicker                         |
 | MODKEY-P + P          | opens hyprpicker                         |
 | Print                 | take entire screen's screenshot          |
 
@@ -694,6 +599,8 @@ bind = ,e,exec,bemenu-editconf
 bind = ,e,submap,reset
 bind = ,t,exec,bemenu-tmuxsessions
 bind = ,t,submap,reset
+bind = SHIFT,t,exec,bemenu-tailwindsearch
+bind = SHIFT,t,submap,reset
 bind = ,b,exec,bemenu-bluetooth -l 5
 bind = ,b,submap,reset
 bind = ,i,exec,bemenu-install

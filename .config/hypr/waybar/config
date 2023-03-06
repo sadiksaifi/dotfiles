@@ -15,7 +15,7 @@
         "all-outputs": true,
         "on-click": "activate",
         "format": "{name}",
-        // "format": "{name}",
+        // "format": "{icon}",
         // "format": "{name}: {icon}",
         "format-icons": {
             "1": "",
@@ -45,100 +45,6 @@
     "tray": {
         "icon-size": 14,
         "spacing": 10
-    },
-    "clock": {
-        "timezone": "Asia/Kolkata",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format": "   {:%a %b %d, %H:%M}",
-        "interval": 60
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠"]
-    },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        "format-wifi": "{essid} 󰖩",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected 󱚵",
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-bluetooth-muted": " {icon}",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-}
-
-{
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 24, // Waybar height (to be removed for auto height)
-    "spacing": 4, // Gaps between modules (4px)
-
-    // Choose the order of the modules
-    "modules-left": ["wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-right": [ "tray", "pulseaudio", "network", "backlight", "battery", "clock",],
-
-    // Modules configuration
-    "wlr/workspaces": {
-        "disable-scroll": false,
-        "active-only": false,
-        "all-outputs": true,
-        "on-click": "activate",
-        "format": "{name}",
-        // "format": "{name}",
-        // "format": "{name}: {icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
-    "hyprland/window": {
-        "format": "{}",
-        "separate-outputs": true
-    },
-    "wlr/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "tray": {
-        "icon-size": 14,
     },
     "clock": {
         "timezone": "Asia/Kolkata",

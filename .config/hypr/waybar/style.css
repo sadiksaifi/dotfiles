@@ -57,7 +57,7 @@ window#waybar {
   }
 }
 
-#battery.warning:not(.charging) {
+#battery.critical:not(.charging) {
   color: #ff6c6b;
   animation-name: blink;
   animation-duration: 0.5s;
