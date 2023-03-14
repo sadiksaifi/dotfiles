@@ -1,7 +1,7 @@
 #+title: Hyprland Configuration
 #+author: Sadik Saifi
 #+description: This is the configuration for wlroot's Hyprpland Compositors Configuration.
-#+property: header-args :tangle hyprland.conf
+#+property: header-args :emacs-lisp :tangle hyprland.conf
 #+startup: showeverything
 
 * ABOUT
@@ -63,6 +63,7 @@ exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
 exec = $HOME/.config/hypr/waybar/launch.sh 
 exec = hyprpaper 
+exec = foot --server
 exec-once = /usr/bin/emacs --daemon
 exec-once = dunst 
 #+end_src
@@ -78,7 +79,7 @@ wallpaper = eDP-1,~/.local/share/sdk/wall.jpg
 
 ** Launch Waybar
 
-#+begin_src sh :tangle ./waybar/launch.sh
+#+begin_src sh :tangle no
 #!/bin/sh
 killall -q waybar
 while pgrep -x waybar >/dev/null; do sleep 1; done
@@ -95,9 +96,13 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     "spacing": 4, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    "modules-left": ["wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-right": [ "tray", "pulseaudio", "network", "backlight", "battery", "clock",],
+    "modules-left": [ "custom/launcher", "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "clock",],
 
+    "custom/launcher": {
+        "format": "",
+        "on-click": "bemenu-run -p 'Run : '",
+    },
     // Modules configuration
     "wlr/workspaces": {
         "disable-scroll": false,
@@ -136,38 +141,16 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
         "icon-size": 14,
         "spacing": 10
     },
-    "clock": {
-        "timezone": "Asia/Kolkata",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format": "   {:%a %b %d, %H:%M}",
-        "interval": 60
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠"]
-    },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-icons": ["", "", "", "", ""]
-    },
     "network": {
-        "format-wifi": "{essid} 󰖩",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected 󱚵",
+        "format-wifi": "󰖩   {essid}",
+        "format-ethernet": "  {ipaddr}/{cidr}",
+        "tooltip-format": "  {ifname} via {gwaddr}",
+        "format-linked": "  {ifname} (No IP)",
+        "format-disconnected": "󱚵  Disconnected",
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
+        "format": "{icon} {volume}%",
         "format-bluetooth": "{volume}% {icon}",
         "format-bluetooth-muted": " {icon}",
         "format-icons": {
@@ -180,6 +163,28 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon}   {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃝", "󰃠"]
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "{icon}  {capacity}% ",
+        "format-plugged": "{icon}  {capacity}% ",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "timezone": "Asia/Kolkata",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format": "   {:%a %b %d, %H:%M}",
+        "interval": 60
     },
 }
 #+end_src
@@ -259,6 +264,9 @@ tooltip {
   border: 1px solid rgba(100, 114, 125, 0.5);
 }
 
+#custom-launcher {
+  padding-left: 10px;
+}
 #+end_src
 
 * MONITORS
