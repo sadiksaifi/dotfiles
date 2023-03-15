@@ -32,6 +32,11 @@ vim.keymap.set("n", "<leader>ex", "<cmd>!chmod +x %<CR>", opts) -- make scripts 
 vim.keymap.set("n", "<C-r>", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", opts) -- Search & Replace
 vim.keymap.set("n", "<leader>h", vim.cmd.nohlsearch, opts)
 
+-- Delete whole word backward
+vim.cmd [[
+noremap! <C-BS> <C-w>
+noremap! <C-h> <C-w>]]
+
 ------------------ Plugins -------------------
 -- Telescope
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", opts)

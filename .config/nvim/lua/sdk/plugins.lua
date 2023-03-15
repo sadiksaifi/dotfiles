@@ -49,6 +49,8 @@ return packer.startup(function(use)
   use { "lukas-reineke/indent-blankline.nvim" } -- indent-blankline line
   use { 'toppair/peek.nvim', run = 'deno task --quiet build:fast' } -- markdown preview
   use { "derektata/lorem.nvim" } -- Generate random text.
+  use { "github/copilot.vim" } -- Github copilot
+  use {'akinsho/bufferline.nvim', tag = "v3.*" } -- tab/bufferline
 
   -- LSP
   use {
