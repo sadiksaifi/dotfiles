@@ -1,7 +1,7 @@
 #+title: Hyprland Configuration
 #+author: Sadik Saifi
 #+description: This is the configuration for wlroot's Hyprpland Compositors Configuration.
-#+property: header-args :emacs-lisp :tangle hyprland.conf
+#+property: header-args :sh :tangle hyprland.conf
 #+startup: showeverything
 
 * ABOUT
@@ -51,7 +51,7 @@ sleep 2
 
 ** Programs
 
-#+begin_src conf
+#+begin_src sh
 exec-once = swaylock
 exec-once = $HOME/.config/hypr/autostart
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -71,7 +71,7 @@ exec-once = dunst
 
 * WALLPAPER
 
-#+begin_src conf :tangle hyprpaper.conf
+#+begin_src sh :tangle hyprpaper.conf
 preload = ~/.local/share/sdk/wall.jpg
 wallpaper = eDP-1,~/.local/share/sdk/wall.jpg
 #+end_src
@@ -284,7 +284,7 @@ tooltip {
 
 * MONITORS
 
-#+begin_src conf
+#+begin_src sh
 monitor = eDP-1,1920x1080@60,0x0,1
  # monitor=DP-2,2560x1440@60,2560x670,1
  # monitor=DP-3,2560x1440@60,0x0,1
@@ -292,7 +292,7 @@ monitor = eDP-1,1920x1080@60,0x0,1
 
 * INPUT
 
-#+begin_src conf
+#+begin_src sh
 input {
     kb_layout = us
     kb_options = caps:escape
@@ -316,7 +316,7 @@ input {
 
 * GENERAL
 
-#+begin_src conf
+#+begin_src sh
 general {
     layout = master
     gaps_in = 6
@@ -330,7 +330,7 @@ general {
 
 * DECORATION
 
-#+begin_src conf
+#+begin_src sh
 decoration {
     rounding = 2
     blur = true
@@ -353,7 +353,7 @@ decoration {
 
 * ANIMATION
 
-#+begin_src conf
+#+begin_src sh
 animations {
     enabled = true
     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
@@ -367,7 +367,7 @@ animations {
 
 * LAYOUTS
 
-#+begin_src conf
+#+begin_src sh
 master {
     new_is_master = true
 }
@@ -375,7 +375,7 @@ master {
 
 * GESTURES
 
-#+begin_src conf
+#+begin_src sh
 gestures {
     workspace_swipe = on
     workspace_swipe_fingers = 3
@@ -386,7 +386,7 @@ gestures {
 
 * MISC
 
-#+begin_src conf
+#+begin_src sh
 misc {
   disable_hyprland_logo = true
   disable_splash_rendering = true
@@ -398,7 +398,7 @@ misc {
 
 * WINDOW RULES
 
-#+begin_src conf
+#+begin_src sh
 windowrule = unset, $TERMINAL
 windowrule = tile, DesktopEditors  #only-office
 windowrule = workspace 2, Brave
@@ -459,7 +459,7 @@ windowrule = move 75 44%, title:^(Volume Control)$
 | MODKEY + I              | Increase windows in master stack               |
 | MODKEY + D              | Decrease windows in master stack               |
 
-#+begin_src conf
+#+begin_src sh
 $mainMod = SUPER
 bind = $mainMod SHIFT, q, exit, # quit Hyperland
 bind = $mainMod SHIFT, b, exec, $HOME/.config/hypr/waybar/launch.sh
@@ -537,7 +537,7 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-A + W    | opens default browser         |
 | MODKEY-A + Y    | opens my youtube instance     |
 
-#+begin_src conf
+#+begin_src sh
 bind = $mainMod, Return, exec, $TERMINAL
 bind = SUPER, A, submap, appsubmaps
 submap = appsubmaps
@@ -572,7 +572,7 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-E + S | opens emacs esheel             |
 | MODKEY-E + V | opens emacs vterm              |
 
-#+begin_src conf
+#+begin_src sh
 bind = SUPER, E, submap, emacssubmaps
 submap = emacssubmaps
 bind = ,e,exec,emacsclient -c -a 'emacs' --eval '(dashboard-refresh-buffer)'
@@ -612,7 +612,7 @@ submap = reset
 | MODKEY-P + P          | opens hyprpicker                         |
 | Print                 | take entire screen's screenshot          |
 
-#+begin_src conf
+#+begin_src sh
 bind = $mainMod, r, exec, bemenu-run -p 'Run:'
 bind = $mainMod,semicolon, exec, bemenu-emoji
 bind = SUPER, P, submap, menusubmap
