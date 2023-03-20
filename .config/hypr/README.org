@@ -52,6 +52,7 @@ sleep 2
 ** Programs
 
 #+begin_src conf
+exec-once = swaylock
 exec-once = $HOME/.config/hypr/autostart
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -148,6 +149,16 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
         "format-linked": "  {ifname} (No IP)",
         "format-disconnected": "󱚵  Disconnected",
     },
+    "cpu": {
+        "interval": 10,
+        "format": "  {}%",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": "  {}%",
+        "max-length": 10
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}%",
@@ -232,6 +243,8 @@ window#waybar {
 }
 
 #tray,
+#cpu,
+#memory,
 #pulseaudio,
 #network,
 #backlight,
@@ -356,7 +369,7 @@ animations {
 
 #+begin_src conf
 master {
-    new_is_master = yes
+    new_is_master = true
 }
 #+end_src
 
@@ -379,7 +392,7 @@ misc {
   disable_splash_rendering = true
   mouse_move_enables_dpms = true
   enable_swallow = true
-  swallow_regex = ^(Alacritty)$
+  swallow_regex = ^(foot)$
 }
 #+end_src
 
@@ -428,6 +441,7 @@ windowrule = move 75 44%, title:^(Volume Control)$
 | MODKEY + SHIFT + B      | Refresh Waybar                                 |
 | MODKEY + B              | toggle Waybar                                  |
 | MODKEY + C              | kill active window                             |
+| Lock Key                | Locks the wm                                   |
 | MODKEY + 1-9            | switches to workspaces (1-9)                   |
 | MODKEY + SHIFT + 1-9    | send focused window to workspace (1-9)         |
 | MODKEY + H              | moves focus to left window                     |
@@ -451,6 +465,7 @@ bind = $mainMod SHIFT, q, exit, # quit Hyperland
 bind = $mainMod SHIFT, b, exec, $HOME/.config/hypr/waybar/launch.sh
 bind = $mainMod, b, exec, pkill -SIGUSR1 '^waybar$' # toggle bar
 bind = $mainMod, C, killactive, # Kill active window
+bind = ,XK86Lock, exec, swaylock
 
 bind = $mainMod, 1, workspace, 1
 bind = $mainMod, 2, workspace, 2
@@ -520,6 +535,7 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-A + V    | opens virt-manager            |
 | MODKEY-A + S    | opens spotify                 |
 | MODKEY-A + W    | opens default browser         |
+| MODKEY-A + Y    | opens my youtube instance     |
 
 #+begin_src conf
 bind = $mainMod, Return, exec, $TERMINAL
@@ -539,6 +555,9 @@ bind = ,s,exec,spotify
 bind = ,s,submap,reset
 bind = ,w,exec,$BROWSER
 bind = ,w,submap,reset
+bind = ,y,exec,$BROWSER yt.sadiksaifi.xyz
+bind = ,y,submap,reset
+bind=,escape,submap,reset 
 submap = reset
 #+end_src
 
@@ -568,6 +587,7 @@ bind = ,s,exec,emacsclient -c -a 'emacs' --eval '(eshell)'
 bind = ,s,submap,reset
 bind = ,v,exec,emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'
 bind = ,v,submap,reset
+bind=,escape,submap,reset 
 submap = reset
 #+end_src
 
@@ -605,10 +625,8 @@ bind = ,n,exec,bemenu-wifi
 bind = ,n,submap,reset
 bind = ,e,exec,bemenu-editconf
 bind = ,e,submap,reset
-bind = ,t,exec,bemenu-tmuxsessions
+bind = ,t,exec,bemenu-tailwindsearch
 bind = ,t,submap,reset
-bind = SHIFT,t,exec,bemenu-tailwindsearch
-bind = SHIFT,t,submap,reset
 bind = ,b,exec,bemenu-bluetooth -l 5
 bind = ,b,submap,reset
 bind = ,i,exec,bemenu-install
@@ -619,6 +637,7 @@ bind = ,c,exec,bemenu-shot
 bind = ,c,submap,reset
 bind = ,p,exec,hyprpicker -a -n
 bind = ,p,submap,reset
+bind=,escape,submap,reset 
 submap = reset
 bind = ,Print,exec, wayshot --now
 #+end_src

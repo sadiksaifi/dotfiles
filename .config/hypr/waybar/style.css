@@ -38,6 +38,8 @@ window#waybar {
 }
 
 #tray,
+#cpu,
+#memory,
 #pulseaudio,
 #network,
 #backlight,
