@@ -14,7 +14,6 @@
 - [[#autostart][AUTOSTART]]
   - [[#xdg-desktop-portal-script][Xdg desktop Portal Script]]
   - [[#programs][Programs]]
-- [[#wallpaper][WALLPAPER]]
 - [[#waybar][WAYBAR]]
   - [[#launch-waybar][Launch Waybar]]
   - [[#configuration][Configuration]]
@@ -57,6 +56,7 @@ exec-once = $HOME/.config/hypr/autostart
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
 exec-once = dex -a -s $HOME/.config/autostart/ 
 exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'vimix-dark-doder' 
 exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Vimix Doder dark' 
@@ -67,13 +67,6 @@ exec = hyprpaper
 exec = foot --server
 exec-once = /usr/bin/emacs --daemon
 exec-once = dunst 
-#+end_src
-
-* WALLPAPER
-
-#+begin_src sh :tangle hyprpaper.conf
-preload = ~/.local/share/sdk/wall.jpg
-wallpaper = eDP-1,~/.local/share/sdk/wall.jpg
 #+end_src
 
 * WAYBAR
@@ -557,6 +550,8 @@ bind = ,w,exec,$BROWSER
 bind = ,w,submap,reset
 bind = ,y,exec,$BROWSER yt.sadiksaifi.xyz
 bind = ,y,submap,reset
+bind = ,h,exec,$TERMINAL -e htop
+bind = ,h,submap,reset
 bind=,escape,submap,reset 
 submap = reset
 #+end_src
@@ -597,6 +592,8 @@ submap = reset
 
 | Keybinding            | Associated action                        |
 |-----------------------+------------------------------------------|
+| MODKEY + r            | opens bemenu's run launcher              |
+| Insert                | changes wallpaper                        |
 | MODKEY + semicolor(;) | opens bemenu's emoji prompt              |
 | MODKEY-P + X          | opens bemenu's logout-menu prompt        |
 | MODKEY-P + S          | opens bemenu's search prompt             |
@@ -614,6 +611,7 @@ submap = reset
 
 #+begin_src sh
 bind = $mainMod, r, exec, bemenu-run -p 'Run:'
+bind = ,Insert,exec,bemenu-wallchange
 bind = $mainMod,semicolon, exec, bemenu-emoji
 bind = SUPER, P, submap, menusubmap
 submap = menusubmap
