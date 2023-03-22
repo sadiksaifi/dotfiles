@@ -1,9 +1,11 @@
 #!/bin/sh
 
+dirs="$HOME/Projects/ $HOME/Repos/ $HOME/.config/ $HOME/.local/"
+
 if [ $# -eq 1 ]; then
     selected="$1"
 else
-    selected="$(find ~/Projects/ ~/Repos/ ~/.config/ ~/.local/ -mindepth 1 -maxdepth 2 -type d | grep -vE '\.git|node_modules' | fzf)"
+    selected=$(find $dirs -mindepth 2 -maxdepth 2 -type d -not \( -path '*/.git' -o -path '*/node_modules' -o -path '*/.yarn' \) | fzf)
 fi
 
 [ -z "$selected" ] && exit 0
