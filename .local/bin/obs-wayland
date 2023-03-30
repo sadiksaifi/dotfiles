@@ -1,4 +1,10 @@
 #!/bin/sh
 
 export QT_QPA_PLATFORM=wayland;
-obs
+
+if [ -f /usr/bin/obs ] ; then
+  obs
+else
+  flatpak run com.obsproject.Studio
+fi
+
