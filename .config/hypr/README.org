@@ -410,6 +410,7 @@ windowrule = float, Lxappearance
 windowrule = float, viewnior
 windowrule = float, Viewnior
 windowrule = float, feh
+windowrule = float, swayimg
 windowrule = float, pavucontrol-qt
 windowrule = float, pavucontrol
 windowrule = float, file-roller
@@ -446,8 +447,8 @@ windowrule = move 75 44%, title:^(Volume Control)$
 | MODKEY + SHIFT + J      | resizes window in the below direction          |
 | MODKEY + SHIFT + K      | resizes window in the above direction          |
 | MODKEY + F              | toggle floating windows                        |
-| MODKEY + SHIFT          | actual fullscreen window                       |
-| MODKEY + SPACE + SPACE  | full screen window kind like in monocle layout |
+| MODKEY + SHIFT + SPACE  | actual fullscreen window                       |
+| MODKEY + SPACE          | full screen window kind like in monocle layout |
 | MODKEY + SHIFT + RETURN | swap with master window                        |
 | MODKEY + I              | Increase windows in master stack               |
 | MODKEY + D              | Decrease windows in master stack               |
@@ -495,8 +496,8 @@ bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod SHIFT, mouse:272, resizewindow
 
 bind = $mainMod, F, togglefloating,
-bind = $mainMod, SPACE, fullscreen,0
-bind = $mainMod SHIFT, SPACE, fullscreen,1
+bind = $mainMod SHIFT, SPACE, fullscreen,0
+bind = $mainMod, SPACE, fullscreen,1
 
 bind = $mainMod SHIFT, Return, layoutmsg, swapwithmaster
 bind = $mainMod, i, layoutmsg, addmaster
@@ -604,15 +605,15 @@ submap = reset
 | MODKEY-P + SHIFT-T    | opens bemenu's tailwind search prompt    |
 | MODKEY-P + I          | opens bemenu's package install prompt    |
 | MODKEY-P + U          | opens bemenu's package uninstall prompt  |
-| MODKEY-P + C          | opens bemenu's screenshot utility prompt |
+| Print                 | opens bemenu's screenshot utility prompt |
 | MODKEY-P + P          | opens hyprpicker                         |
 | MODKEY-P + P          | opens hyprpicker                         |
-| Print                 | take entire screen's screenshot          |
 
 #+begin_src sh
 bind = $mainMod, r, exec, bemenu-run -p 'Run:'
-bind = ,Insert,exec,bemenu-wallchange
 bind = $mainMod,semicolon, exec, bemenu-emoji
+bind = ,Insert,exec,bemenu-wallchange
+bind = ,Print,exec,bemenu-shot
 bind = SUPER, P, submap, menusubmap
 submap = menusubmap
 bind = ,x,exec,bemenu-logout
@@ -631,12 +632,9 @@ bind = ,i,exec,bemenu-install
 bind = ,i,submap,reset
 bind = ,u,exec,bemenu-uninstall
 bind = ,u,submap,reset
-bind = ,c,exec,bemenu-shot
-bind = ,c,submap,reset
 bind = ,p,exec,hyprpicker -a -n
 bind = ,p,submap,reset
 bind=,escape,submap,reset 
 submap = reset
-bind = ,Print,exec, wayshot --now
 #+end_src
 
