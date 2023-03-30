@@ -1,4 +1,7 @@
-local peek = require "peek"
+local status_ok, peek = pcall(require, "peek")
+if not status_ok then
+  return
+end
 
 peek.setup {
   auto_load = true,         -- whether to automatically load preview when
