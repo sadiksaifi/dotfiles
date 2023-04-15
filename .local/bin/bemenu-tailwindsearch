@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat $HOME/.local/bin/tailwind-topics.txt | bemenu -l 10 | sed 's|^\(.*\)$|https://tailwindcss.com/docs/\1|' | xargs $BROWSER
