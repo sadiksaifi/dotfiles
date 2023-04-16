@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for branch in $(git branch | grep -v master); do
+  git checkout "$branch"
+  git merge --no-ff master -m "merge: master branch to $branch"
+done
+
+git push --all origin
