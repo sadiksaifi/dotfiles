@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/brave --app=https://app.slack.com/client/T054SQ45EQ6/C054ZL49E4S

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/brave --app=https://web.whatsapp.com/
