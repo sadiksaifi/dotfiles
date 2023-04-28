@@ -15,17 +15,20 @@ notify_user () {
 
 # take shots
 shotnow () {
-	cd "${dir}" && grim "$file" && feh "${dir}"/"$file"
+	cd "${dir}" && grim "$file" && swayimg "${dir}"/"$file"
+  cat "${dir}"/"$file" | wl-copy
 	notify_user
 }
 
 shotarea () {
-  cd "${dir}" && grim -g "$(slurp)" "$file" && feh "${dir}"/"$file"
+  cd "${dir}" && grim -g "$(slurp)" "$file" && swayimg "${dir}"/"$file"
+  cat "${dir}"/"$file" | wl-copy
   notify_user
 }
 
 shotwin () {
-	cd "${dir}" && grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$file" && feh "${dir}"/"$file"
+	cd "${dir}" && grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$file" && swayimg "${dir}"/"$file"
+  cat "${dir}"/"$file" | wl-copy
 	notify_user
 }
 
