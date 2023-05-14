@@ -2,4 +2,4 @@
 
 pic=$(find ~/Pictures/Wallpapers -type f | shuf -n 1)
 cp "$pic" ~/.local/share/sdk/wall.jpg
-swaybg -i "$pic"
+swaybg -m fill -i "$pic"

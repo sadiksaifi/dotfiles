@@ -51,7 +51,6 @@ sleep 2
 ** Programs
 
 #+begin_src sh
-exec-once = swaylock
 exec-once = $HOME/.config/hypr/autostart
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -65,7 +64,6 @@ exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 1
 exec = $HOME/.config/hypr/waybar/launch.sh 
 exec = hyprpaper 
 exec = foot --server
-exec-once = /usr/bin/emacs --daemon
 exec-once = dunst 
 #+end_src
 
@@ -325,7 +323,7 @@ general {
 
 #+begin_src sh
 decoration {
-    rounding = 2
+    rounding = 6
     blur = true
     blur_size = 10
     blur_passes = 1
@@ -363,6 +361,7 @@ animations {
 #+begin_src sh
 master {
     new_is_master = true
+    allow_small_split = true
 }
 #+end_src
 
@@ -524,7 +523,8 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY + RETURN | opens default terminal        |
 | MODKEY-A + F    | opens thunar file manager     |
 | MODKEY-A + C    | opens VS Code                 |
-| MODKEY-A + M    | opens mailspring(mail-client) |
+| MODKEY-A + I    | opens Intellij Idea           |
+| MODKEY-A + M    | opens geary(mail-client) |
 | MODKEY-A + D    | opens discord                 |
 | MODKEY-A + V    | opens virt-manager            |
 | MODKEY-A + S    | opens spotify                 |
@@ -535,10 +535,12 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 bind = $mainMod, Return, exec, $TERMINAL
 bind = SUPER, A, submap, appsubmaps
 submap = appsubmaps
-bind = ,f,exec,thunar
+bind = ,f,exec,nautilus
 bind = ,f,submap,reset
 bind = ,c,exec,code
 bind = ,c,submap,reset
+bind = ,i,exec,intellij-idea-ultimate-edition 
+bind = ,i,submap,reset
 bind = ,m,exec,mailspring
 bind = ,m,submap,reset
 bind = ,d,exec,discord
