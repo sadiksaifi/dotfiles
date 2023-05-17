@@ -16,7 +16,7 @@ plug "sadikeey/sdk-prompt"
 
 #General Key-bindings
 bindkey -s '^o' 'lfub^M'
-bindkey -s '^t' 'tmux^M'
+bindkey -s '^e' 'edit-configs^M'
 bindkey -s '^g' 'lazygit^M'
 bindkey -s '^f' 'tmux-sessionizer\n'
 
