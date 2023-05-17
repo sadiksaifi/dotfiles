@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This is a video encoding script to convert raw recorded video to encoded videos.
+input_file="$1"
+output_name="$2"
+
+# Interactive menu to choose the preset
+echo "Select the preset:"
+echo "1. Very Fast"
+echo "2. Medium"
+echo "3. Slow"
+read -p "Enter your choice [1-3, or leave empty for default]: " choice
+
+# Set the preset and CRF based on user's choice or default to "veryfast"
+case $choice in
+    1)
+        preset="veryfast"
+        crf="20"
+        ;;
+    2)
+        preset="medium"
+        crf="18"
+        ;;
+    3)
+        preset="slow"
+        crf="16"
+        ;;
+    *)
+        echo "Invalid choice or no input. Using default preset: veryfast"
+        preset="veryfast"
+        crf="20"
+        ;;
+esac
+
+if [[ -n "$output_name" ]]; then
+    output_file="$output_name.mp4"
+else
+    output_file="${input_file%.*}_encoded.mp4"
+fi
+
+ffmpeg -i "$input_file" -c:v libx264 -preset "$preset" -crf "$crf" -c:a copy "$output_file"
