@@ -30,7 +30,6 @@
 - [[#bindings][BINDINGS]]
   - [[#wm-keybinding][WM Keybinding]]
   - [[#application-keybindings][Application Keybindings]]
-  - [[#web-application-keybindings][Web Application Keybindings]]
   - [[#emacs-keybindings][Emacs Keybindings]]
   - [[#utilities][Utilities]]
 
@@ -557,31 +556,6 @@ bind = ,y,exec,$BROWSER yt.sadiksaifi.xyz
 bind = ,y,submap,reset
 bind = ,h,exec,$TERMINAL -e htop
 bind = ,h,submap,reset
-bind=,escape,submap,reset 
-submap = reset
-#+end_src
-
-** Web Application Keybindings
-These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
-
-| Keybinding   | Associated action |
-|--------------+-------------------|
-| MODKEY-W + W | opens whatsapp    |
-| MODKEY-W + S | opens Slack       |
-| MODKEY-W + D | opens Discord     |
-| MODKEY-W + M | opens Spotify     |
-
-#+begin_src sh
-bind = SUPER, W, submap, webappsubmaps
-submap = webappsubmaps
-bind = ,w,exec, $BROWSER --app=https://web.whatsapp.com/
-bind = ,w,submap,reset
-bind = ,s,exec, $BROWSER --app=https://app.slack.com/client/T054SQ45EQ6/C054ZL49E4S
-bind = ,s,submap,reset
-bind = ,d,exec, $BROWSER --app=https://discord.com/channels/@me
-bind = ,d,submap,reset
-bind = ,m,exec, $BROWSER --app=https://open.spotify.com/
-bind = ,m,submap,reset
 bind=,escape,submap,reset 
 submap = reset
 #+end_src
