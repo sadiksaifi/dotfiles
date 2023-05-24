@@ -520,18 +520,18 @@ bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen 
 ** Application Keybindings
 These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
 
-| Keybinding      | Associated action             |
-|-----------------+-------------------------------|
-| MODKEY + RETURN | opens default terminal        |
-| MODKEY-A + F    | opens thunar file manager     |
-| MODKEY-A + C    | opens VS Code                 |
-| MODKEY-A + I    | opens Intellij Idea           |
-| MODKEY-A + M    | opens geary(mail-client) |
-| MODKEY-A + D    | opens discord                 |
-| MODKEY-A + V    | opens virt-manager            |
-| MODKEY-A + S    | opens spotify                 |
-| MODKEY-A + W    | opens default browser         |
-| MODKEY-A + Y    | opens my youtube instance     |
+| Keybinding      | Associated action         |
+|-----------------+---------------------------|
+| MODKEY + RETURN | opens default terminal    |
+| MODKEY-A + F    | opens thunar file manager |
+| MODKEY-A + C    | opens VS Code             |
+| MODKEY-A + I    | opens Intellij Idea       |
+| MODKEY-A + M    | opens geary(mail-client)  |
+| MODKEY-A + D    | opens discord             |
+| MODKEY-A + V    | opens virt-manager        |
+| MODKEY-A + S    | opens spotify             |
+| MODKEY-A + W    | opens default browser     |
+| MODKEY-A + O    | opens OBS                 |
 
 #+begin_src sh
 bind = $mainMod, Return, exec, $TERMINAL
@@ -553,8 +553,8 @@ bind = ,s,exec,spotify
 bind = ,s,submap,reset
 bind = ,w,exec,$BROWSER
 bind = ,w,submap,reset
-bind = ,y,exec,$BROWSER yt.sadiksaifi.xyz
-bind = ,y,submap,reset
+bind = ,o,exec,obs-wayland
+bind = ,o,submap,reset
 bind = ,h,exec,$TERMINAL -e htop
 bind = ,h,submap,reset
 bind=,escape,submap,reset 

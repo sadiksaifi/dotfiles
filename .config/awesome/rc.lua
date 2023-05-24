@@ -76,7 +76,7 @@ local taglist_buttons = gears.table.join(
 
 awful.screen.connect_for_each_screen(function(s)
   -- Wallpaper
-  awful.spawn.with_shell("nitrogen --restore")
+  awful.spawn.with_shell("xwallpaper --zoom " .. os.getenv("HOME") .. "/.local/share/sdk/wall.jpg")
   -- Set gaps
   beautiful.useless_gap = 10
 
@@ -159,7 +159,7 @@ local globalkeys = gears.table.join(
     { description = "select next", group = "layout" }),
 
   -- Applications
-  awful.key({ modkey }, "r", function() awful.spawn("dmenu_run -p 'Run:'") end,
+  awful.key({ modkey }, "r", function() awful.spawn("bemenu-run -p 'Run:'") end,
     { description = "run dmenu", group = "launcher" })
 )
 

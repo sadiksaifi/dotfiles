@@ -12,10 +12,10 @@ plug "zsh-users/zsh-syntax-highlighting"
 plug "esc/conda-zsh-completion"
 plug "zap-zsh/supercharge"
 plug "sadikeey/zsh-ex"
-plug "sadikeey/sdk-prompt"
+# plug "sadikeey/sdk-prompt"
 
 #General Key-bindings
-bindkey -s '^o' 'lfub^M'
+bindkey -s '^o' 'ranger^M'
 bindkey -s '^e' 'edit-configs^M'
 bindkey -s '^g' 'lazygit^M'
 bindkey -s '^f' 'tmux-sessionizer\n'
@@ -42,4 +42,7 @@ alias doom='~/.emacs.d/bin/doom'
 alias dots='/usr/bin/git --git-dir=$HOME/Repos/dotfiles --work-tree=$HOME'
 
 # Prompt
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
+
+# N - Node version maanger
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
