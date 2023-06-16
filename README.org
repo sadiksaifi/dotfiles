@@ -17,7 +17,7 @@
 *** Main Programs Configuration.
 - [[file:.config/hypr/][HyprlandWM]] configuration.
 - [[https://github.com/sadikeey/dotfiles/tree/main/.config/hypr#WAYBAR][Waybar]] configuration.
-- [[https//github.com/sadikeey/nvim][Neovim]] configuration.
+- [[https://github.com/sadikeey/nvim][Neovim]] configuration.
 - [[https://github.com/sadikeey/emacs][Emacs]] configuration.
 - [[file:.config/foot/][Foot]] configuration.
 - [[file:.config/zsh/][Zsh]] configuration.
