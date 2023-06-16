@@ -12,6 +12,7 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
 export CARGO_HOME="$XDG_CONFIG_HOME/.cargo"
 export GOPATH="$XDG_DATA_HOME/go"
+export PATH="$GOPATH/bin":$PATH
 # export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export KDEHOME="$XDG_CONFIG_HOME"/kde
@@ -48,6 +49,9 @@ export MANPAGER="nvim +Man!"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export LESSHISTFILE=-
+
+# N - Node version maanger
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 # FZF Exports
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window=right:60% --preview 'if [ -d {} ]; then fd --color=always . {} | bat --color=always --style=header,grid --line-range :500; else bat --color=always --style=header,grid --line-range :500 {}; fi'"
@@ -232,3 +236,5 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 "
+
+if [ -e /home/sdk/.nix-profile/etc/profile.d/nix.sh ]; then . /home/sdk/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

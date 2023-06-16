@@ -15,7 +15,7 @@ plug "sadikeey/zsh-ex"
 # plug "sadikeey/sdk-prompt"
 
 #General Key-bindings
-bindkey -s '^o' 'ranger^M'
+bindkey -s '^o' 'lf^M'
 bindkey -s '^e' 'edit-configs^M'
 bindkey -s '^g' 'lazygit^M'
 bindkey -s '^f' 'tmux-sessionizer\n'
@@ -39,10 +39,7 @@ alias smi='sudo make clean install'
 alias et='emacsclient -nw -c -a "emacs" --eval "(dashboard-refresh-buffer)"'
 alias phone="mkdir /tmp/cell && simple-mtpfs --device 1 /tmp/cell && cd /tmp/cell"
 alias doom='~/.emacs.d/bin/doom'
-alias dots='/usr/bin/git --git-dir=$HOME/Repos/dotfiles --work-tree=$HOME'
+alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 
 # Prompt
 eval "$(starship init zsh)"
-
-# N - Node version maanger
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"

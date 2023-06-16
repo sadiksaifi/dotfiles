@@ -5,7 +5,7 @@
 
 ** About
 - This is my  [[https://archlinux.org][Arch Linux]] setup and thier dofiles.
-- If you want install my DE/WM setup you can install by using my [[https://github.com/sadikeey/archinstall][archinstall]] script.
+- If you want install my setup, you can install by using my [[https://github.com/sadikeey/ansible-playbook][ansible playbook]].
 
 *** Wayland Setup
 
@@ -17,10 +17,9 @@
 *** Main Programs Configuration.
 - [[file:.config/hypr/][HyprlandWM]] configuration.
 - [[https://github.com/sadikeey/dotfiles/tree/main/.config/hypr#WAYBAR][Waybar]] configuration.
-- [[file:.config/xmonad/][Xmonad WM]] configuration.
+- [[https//github.com/sadikeey/nvim][Neovim]] configuration.
 - [[https://github.com/sadikeey/emacs][Emacs]] configuration.
-- [[file:.config/alacritty/][Alacritty]] configuration.
-- [[file:.config/nvim/][Neovim]] configuration.
+- [[file:.config/foot/][Foot]] configuration.
 - [[file:.config/zsh/][Zsh]] configuration.
 
 ** Installation of my dotfiles
