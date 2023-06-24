@@ -36,9 +36,8 @@ alias pac='sudo pacman'
 alias lvs='live-server'
 alias wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"
 alias smi='sudo make clean install'
-alias et='emacsclient -nw -c -a "emacs" --eval "(dashboard-refresh-buffer)"'
+alias emacs='emacsclient -nw -c -a "emacs"'
 alias phone="mkdir /tmp/cell && simple-mtpfs --device 1 /tmp/cell && cd /tmp/cell"
-alias doom='~/.emacs.d/bin/doom'
 alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 
 # Prompt

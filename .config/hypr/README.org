@@ -7,7 +7,7 @@
 * ABOUT
 [[https://hyprland.org/][Hyprland]] is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks. It supports multiple layouts, fancy effects, has a very flexible IPC model allowing for a lot of customization, and more.
 
-[[/.local/share/screenshots/hyprwm.png]]
+[[https://data.sadiksaifi.dev/Screenshots/desktop.png]]
 
 * TABLE OF CONTENTS :toc:
 - [[#about][ABOUT]]
@@ -206,7 +206,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 window#waybar {
   color: #eaeaea;
   /* background-color: rgba(40, 44, 52, 0.85); */
-	background-color: #1e2127
+  background-color: #000000;
 }
 
 #workspaces button {
@@ -312,8 +312,8 @@ input {
 #+begin_src sh
 general {
     layout = master
-    gaps_in = 6
-    gaps_out = 18
+    gaps_in = 4
+    gaps_out = 8
     border_size = 2
     no_border_on_floating = false
     col.active_border = 0xff9aedfe
@@ -535,6 +535,7 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-A + O    | opens OBS                 |
 | MODKEY-A + P    | opens postman             |
 | MODKEY-A + E    | opens emacs               |
+| MODKEY-A + n    | opens obsidian            |
 
 #+begin_src sh
 bind = $mainMod, Return, exec, $TERMINAL
@@ -562,8 +563,8 @@ bind = ,p,exec,postman
 bind = ,p,submap,reset
 bind = ,e,exec,emacsclient -c -a "emacs"
 bind = ,e,submap,reset
-bind = ,h,exec,$TERMINAL -e htop
-bind = ,h,submap,reset
+bind = ,n,exec,obsidian
+bind = ,n,submap,reset
 bind=,escape,submap,reset 
 submap = reset
 #+end_src
@@ -647,7 +648,6 @@ submap = reset
 #+begin_src sh
 bind = $mainMod, r, exec, bemenu-run -p 'Run:'
 bind = $mainMod,semicolon, exec, bemenu-emoji
-bind = ,Insert,exec,bemenu-wallchange
 bind = ,Print,exec,bemenu-shot
 bind = SUPER, P, submap, menusubmap
 submap = menusubmap

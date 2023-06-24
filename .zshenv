@@ -62,15 +62,15 @@ export BEMENU_OPTS="--fn 'Roboto Medium 10'\
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin
- --tb '#5b6268' \ # prompt bg
- --tf '#eaeaea' \ # prompt fg
- --nb '#282c34' \ # normal bg
+ --tb '#31748F' \ # prompt bg
+ --tf '#ffffff' \ # prompt fg
+ --nb '#000000' \ # normal bg
  --nf '#828482' \ # normal fg
- --hb '#5b6268' \ # highlighted bg
+ --hb '#31748F' \ # highlighted bg
  --hf '#ffffff' \ # highlighted fg
- --fb '#282c34' \ # filter bg
+ --fb '#000000' \ # filter bg
  --ff '#cccccc' \ # filter fg
- --ab '#282c34' \ # alt bg
+ --ab '#000000' \ # alt bg
  --af '#828482' \ # alt fg"
 
 # Exporting lf icons
