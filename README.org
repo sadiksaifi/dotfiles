@@ -12,7 +12,7 @@
 - Currently I am using [[https://hyprland.org/][Hyprland]] as my daily driver.
 - Hyprland is a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks.
 
-[[/.local/share/screenshots/hyprwm.png]]
+[[https://data.sadiksaifi.dev/Screenshots/desktop.png]]
 
 *** Main Programs Configuration.
 - [[file:.config/hypr/][HyprlandWM]] configuration.
