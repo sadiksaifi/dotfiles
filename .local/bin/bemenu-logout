@@ -20,7 +20,7 @@ case $selection in
 		;;
 	"3. Suspend")
 		systemctl suspend
-    swaylock
+    swaylock -f -c 000000
 		;;
 	"4. Reboot")
 		logout
