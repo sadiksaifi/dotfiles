@@ -55,7 +55,7 @@ sleep 2
 exec-once = $HOME/.config/hypr/autostart
 exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
 exec-once = dex -a -s $HOME/.config/autostart/ 
 exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'vimix-dark-doder' 

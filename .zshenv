@@ -40,7 +40,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export READER="zathura"
 export TERMINAL="footclient"
-export BROWSER="brave"
+export BROWSER="brave-browser"
 export VIDEO="mpv"
 export IMAGE="feh"
 export COLORTERM="truecolor"
@@ -57,8 +57,8 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window=right:60% --preview 'if [ -d {} ]; then fd --color=always . {} | bat --color=always --style=header,grid --line-range :500; else bat --color=always --style=header,grid --line-range :500 {}; fi'"
 
 # Bemenu Exports
-export BEMENU_OPTS="--fn 'Roboto Medium 10'\
- -H 28 \          # height
+export BEMENU_OPTS="--fn 'monospace 10'\
+ -H 24 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin
