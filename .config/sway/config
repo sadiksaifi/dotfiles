@@ -16,14 +16,14 @@ set $down j
 set $up k
 set $right l
 set $term footclient
-set $menu dmenu_path | bemenu-run -p "Run:" | xargs swaymsg exec --
+set $menu dmenu_path | bemenu-run -p "Run :" | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
 
 # Settings
 gaps outer 2
 gaps inner 2
-smart_gaps off
+smart_gaps on
 smart_borders off
 default_border pixel 2
 default_floating_border pixel 2
@@ -32,7 +32,8 @@ focus_follows_mouse yes
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/sdk/.local/share/sdk/wall.jpg fill
+# output * bg /home/sdk/.local/share/sdk/wall.jpg fill
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
@@ -57,17 +58,18 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-  input "1739:32552:MSFT0004:00_06CB:7F28_Touchpad" {
-      dwt enabled
-      tap enabled
-      natural_scroll enabled
-      middle_emulation enabled
-  }
-
-  input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_options "caps:escape"
-    repeat_delay 240
-    repeat_rate 50
+  input {
+    "1739:32552:MSFT0004:00_06CB:7F28_Touchpad" {
+        dwt enabled
+        tap enabled
+        natural_scroll enabled
+        middle_emulation enabled
+    }
+    "1:1:AT_Translated_Set_2_keyboard" {
+      xkb_options "caps:escape"
+      repeat_delay 240
+      repeat_rate 50
+    }
   }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -97,7 +99,7 @@ exec swayidle -w \
     bindsym $mod+CTRL+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+CTRL+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -180,20 +182,10 @@ exec swayidle -w \
 # Resizing containers:
 #
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
 
     # Return to default mode
     bindsym Return mode "default"
@@ -208,6 +200,13 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+
+## Application keymaps
+bindsym $mod+Shift+w exec $BROWSER
+
+## Utitlities keymaps
+bindsym $mod+Shift+x exec $HOME/.local/bin/bemenu-logout
+bindsym Print exec $HOME/.local/bin/bemenu-shot
 
 # Theme
 exec gsettings set org.gnome.desktop.interface gtk-theme 'yaru-magenta-dark'
@@ -229,8 +228,10 @@ bar {
 
     colors {
         statusline #ffffff
-        background #323232
-        inactive_workspace #323232 #323232 #5c5c5c
+        # background #323232
+        background #000000
+        # item              border   bg      fg
+        inactive_workspace #000000 #000000 #ffffff
     }
 }
 

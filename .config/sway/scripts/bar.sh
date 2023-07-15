@@ -8,7 +8,7 @@ network_status=""
 if [ "$network" = "up" ]; then
     network_status="󰖩 "
 else
-    network_status="󱚵 "
+    network_status="󰖪 "
 fi
 
 echo "$network_status |   $battery_level% |   $date_formatted"
