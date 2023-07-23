@@ -40,7 +40,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export READER="zathura"
 export TERMINAL="footclient"
-export BROWSER="brave-browser"
+export BROWSER="brave"
 export VIDEO="mpv"
 export IMAGE="feh"
 export COLORTERM="truecolor"
@@ -58,7 +58,7 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window
 
 # Bemenu Exports
 export BEMENU_OPTS="--fn 'monospace 10'\
- -H 24 \          # height
+ -H 28 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin

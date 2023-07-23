@@ -1,0 +1,25 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("DSA"
+ (filename . "~/Projects/dsa/codes/")
+ (front-context-string . "ArrayVectors\n  d")
+ (rear-context-string . "0K Feb  3 22:06 ")
+ (position . 187))
+("XMonad"
+ (filename . "~/.dotfiles/xmonad/.config/xmonad/README.org")
+ (front-context-string . "#+TITLE: XMonad ")
+ (rear-context-string)
+ (position . 1))
+("Emacs"
+ (filename . "~/.config/emacs/README.org")
+ (front-context-string . "#+TITLE: Emacs F")
+ (rear-context-string)
+ (position . 1))
+("org-capture-last-stored"
+ (filename . "~/Projects/Org/Tasks.org")
+ (front-context-string . "** TODO Learn Ab")
+ (rear-context-string . "re about Emacs\n\n")
+ (position . 312))
+)

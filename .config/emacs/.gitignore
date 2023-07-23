@@ -1,0 +1,11 @@
+# -*- mode: gitignore; -*-
+*.elc
+auto-save-list
+
+# packages
+**/elpa/
+**/straight/
+**/eln-cache/
+
+**/packages/
+**/transient/
