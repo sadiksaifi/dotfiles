@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check if project name is provided
+if [ -z "$1" ]
+then
+    echo "Please provide a project name."
+    exit 1
+fi
+
+# Use the provided project name
+PROJECT_NAME=$1
+
+# Create the project
+yarn create vite $PROJECT_NAME --template react-ts
+
+# Move to the project directory
+cd $PROJECT_NAME
+
+# Install the dependencies
+yarn install
+
+# Set up the yarn SDK for lsp
+yarn dlx @yarnpkg/sdks vscode

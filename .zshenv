@@ -40,7 +40,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export READER="zathura"
 export TERMINAL="footclient"
-export BROWSER="brave"
+export BROWSER="google-chrome-stable"
 export VIDEO="mpv"
 export IMAGE="feh"
 export COLORTERM="truecolor"
@@ -53,21 +53,24 @@ export LESSHISTFILE=-
 # N - Node version maanger
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
+# PNPM - Node package manager
+export PATH="$HOME/.local/share/pnpm":$PATH
+
 # FZF Exports
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window=right:60% --preview 'if [ -d {} ]; then fd --color=always . {} | bat --color=always --style=header,grid --line-range :500; else bat --color=always --style=header,grid --line-range :500 {}; fi'"
 
 # Bemenu Exports
-export BEMENU_OPTS="--fn 'monospace 10'\
- -H 28 \          # height
+export BEMENU_OPTS="--fn 'Roboto 10'\
+ -H 26 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin
- --tb '#31748F' \ # prompt bg
- --tf '#ffffff' \ # prompt fg
+ --tb '#EEEEEE' \ # prompt bg
+ --tf '#000000' \ # prompt fg
  --nb '#000000' \ # normal bg
  --nf '#828482' \ # normal fg
- --hb '#31748F' \ # highlighted bg
- --hf '#ffffff' \ # highlighted fg
+ --hb '#EEEEEE' \ # highlighted bg
+ --hf '#000000' \ # highlighted fg
  --fb '#000000' \ # filter bg
  --ff '#cccccc' \ # filter fg
  --ab '#000000' \ # alt bg

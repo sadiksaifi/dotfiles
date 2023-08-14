@@ -1,12 +1,13 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 24, // Waybar height (to be removed for auto height)
-    "spacing": 4, // Gaps between modules (4px)
+    "height": 28, // Waybar height (to be removed for auto height)
+    "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    "modules-left": [ "custom/launcher", "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "clock",],
+    "modules-left": [ "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-center": [ "clock" ],
+    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "custom/powermenu"],
 
     "custom/launcher": {
         "format": "",
@@ -102,7 +103,12 @@
     "clock": {
         "timezone": "Asia/Kolkata",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format": "   {:%a %b %d, %H:%M}",
+        //"format": "   {:%a %b %d, %H:%M}",
+        "format": "{:%a %b %d, %H:%M}",
         "interval": 60
+    },
+    "custom/powermenu": {
+        "format": "",
+        "on-click": "sleep 0.2 && bemenu-logout",
     },
 }
