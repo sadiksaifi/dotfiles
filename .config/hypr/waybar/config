@@ -5,12 +5,13 @@
     "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    // "modules-left": [ "custom/launcher", "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-left": ["custom/launcher", "wlr/workspaces" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "custom/powermenu"],
+    "modules-right": [ "tray", "custom/powermenu", "network", "pulseaudio", "backlight", "battery",],
 
     "custom/launcher": {
-        "format": "",
+        "format": "󰣇",
         "on-click": "bemenu-run -p 'Run : '",
     },
     // Modules configuration

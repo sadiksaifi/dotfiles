@@ -52,20 +52,20 @@ sleep 2
 ** Programs
 
 #+begin_src sh
-exec-once = $HOME/.config/hypr/autostart
-exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
-exec-once = dex -a -s $HOME/.config/autostart/ 
-exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'vimix-dark-doder' 
-exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Vimix Doder dark' 
-exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
-exec-once = emacs --daemon
-exec-once = foot --server
-exec-once = dunst
-exec = $HOME/.config/hypr/waybar/launch.sh 
+  exec-once = $HOME/.config/hypr/autostart
+  exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+  exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+  exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+  exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
+  exec-once = dex -a $HOME/.config/autostart/ 
+  exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 
+  exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' 
+  exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+  exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
+  exec-once = emacs --daemon
+  exec-once = foot --server
+  exec-once = dunst
+  exec = $HOME/.config/hypr/waybar/launch.sh 
 #+end_src
 
 * WAYBAR
@@ -89,12 +89,13 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    // "modules-left": [ "custom/launcher", "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-left": ["custom/launcher", "wlr/workspaces" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "custom/powermenu"],
+    "modules-right": [ "tray", "custom/powermenu", "network", "pulseaudio", "backlight", "battery",],
 
     "custom/launcher": {
-        "format": "",
+        "format": "󰣇",
         "on-click": "bemenu-run -p 'Run : '",
     },
     // Modules configuration
@@ -198,7 +199,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 }
 #+end_src
 
-** Styling
+** TODO Styling
 
 #+begin_src css :tangle ./waybar/style.css
    ,* {
@@ -216,14 +217,16 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
   }
 
   #workspaces button {
-    padding: 0 6px;
-    color: #828482;
-    box-shadow: inset 0 -3px transparent;
+    color: #737373;
+    padding: 4px 6px;
+    /* border-bottom: 1px solid transparent; */
   }
 
   #workspaces button.active {
-    color: #000;
-    background-color: #fff;
+    color: #fff;
+    /* background-color: #4c4c4c;
+    border-bottom: 1px solid #cccccc;
+  ,*/
   }
 
   #workspaces button:hover {
@@ -237,9 +240,9 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
   }
 
   #window {
-    border-left: 1px solid #eaeaea ;
-    margin: 5px 0;
-    padding: 0 10px;
+    border-left: 1px solid #eaeaea;
+    padding-left: 10px;
+    margin: 4px 0;
   }
 
   #tray,
@@ -254,6 +257,9 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
   }
 
   #clock {
+    padding: 4px 20px;
+    margin: 4px 0;
+    border-radius: 10px;
   }
 
   @keyframes blink {
@@ -276,13 +282,18 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
   }
 
   #custom-launcher {
-    padding: 0 10px;
+    padding-left: 18px;
+    padding-right: 8px;
+    font-size: 16px;
   }
 
   #custom-powermenu {
-    background-color: #fff;
-    color: #000;
-    padding: 0 7px;
+    padding: 4px;
+    margin-right: 6px;
+    /* background-color: #4c4c4c;
+    border-bottom: 1px solid #cccccc;
+  ,*/
+    font-size: 12px;
   }
 #+end_src
 
@@ -337,7 +348,7 @@ general {
 
 #+begin_src sh
 decoration {
-    rounding = 0
+    rounding = 4
     #blur = true
     #blur_size = 10
     #blur_passes = 1
@@ -539,7 +550,7 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-A + F    | opens thunar file manager |
 | MODKEY-A + C    | opens VS Code             |
 | MODKEY-A + I    | opens Intellij Idea       |
-| MODKEY-A + M    | opens geary(mail-client)  |
+| MODKEY-A + M    | opens mail-client         |
 | MODKEY-A + D    | opens discord             |
 | MODKEY-A + V    | opens virt-manager        |
 | MODKEY-A + S    | opens spotify             |
@@ -547,35 +558,35 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-A + O    | opens OBS                 |
 | MODKEY-A + P    | opens postman             |
 | MODKEY-A + E    | opens emacs               |
-| MODKEY-A + n    | opens obsidian            |
+| MODKEY-A + N    | opens notion              |
 
 #+begin_src sh
 bind = $mainMod, Return, exec, $TERMINAL
 bind = SUPER, A, submap, appsubmaps
 submap = appsubmaps
-bind = ,f,exec,nautilus
+bind = ,f,exec,notify-send "Launching Nautilus" & nautilus
 bind = ,f,submap,reset
-bind = ,c,exec,code
+bind = ,c,exec,notify-send "Launching Code" & code
 bind = ,c,submap,reset
-bind = ,i,exec,idea
+bind = ,i,exec,notify-send "Launching Idea" & idea
 bind = ,i,submap,reset
-bind = ,m,exec,mailspring
+bind = ,m,exec,notify-send "Launching Mail" & bluemail
 bind = ,m,submap,reset
-bind = ,d,exec,discord
+bind = ,d,exec,notify-send "Launching Discord" &discord
 bind = ,d,submap,reset
-bind = ,v,exec,virt-manager
+bind = ,v,exec,notify-send "Launching Virt-manager" & virt-manager
 bind = ,v,submap,reset
-bind = ,s,exec,spotify
+bind = ,s,exec,notify-send "Launching Spotify" & spotify
 bind = ,s,submap,reset
-bind = ,w,exec,$BROWSER
+bind = ,w,exec,notify-send "Launching Browser" & $BROWSER
 bind = ,w,submap,reset
-bind = ,o,exec,obs-wayland
+bind = ,o,exec,notify-send "Launching Obs Studio" &obs-wayland
 bind = ,o,submap,reset
-bind = ,p,exec,postman
+bind = ,p,exec,notify-send "Launching Postman" & postman
 bind = ,p,submap,reset
-bind = ,e,exec,emacsclient -c -a "emacs"
+bind = ,e,exec,notify-send "Launching Emacs" & emacsclient -c -a "emacs"
 bind = ,e,submap,reset
-bind = ,n,exec,obsidian
+bind = ,n,exec,notify-send "Launching Notion" & notion-app-enhanced
 bind = ,n,submap,reset
 bind=,escape,submap,reset 
 submap = reset
@@ -590,18 +601,21 @@ These keybinding look weired because they are done using [[https://wiki.hyprland
 | MODKEY-W + S | opens Slack       |
 | MODKEY-W + D | opens Discord     |
 | MODKEY-W + M | opens Spotify     |
+| MODKEY-W + E | opens Excalidraw  |
 
 #+begin_src sh
 bind = SUPER, W, submap, webappsubmaps
 submap = webappsubmaps
-bind = ,w,exec, $BROWSER --app=https://web.whatsapp.com/
+bind = ,w,exec, notify-send "Launching Whatsapp" & $BROWSER --app=https://web.whatsapp.com/
 bind = ,w,submap,reset
-bind = ,s,exec, $BROWSER --app=https://app.slack.com/client/T054SQ45EQ6/C054ZL49E4S
+bind = ,s,exec, notify-send "Launching Slack" & $BROWSER --app=https://app.slack.com/client/T054SQ45EQ6/C054ZL49E4S
 bind = ,s,submap,reset
-bind = ,d,exec, $BROWSER --app=https://discord.com/channels/@me
+bind = ,d,exec, notify-send "Launching Discord" & $BROWSER --app=https://discord.com/channels/@me
 bind = ,d,submap,reset
-bind = ,m,exec, $BROWSER --app=https://open.spotify.com/
+bind = ,m,exec, notify-send "Launching Spotify" & $BROWSER --app=https://open.spotify.com/
 bind = ,m,submap,reset
+bind = ,e,exec, notify-send "Launching Excalidraw" & $BROWSER --app=https://excalidraw.com/
+bind = ,e,submap,reset
 bind=,escape,submap,reset 
 submap = reset
 #+end_src
@@ -658,7 +672,7 @@ submap = reset
 | MODKEY-P + P          | opens hyprpicker                         |
 
 #+begin_src sh
-bind = $mainMod, r, exec, bemenu-run -p 'Run:'
+bind = $mainMod, r, exec, bemenu-run -p 'Search  Apps  :'
 bind = $mainMod,semicolon, exec, bemenu-emoji
 bind = ,Print,exec,bemenu-shot
 bind = SUPER, P, submap, menusubmap

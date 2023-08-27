@@ -39,6 +39,8 @@ alias smi='sudo make clean install'
 alias emacs='emacsclient -nw -c -a "emacs"'
 alias phone="mkdir /tmp/cell && simple-mtpfs --device 1 /tmp/cell && cd /tmp/cell"
 alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+alias pnx='pnpm dlx'
+alias gitlog='git log --all --decorate --graph'
 
 # Prompt
 eval "$(starship init zsh)"

@@ -60,8 +60,8 @@ export PATH="$HOME/.local/share/pnpm":$PATH
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window=right:60% --preview 'if [ -d {} ]; then fd --color=always . {} | bat --color=always --style=header,grid --line-range :500; else bat --color=always --style=header,grid --line-range :500 {}; fi'"
 
 # Bemenu Exports
-export BEMENU_OPTS="--fn 'Roboto 10'\
- -H 26 \          # height
+export BEMENU_OPTS="--fn 'Roboto 10.2'\
+ -H 32 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin
@@ -72,7 +72,7 @@ export BEMENU_OPTS="--fn 'Roboto 10'\
  --hb '#EEEEEE' \ # highlighted bg
  --hf '#000000' \ # highlighted fg
  --fb '#000000' \ # filter bg
- --ff '#cccccc' \ # filter fg
+ --ff '#ffffff' \ # filter fg
  --ab '#000000' \ # alt bg
  --af '#828482' \ # alt fg"
 

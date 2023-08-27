@@ -13,14 +13,16 @@ window#waybar {
 }
 
 #workspaces button {
-  padding: 0 6px;
-  color: #828482;
-  box-shadow: inset 0 -3px transparent;
+  color: #737373;
+  padding: 4px 6px;
+  /* border-bottom: 1px solid transparent; */
 }
 
 #workspaces button.active {
-  color: #000;
-  background-color: #fff;
+  color: #fff;
+  /* background-color: #4c4c4c;
+  border-bottom: 1px solid #cccccc;
+*/
 }
 
 #workspaces button:hover {
@@ -34,9 +36,9 @@ window#waybar {
 }
 
 #window {
-  border-left: 1px solid #eaeaea ;
-  margin: 5px 0;
-  padding: 0 10px;
+  border-left: 1px solid #eaeaea;
+  padding-left: 10px;
+  margin: 4px 0;
 }
 
 #tray,
@@ -51,6 +53,9 @@ window#waybar {
 }
 
 #clock {
+  padding: 4px 20px;
+  margin: 4px 0;
+  border-radius: 10px;
 }
 
 @keyframes blink {
@@ -73,11 +78,16 @@ tooltip {
 }
 
 #custom-launcher {
-  padding: 0 10px;
+  padding-left: 18px;
+  padding-right: 8px;
+  font-size: 16px;
 }
 
 #custom-powermenu {
-  background-color: #fff;
-  color: #000;
-  padding: 0 7px;
+  padding: 4px;
+  margin-right: 6px;
+  /* background-color: #4c4c4c;
+  border-bottom: 1px solid #cccccc;
+*/
+  font-size: 12px;
 }
