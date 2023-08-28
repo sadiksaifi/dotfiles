@@ -4,8 +4,8 @@ env:
 
 window:
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 200
+    lines: 40
   position:
     x: 0
     y: 0
@@ -14,7 +14,7 @@ window:
     y: 10
   dynamic_padding: true
   decorations: full
-  opacity: 0.85
+  opacity: 0.75
   startup_mode: Windowed
   title: Alacritty
   dynamic_title: false
@@ -39,7 +39,7 @@ font:
   bold_italic:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
-  size: 15.0
+  size: 16.0
   offset:
     x: 0
     y: 0
@@ -51,47 +51,47 @@ draw_bold_text_with_bright_colors: false
 
 colors:
   primary:
-    background: '#282c34'
-    foreground: '#bbc2cf'
-    dim_foreground: '#828482'
-    bright_foreground: '#eaeaea'
+    foreground: "#e0def4"
+    # background: "#191724"
+    background: "#000000"
+    dim_foreground: "#908caa"
+    bright_foreground: "#e0def4"
   cursor:
-    text: CellBackground
-    cursor: '#528bff'
+    text: "#e0def4"
+    cursor: "#524f67"
   vi_mode_cursor:
-    text: CellBackground
-    cursor: CellForeground
+    text: "#e0def4"
+    cursor: "#524f67"
   selection:
-    text: CellForeground
-    background: '#3e4451'
+    text: "#e0def4"
+    background: "#403d52"
   normal:
-      black:   '#1c1f24'
-      red:     '#ff6c6b'
-      green:   '#98be65'
-      yellow:  '#da8548'
-      blue:    '#51afef'
-      magenta: '#c678dd'
-      cyan:    '#5699af'
-      white:   '#202328'
+      black: "#26233a"
+      red: "#eb6f92"
+      green: "#31748f"
+      yellow: "#f6c177"
+      blue: "#9ccfd8"
+      magenta: "#c4a7e7"
+      cyan: "#ebbcba"
+      white: "#e0def4"
   bright:
-    black:   '#5b6268'
-    red:     '#da8548'
-    green:   '#4db5bd'
-    yellow:  '#ecbe7b'
-    blue:    '#3071db'   # This is 2257a0 in Doom Emacs but I lightened it.
-    magenta: '#a9a1e1'
-    cyan:    '#46d9ff'
-    white:   '#dfdfdf'
+      black: "#6e6a86"
+      red: "#eb6f92"
+      green: "#31748f"
+      yellow: "#f6c177"
+      blue: "#9ccfd8"
+      magenta: "#c4a7e7"
+      cyan: "#ebbcba"
+      white: "#e0def4"
   dim:
-    black:   '#131415'
-    red:     '#864343'
-    green:   '#777c44'
-    yellow:  '#9e824c'
-    blue:    '#556a7d'
-    magenta: '#75617b'
-    cyan:    '#5b7d78'
-    white:   '#828482'
-
+      black: "#6e6a86"
+      red: "#eb6f92"
+      green: "#31748f"
+      yellow: "#f6c177"
+      blue: "#9ccfd8"
+      magenta: "#c4a7e7"
+      cyan: "#ebbcba"
+      white: "#e0def4"
 cursor:
   style:
     shape: Block
