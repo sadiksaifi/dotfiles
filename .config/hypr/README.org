@@ -89,8 +89,8 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    // "modules-left": [ "custom/launcher", "wlr/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-left": ["custom/launcher", "wlr/workspaces" ],
+    // "modules-left": [ "custom/launcher", "hyprland/workspaces", "hyprland/window", "wlr/scratchpad"],
+    "modules-left": ["custom/launcher", "hyprland/workspaces" ],
     "modules-center": [ "clock" ],
     "modules-right": [ "tray", "custom/powermenu", "network", "pulseaudio", "backlight", "battery",],
 

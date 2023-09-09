@@ -1,6 +1,6 @@
 [user]
 	name = Sadik Saifi
-	email = Sadiksaifi205@gmail.com
+	email = thesadiksaifi@gmail.com
 [core]
 	editor = nvim
 [credential "https://github.com"]
@@ -17,3 +17,5 @@
 [credential "https://gitlab.com"]
 	helper = 
 	helper = !/usr/bin/glab auth git-credential
+[init]
+	defaultBranch = main
