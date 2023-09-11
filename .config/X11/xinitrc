@@ -3,13 +3,17 @@
 # Essentials
 setxkbmap -option caps:escape &
 xset r rate 240 50 &
-xsetroot -cursor_name left_ptr &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-picom --experimental-backends &
-dunst &
+# xsetroot -cursor_name left_ptr &
+# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# picom &
+# dunst &
+# xwallpaper --zoom /home/sdk/.local/share/sdk/wall.jpg &
 
 # DWM
 # while type dwm >/dev/null ; do dwm && continue || break ;done
 
 # Awesome
 exec awesome
+
+# Qtile
+# exec qtile start
