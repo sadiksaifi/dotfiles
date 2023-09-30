@@ -11,9 +11,10 @@ xset r rate 240 50 &
 
 # DWM
 # while type dwm >/dev/null ; do dwm && continue || break ;done
+exec dwm
 
 # Awesome
-exec awesome
+# exec awesome
 
 # Qtile
 # exec qtile start

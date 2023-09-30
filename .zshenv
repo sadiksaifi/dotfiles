@@ -40,7 +40,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export READER="zathura"
 export TERMINAL="footclient"
-export BROWSER="google-chrome-stable"
+export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="feh"
 export COLORTERM="truecolor"
@@ -60,17 +60,17 @@ export PATH="$HOME/.local/share/pnpm":$PATH
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window=right:60% --preview 'if [ -d {} ]; then fd --color=always . {} | bat --color=always --style=header,grid --line-range :500; else bat --color=always --style=header,grid --line-range :500 {}; fi'"
 
 # Bemenu Exports
-export BEMENU_OPTS="--fn 'Roboto 10.2'\
+export BEMENU_OPTS="--fn 'Roboto 8'\
  -H 32 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)
  -M 0 \           # margin
- --tb '#EEEEEE' \ # prompt bg
- --tf '#000000' \ # prompt fg
+ --tb '#000000' \ # prompt bg
+ --tf '#ffffff' \ # prompt fg
  --nb '#000000' \ # normal bg
  --nf '#828482' \ # normal fg
- --hb '#EEEEEE' \ # highlighted bg
- --hf '#000000' \ # highlighted fg
+ --hb '#000000' \ # highlighted bg
+ --hf '#ffffff' \ # highlighted fg
  --fb '#000000' \ # filter bg
  --ff '#ffffff' \ # filter fg
  --ab '#000000' \ # alt bg

@@ -40,12 +40,12 @@
 ;; Set the default font
 (set-face-attribute 'default nil
                     :family "JetBrainsMono Nerd Font"
-                    :height 150)
+                    :height 120)
 
 ;; Set the font for variable-pitch mode (used in some modes like Org Mode)
 (set-face-attribute 'variable-pitch nil
                     :family "JetBrainsMono Nerd Font"
-                    :height 150)
+                    :height 120)
 
 ;;---------------------- THEME --------------------------
 ;; Configure the Doom theme
@@ -55,8 +55,8 @@
   (load-theme 'doom-one t)
 
   ;; Set the font for the Doom-One theme
-  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
-  (setq doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 15))
+  (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 12))
+  (setq doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 12))
 
   ;; Apply the Doom theme
   (doom-themes-neotree-config)
