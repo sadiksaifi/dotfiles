@@ -459,7 +459,7 @@ windowrule = move 75 44%, title:^(Volume Control)$
 | MODKEY + SHIFT + Q      | Quit Hyprland                                  |
 | MODKEY + SHIFT + B      | Refresh Waybar                                 |
 | MODKEY + B              | toggle Waybar                                  |
-| MODKEY + C              | kill active window                             |
+| MODKEY + SHIFT + C      | kill active window                             |
 | Lock Key                | Locks the wm                                   |
 | MODKEY + 1-9            | switches to workspaces (1-9)                   |
 | MODKEY + SHIFT + 1-9    | send focused window to workspace (1-9)         |
@@ -483,7 +483,7 @@ $mainMod = SUPER
 bind = $mainMod SHIFT, q, exit, # quit Hyperland
 bind = $mainMod SHIFT, b, exec, $HOME/.config/hypr/waybar/launch.sh
 bind = $mainMod, b, exec, pkill -SIGUSR1 '^waybar$' # toggle bar
-bind = $mainMod, C, killactive, # Kill active window
+bind = $mainMod SHIFT, C, killactive, # Kill active window
 bind = ,XK86Lock, exec, swaylock
 
 bind = $mainMod, 1, workspace, 1
