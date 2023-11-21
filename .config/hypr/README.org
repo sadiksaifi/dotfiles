@@ -43,6 +43,7 @@
 sleep 1
 killall xdg-desktop-portal-hyprland
 killall xdg-desktop-portal-wlr
+killall xdg-desktop-portal-gnome
 killall xdg-desktop-portal
 /usr/libexec/xdg-desktop-portal-hyprland &
 sleep 2
@@ -52,20 +53,20 @@ sleep 2
 ** Programs
 
 #+begin_src sh
-  exec-once = $HOME/.config/hypr/autostart
-  exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-  exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-  exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-  exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
-  exec-once = dex -a $HOME/.config/autostart/ 
-  exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 
-  exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' 
-  exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-  exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
-  exec-once = emacs --daemon
-  exec-once = foot --server
-  exec-once = dunst
-  exec = $HOME/.config/hypr/waybar/launch.sh 
+   exec-once = $HOME/.config/hypr/autostart
+   exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+   exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+   exec-once = /usr/libexec/polkit-gnome-authentication-agent-1
+   exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
+   exec-once = dex-autostart -a $HOME/.config/autostart/ 
+  # exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 
+  # exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' 
+  # exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+  # exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
+   exec-once = emacs --daemon
+   exec-once = foot --server
+   exec-once = dunst
+   exec = $HOME/.config/hypr/waybar/launch.sh 
 #+end_src
 
 * WAYBAR
@@ -332,23 +333,23 @@ input {
 * GENERAL
 
 #+begin_src sh
-general {
-    layout = master
-    gaps_in = 4
-    gaps_out = 8
-    border_size = 1
-    no_border_on_floating = false
-    #col.active_border = 0xff9aedfe
-    col.active_border = 0xffffffff
-    col.inactive_border = 0x66333333
-}
+  general {
+      layout = master
+      gaps_in = 6
+      gaps_out = 12
+      border_size = 1
+      no_border_on_floating = false
+      col.active_border = 0xff9aedfe
+      #col.active_border = 0xffffffff
+      col.inactive_border = 0x66333333
+  }
 #+end_src
 
 * DECORATION
 
 #+begin_src sh
 decoration {
-    rounding = 4
+    rounding = 0
     #blur = true
     #blur_size = 10
     #blur_passes = 1
@@ -656,7 +657,8 @@ submap = reset
 
 | Keybinding            | Associated action                        |
 |-----------------------+------------------------------------------|
-| MODKEY + r            | opens bemenu's run launcher              |
+| MODKEY + r            | opens wofi app launcher                  |
+| MODKEY + SHIFT + r    | opens bemenu's run launcher              |
 | Insert                | changes wallpaper                        |
 | MODKEY + semicolor(;) | opens bemenu's emoji prompt              |
 | MODKEY-P + X          | opens bemenu's logout-menu prompt        |
@@ -672,30 +674,32 @@ submap = reset
 | MODKEY-P + P          | opens hyprpicker                         |
 
 #+begin_src sh
-bind = $mainMod, r, exec, bemenu-run -p 'Search  Apps  :'
-bind = $mainMod,semicolon, exec, bemenu-emoji
-bind = ,Print,exec,bemenu-shot
-bind = SUPER, P, submap, menusubmap
-submap = menusubmap
-bind = ,x,exec,bemenu-logout
-bind = ,x,submap,reset
-bind = ,s,exec,bemenu-search
-bind = ,s,submap,reset
-bind = ,n,exec,networkmanager_dmenu
-bind = ,n,submap,reset
-bind = ,e,exec,bemenu-editconf
-bind = ,e,submap,reset
-bind = ,t,exec,bemenu-tailwindsearch
-bind = ,t,submap,reset
-bind = ,b,exec,bemenu-bluetooth -l 5
-bind = ,b,submap,reset
-bind = ,i,exec,bemenu-install
-bind = ,i,submap,reset
-bind = ,u,exec,bemenu-uninstall
-bind = ,u,submap,reset
-bind = ,p,exec,hyprpicker -a -n
-bind = ,p,submap,reset
-bind=,escape,submap,reset 
-submap = reset
+  bind = $mainMod, r, exec, wofi --show drun
+  bind = $mainMod SHIFT, r, exec, bemenu-run -p "Run :"
+  bind = $mainMod,semicolon, exec, bemenu-emoji
+  bind = ,Print,exec,bemenu-shot
+  bind = ,F12,exec,bemenu-shot
+  bind = SUPER, P, submap, menusubmap
+  submap = menusubmap
+  bind = ,x,exec,bemenu-logout
+  bind = ,x,submap,reset
+  bind = ,s,exec,bemenu-search
+  bind = ,s,submap,reset
+  bind = ,n,exec,networkmanager_dmenu
+  bind = ,n,submap,reset
+  bind = ,e,exec,bemenu-editconf
+  bind = ,e,submap,reset
+  bind = ,t,exec,bemenu-tailwindsearch
+  bind = ,t,submap,reset
+  bind = ,b,exec,bemenu-bluetooth -l 5
+  bind = ,b,submap,reset
+  bind = ,i,exec,bemenu-install
+  bind = ,i,submap,reset
+  bind = ,u,exec,bemenu-uninstall
+  bind = ,u,submap,reset
+  bind = ,p,exec,hyprpicker -a -n
+  bind = ,p,submap,reset
+  bind=,escape,submap,reset 
+  submap = reset
 #+end_src
 
