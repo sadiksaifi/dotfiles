@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 # Autostart
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
 exec /usr/bin/foot --server
 
 ### Variables
@@ -58,18 +58,14 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-  input {
-    "1739:32552:MSFT0004:00_06CB:7F28_Touchpad" {
-        dwt enabled
-        tap enabled
-        natural_scroll enabled
-        middle_emulation enabled
-    }
-    "1:1:AT_Translated_Set_2_keyboard" {
+  input * {
+      dwt enabled
+      tap enabled
+      natural_scroll disabled
+      middle_emulation enabled
       xkb_options "caps:escape"
       repeat_delay 240
       repeat_rate 50
-    }
   }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -83,10 +79,10 @@ exec swayidle -w \
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+c kill
+    bindsym $mod+Shift+c kill
 
     # Start your launcher
-    bindsym $mod+r exec $menu
+    bindsym $mod+d exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -191,13 +187,17 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+r mode "resize"
+bindsym $mod+r mode "resize"
 
 ## Volume & Brightness Keys
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym F3 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym F2 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym F1 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym Shift+F1 exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 
@@ -207,12 +207,7 @@ bindsym $mod+Shift+w exec $BROWSER
 ## Utitlities keymaps
 bindsym $mod+Shift+x exec $HOME/.local/bin/bemenu-logout
 bindsym Print exec $HOME/.local/bin/bemenu-shot
-
-# Theme
-exec gsettings set org.gnome.desktop.interface gtk-theme 'yaru-magenta-dark'
-exec gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
-exec gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-exec gsettings set org.gnome.desktop.interface font-name 'Roboto 10'
+bindsym F12 exec $HOME/.local/bin/bemenu-shot
 
 #
 # Status Bar:
@@ -220,7 +215,6 @@ exec gsettings set org.gnome.desktop.interface font-name 'Roboto 10'
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
-
     # status_command while cat /sys/class/power_supply/BAT1/capacity; do sleep 60; done
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
@@ -228,7 +222,6 @@ bar {
 
     colors {
         statusline #ffffff
-        # background #323232
         background #000000
         # item              border   bg      fg
         inactive_workspace #000000 #000000 #ffffff
