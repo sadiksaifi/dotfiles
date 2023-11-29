@@ -239,5 +239,3 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 "
-
-if [ -e /home/sdk/.nix-profile/etc/profile.d/nix.sh ]; then . /home/sdk/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

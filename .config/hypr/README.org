@@ -86,7 +86,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 28, // Waybar height (to be removed for auto height)
+    "height": 20, // Waybar height (to be removed for auto height)
     "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
@@ -213,13 +213,13 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 
   window#waybar {
     color: #eaeaea;
-    /* background-color: rgba(40, 44, 52, 0.85); */
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* background-color: #000000; */
   }
 
   #workspaces button {
     color: #737373;
-    padding: 4px 6px;
+    padding: 0px 6px;
     /* border-bottom: 1px solid transparent; */
   }
 
@@ -243,7 +243,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
   #window {
     border-left: 1px solid #eaeaea;
     padding-left: 10px;
-    margin: 4px 0;
+    margin: 0px 0;
   }
 
   #tray,
@@ -254,13 +254,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
   #backlight,
   #battery,
   #clock {
-    padding: 0 10px;
-  }
-
-  #clock {
-    padding: 4px 20px;
-    margin: 4px 0;
-    border-radius: 10px;
+    padding: 1 10px;
   }
 
   @keyframes blink {
