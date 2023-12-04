@@ -2,7 +2,7 @@
 
 # Function to get network status
 get_network_status() {
-    wlan_status=$(cat /sys/class/net/wlan0/operstate 2>/dev/null || cat /sys/class/net/wlp29s0/operstate 2>/dev/null)
+    wlan_status=$(cat /sys/class/net/wlan0/operstate 2>/dev/null || cat /sys/class/net/wlp29s0/operstate 2>/dev/null || cat /sys/class/net/wlp0s20f3/operstate 2>/dev/null)
     lan_status=$(cat /sys/class/net/enp27s0/operstate 2>/dev/null)
 
     if [ "$wlan_status" = "up" ] || [ "$lan_status" = "up" ]; then
