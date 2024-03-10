@@ -56,14 +56,13 @@ sleep 2
    exec-once = $HOME/.config/hypr/autostart
    exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
    exec-once = systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-   exec-once = /usr/libexec/polkit-gnome-authentication-agent-1
+   exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
    exec-once = swaybg -i ~/.local/share/sdk/wall.jpg
-   exec-once = dex-autostart -a $HOME/.config/autostart/ 
+   exec-once = dex -a $HOME/.config/autostart/ 
   # exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 
   # exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Adwaita' 
   # exec-once = gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
   # exec-once = gsettings set org.gnome.desktop.interface font-name 'Roboto Medium 10'
-   exec-once = emacs --daemon
    exec-once = foot --server
    exec-once = dunst
    exec = $HOME/.config/hypr/waybar/launch.sh 
@@ -86,52 +85,21 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 20, // Waybar height (to be removed for auto height)
+    "height": 26, // Waybar height (to be removed for auto height)
     "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    // "modules-left": [ "custom/launcher", "hyprland/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-left": ["custom/launcher", "hyprland/workspaces" ],
+    "modules-left": [ "hyprland/workspaces" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "tray", "custom/powermenu", "network", "pulseaudio", "backlight", "battery",],
+    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "custom/powermenu" ],
 
     "custom/launcher": {
         "format": "󰣇",
         "on-click": "bemenu-run -p 'Run : '",
     },
-    // Modules configuration
-    "wlr/workspaces": {
-        "disable-scroll": false,
-        "active-only": false,
-        "all-outputs": true,
-        "on-click": "activate",
-        "format": "{name}",
-        // "format": "{icon}",
-        // "format": "{name}: {icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": true
-    },
-    "wlr/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
     },
     "tray": {
         "icon-size": 14,
@@ -139,7 +107,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     },
     "network": {
         "format-wifi": "󰖩   {essid}",
-        "format-ethernet": "  {ipaddr}/{cidr}",
+        "format-ethernet": "",
         "tooltip-format": "  {ifname} via {gwaddr}",
         "format-linked": "  {ifname} (No IP)",
         "format-disconnected": "󱚵  Disconnected",
@@ -208,7 +176,7 @@ waybar -c $HOME/.config/hypr/waybar/config -s $HOME/.config/hypr/waybar/style.cs
     border-radius: 0;
     font-family: 'Roboto', 'Font Awesome 6 Free';
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   window#waybar {
@@ -329,12 +297,11 @@ input {
 #+begin_src sh
   general {
       layout = master
-      gaps_in = 6
-      gaps_out = 12
-      border_size = 1
+      gaps_in = 0
+      gaps_out = 0
+      border_size = 0
       no_border_on_floating = false
       col.active_border = 0xff9aedfe
-      #col.active_border = 0xffffffff
       col.inactive_border = 0x66333333
   }
 #+end_src
@@ -358,7 +325,7 @@ decoration {
     col.shadow = rgba(1a1a1aee)
 
     active_opacity = 1.0
-    inactive_opacity = 1.0
+    inactive_opacity = 0.9
 }
 #+end_src
 
@@ -539,21 +506,21 @@ bind = , XF86MonBrightnessDown, exec,brightnessctl -q set 5%- # decrease screen 
 ** Application Keybindings
 These keybinding look weired because they are done using [[https://wiki.hyprland.org/Configuring/Binds/#submaps][submaps]](kind of keychords in emacs).
 
-| Keybinding      | Associated action         |
-|-----------------+---------------------------|
-| MODKEY + RETURN | opens default terminal    |
-| MODKEY-A + F    | opens thunar file manager |
-| MODKEY-A + C    | opens VS Code             |
-| MODKEY-A + I    | opens Intellij Idea       |
-| MODKEY-A + M    | opens mail-client         |
-| MODKEY-A + D    | opens discord             |
-| MODKEY-A + V    | opens virt-manager        |
-| MODKEY-A + S    | opens spotify             |
-| MODKEY-A + W    | opens default browser     |
-| MODKEY-A + O    | opens OBS                 |
-| MODKEY-A + P    | opens postman             |
-| MODKEY-A + E    | opens emacs               |
-| MODKEY-A + N    | opens notion              |
+| Keybinding      | Associated action           |
+|-----------------+-----------------------------|
+| MODKEY + RETURN | opens default terminal      |
+| MODKEY-A + F    | opens nautilus file manager |
+| MODKEY-A + C    | opens VS Code               |
+| MODKEY-A + I    | opens Intellij Idea         |
+| MODKEY-A + D    | opens discord               |
+| MODKEY-A + V    | opens virt-manager          |
+| MODKEY-A + M    | opens spotify               |
+| MODKEY-A + S    | opens slack                 |
+| MODKEY-A + W    | opens default browser       |
+| MODKEY-A + O    | opens OBS                   |
+| MODKEY-A + P    | opens postman               |
+| MODKEY-A + E    | opens emacs                 |
+| MODKEY-A + N    | opens notion                |
 
 #+begin_src sh
 bind = $mainMod, Return, exec, $TERMINAL
@@ -565,14 +532,14 @@ bind = ,c,exec,notify-send "Launching Code" & code
 bind = ,c,submap,reset
 bind = ,i,exec,notify-send "Launching Idea" & idea
 bind = ,i,submap,reset
-bind = ,m,exec,notify-send "Launching Mail" & bluemail
-bind = ,m,submap,reset
 bind = ,d,exec,notify-send "Launching Discord" &discord
 bind = ,d,submap,reset
 bind = ,v,exec,notify-send "Launching Virt-manager" & virt-manager
 bind = ,v,submap,reset
-bind = ,s,exec,notify-send "Launching Spotify" & spotify
+bind = ,s,exec,notify-send "Launching Slack" & slack
 bind = ,s,submap,reset
+bind = ,m,exec,notify-send "Launching Spotify" & spotify
+bind = ,m,submap,reset
 bind = ,w,exec,notify-send "Launching Browser" & $BROWSER
 bind = ,w,submap,reset
 bind = ,o,exec,notify-send "Launching Obs Studio" &obs-wayland
@@ -660,8 +627,7 @@ submap = reset
 | MODKEY-P + N          | opens bemenu's network manager           |
 | MODKEY-P + B          | opens bemenu's bluetooth prompt          |
 | MODKEY-P + E          | opens bemenu's edit config prompt        |
-| MODKEY-P + T          | opens bemenu's tmux sessions prompt      |
-| MODKEY-P + SHIFT-T    | opens bemenu's tailwind search prompt    |
+| MODKEY-P + T          | opens bemenu's tailwind search prompt    |
 | MODKEY-P + I          | opens bemenu's package install prompt    |
 | MODKEY-P + U          | opens bemenu's package uninstall prompt  |
 | Print                 | opens bemenu's screenshot utility prompt |

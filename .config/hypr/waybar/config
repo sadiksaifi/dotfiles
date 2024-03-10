@@ -1,52 +1,21 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 20, // Waybar height (to be removed for auto height)
+    "height": 26, // Waybar height (to be removed for auto height)
     "spacing": 2, // Gaps between modules (4px)
 
     // Choose the order of the modules
-    // "modules-left": [ "custom/launcher", "hyprland/workspaces", "hyprland/window", "wlr/scratchpad"],
-    "modules-left": ["custom/launcher", "hyprland/workspaces" ],
+    "modules-left": [ "hyprland/workspaces" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "tray", "custom/powermenu", "network", "pulseaudio", "backlight", "battery",],
+    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "custom/powermenu" ],
 
     "custom/launcher": {
         "format": "󰣇",
         "on-click": "bemenu-run -p 'Run : '",
     },
-    // Modules configuration
-    "wlr/workspaces": {
-        "disable-scroll": false,
-        "active-only": false,
-        "all-outputs": true,
-        "on-click": "activate",
-        "format": "{name}",
-        // "format": "{icon}",
-        // "format": "{name}: {icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
-    },
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": true
-    },
-    "wlr/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
     },
     "tray": {
         "icon-size": 14,
@@ -54,7 +23,7 @@
     },
     "network": {
         "format-wifi": "󰖩   {essid}",
-        "format-ethernet": "  {ipaddr}/{cidr}",
+        "format-ethernet": "",
         "tooltip-format": "  {ifname} via {gwaddr}",
         "format-linked": "  {ifname} (No IP)",
         "format-disconnected": "󱚵  Disconnected",

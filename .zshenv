@@ -40,7 +40,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export READER="zathura"
 export TERMINAL="footclient"
-export BROWSER="thorium-browser"
+export BROWSER="google-chrome-stable"
 export VIDEO="mpv"
 export IMAGE="feh"
 export COLORTERM="truecolor"
@@ -60,7 +60,7 @@ export PATH="$HOME/.local/share/pnpm":$PATH
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview-window=right:60% --preview 'if [ -d {} ]; then fd --color=always . {} | bat --color=always --style=header,grid --line-range :500; else bat --color=always --style=header,grid --line-range :500 {}; fi'"
 
 # Bemenu Exports
-export BEMENU_OPTS="--fn 'monospace 8'\
+export BEMENU_OPTS="--fn 'JetBrainsMono Nerd Font 9'\
  -H 25 \          # height
  -i \             # ignorecase
  -W 1 \           # width(0-1)

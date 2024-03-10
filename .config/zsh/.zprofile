@@ -3,8 +3,7 @@
 
 # Starting WM
 if [[ "$(tty)" = "/dev/tty1" ]]; then
-  # pgrep Hyprland || exec Hyprland
-  pgrep sway || exec sway
+  pgrep Hyprland || exec Hyprland
 fi
 
 #Startx for dwm tty1
