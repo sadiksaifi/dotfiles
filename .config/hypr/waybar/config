@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": [ "hyprland/workspaces" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "tray", "network", "pulseaudio", "backlight", "battery", "custom/powermenu" ],
+    "modules-right": [ "tray", "pulseaudio", "backlight", "battery", "custom/powermenu" ],
 
     "custom/launcher": {
         "format": "󰣇",
@@ -27,6 +27,7 @@
         "tooltip-format": "  {ifname} via {gwaddr}",
         "format-linked": "  {ifname} (No IP)",
         "format-disconnected": "󱚵  Disconnected",
+        "on-click": "$TERMINAL -e nmtui",
     },
     "cpu": {
         "interval": 10,
